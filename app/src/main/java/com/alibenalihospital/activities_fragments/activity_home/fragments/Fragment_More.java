@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.alibenalihospital.R;
 import com.alibenalihospital.activities_fragments.activity_about_us.AboutUsActivity;
 import com.alibenalihospital.activities_fragments.activity_contact_us.ContactUsActivity;
+import com.alibenalihospital.activities_fragments.activity_favorite.FavoriteActivity;
 import com.alibenalihospital.activities_fragments.activity_home.HomeActivity;
 import com.alibenalihospital.activities_fragments.activity_language.LanguageActivity;
 import com.alibenalihospital.activities_fragments.activity_login.LoginActivity;
@@ -71,7 +72,8 @@ public class Fragment_More extends Fragment implements Listeners.SettingAction {
 
     @Override
     public void onFavorite() {
-
+        Intent intent = new Intent(activity, FavoriteActivity.class);
+        startActivity(intent);
     }
 
     @Override
