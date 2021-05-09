@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -87,10 +88,13 @@ public class SignUpActivity extends AppCompatActivity {
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
         binding.setLang(lang);
+
         signUpModel = new SignUpModel();
         if (userModel == null) {
             signUpModel.setPhone_code("+966");
             signUpModel.setPhone("");
+            binding.tvLogin.setText(Html.fromHtml(getString(R.string.have_account)));
+
         } else {
             signUpModel.setName(userModel.getUser().getName());
             signUpModel.setPhone(userModel.getUser().getPhone());

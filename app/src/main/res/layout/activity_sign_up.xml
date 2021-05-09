@@ -237,7 +237,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/rounded_primary"
-                    android:text="@string/login"
+                    android:text="@string/sign_up"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
