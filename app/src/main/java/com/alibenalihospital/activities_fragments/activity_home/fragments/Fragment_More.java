@@ -96,7 +96,7 @@ public class Fragment_More extends Fragment implements Listeners.SettingAction {
     @Override
     public void onTerms() {
         Intent intent = new Intent(activity, AboutUsActivity.class);
-        intent.putExtra("type", 1);
+        intent.putExtra("type", 2);
         startActivity(intent);
     }
 
