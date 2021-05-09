@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "310929549293",
+    "project_id": "ebsar-world",
+    "storage_bucket": "ebsar-world.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310929549293:android:52ade51529b1cd55ede9e4",
+        "android_client_info": {
+          "package_name": "com.ebsar_world_center"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "310929549293-328tocqupl61k30pv9l9q6qss5jgj5q5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZMGHZzbUzL7_G1VKX3VTeU6eZ03qEcsI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "310929549293-328tocqupl61k30pv9l9q6qss5jgj5q5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
