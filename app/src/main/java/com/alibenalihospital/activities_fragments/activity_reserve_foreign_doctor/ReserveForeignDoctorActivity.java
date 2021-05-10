@@ -1,6 +1,7 @@
 package com.alibenalihospital.activities_fragments.activity_reserve_foreign_doctor;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 
@@ -10,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibenalihospital.R;
+import com.alibenalihospital.activities_fragments.activity_doctor_details.DoctorDetailsActivity;
 import com.alibenalihospital.adapters.ForeignDoctorAdapter;
 import com.alibenalihospital.adapters.OnlineDoctorAdapter;
 import com.alibenalihospital.databinding.ActivityReserveForeignBinding;
@@ -71,5 +73,9 @@ public class ReserveForeignDoctorActivity extends AppCompatActivity {
         binding.llBack.setOnClickListener(view -> finish());
     }
 
+    public void setItemData(Object o) {
+        Intent intent = new Intent(this, DoctorDetailsActivity.class);
+        startActivity(intent);
+    }
 
 }

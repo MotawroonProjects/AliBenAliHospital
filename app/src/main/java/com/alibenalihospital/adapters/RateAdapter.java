@@ -9,26 +9,25 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibenalihospital.R;
-import com.alibenalihospital.activities_fragments.activity_notification.NotificationActivity;
-import com.alibenalihospital.activities_fragments.activity_reserve_clinic.ReserveClinicActivity;
-import com.alibenalihospital.databinding.ClinicDoctorRowBinding;
-import com.alibenalihospital.databinding.NotificationRowBinding;
-import com.alibenalihospital.models.NotificationModel;
+import com.alibenalihospital.activities_fragments.activity_departments.DepartmentsActivity;
+import com.alibenalihospital.activities_fragments.activity_doctor_details.DoctorDetailsActivity;
+import com.alibenalihospital.databinding.DepartmentRowBinding;
+import com.alibenalihospital.databinding.RateRowBinding;
 
 import java.util.List;
 
-public class ClinicDoctorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Object> list;
     private Context context;
     private LayoutInflater inflater;
-    private ReserveClinicActivity activity;
+    private DoctorDetailsActivity activity;
 
-    public ClinicDoctorAdapter(List<Object> list, Context context) {
+    public RateAdapter(List<Object> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
-        activity = (ReserveClinicActivity) context;
+        activity = (DoctorDetailsActivity) context;
 
 
     }
@@ -38,7 +37,7 @@ public class ClinicDoctorAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 
-        ClinicDoctorRowBinding binding = DataBindingUtil.inflate(inflater, R.layout.clinic_doctor_row, parent, false);
+        RateRowBinding binding = DataBindingUtil.inflate(inflater, R.layout.rate_row, parent, false);
         return new MyHolder(binding);
 
 
@@ -50,9 +49,6 @@ public class ClinicDoctorAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         MyHolder myHolder = (MyHolder) holder;
         //myHolder.binding.setModel(list.get(position));
 
-        myHolder.itemView.setOnClickListener(v -> {
-            activity.setItemData(null);
-        });
 
     }
 
@@ -62,9 +58,9 @@ public class ClinicDoctorAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder {
-        public ClinicDoctorRowBinding binding;
+        public RateRowBinding binding;
 
-        public MyHolder(@NonNull ClinicDoctorRowBinding binding) {
+        public MyHolder(@NonNull RateRowBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
 

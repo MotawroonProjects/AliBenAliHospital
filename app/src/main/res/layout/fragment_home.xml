@@ -203,9 +203,7 @@
 
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="3dp">
@@ -251,9 +249,7 @@
                     android:id="@+id/cardViewServiceProcess"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="3dp">
@@ -312,9 +308,7 @@
                     android:id="@+id/cardViewHomeVisit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="3dp">
@@ -366,9 +360,7 @@
 
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="3dp">

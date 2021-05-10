@@ -144,5 +144,8 @@
     <string name="ratings">Ratings</string>
     <string name="book_an_appointment_online">Book an appointment online</string>
     <string name="more_detials">More Detials</string>
+    <string name="doctor_details">بيانات الطبيب</string>
+    <string name="price2">سعر الكشف</string>
+    <string name="rates">التقييمات</string>
 
 </resources>

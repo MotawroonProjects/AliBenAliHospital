@@ -50,7 +50,7 @@ public class OnlineDoctorAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         //myHolder.binding.setModel(list.get(position));
 
         myHolder.itemView.setOnClickListener(v -> {
-           // activity.setItemData(list.get(holder.getAdapterPosition()));
+            activity.setItemData(null);
         });
 
     }

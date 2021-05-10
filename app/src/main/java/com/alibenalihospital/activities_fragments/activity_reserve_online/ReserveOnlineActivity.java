@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibenalihospital.R;
+import com.alibenalihospital.activities_fragments.activity_doctor_details.DoctorDetailsActivity;
 import com.alibenalihospital.adapters.ClinicDoctorAdapter;
 import com.alibenalihospital.adapters.OnlineDoctorAdapter;
 import com.alibenalihospital.databinding.ActivityDepartmentsBinding;
@@ -74,4 +75,8 @@ public class ReserveOnlineActivity extends AppCompatActivity {
     }
 
 
+    public void setItemData(Object o) {
+        Intent intent = new Intent(this, DoctorDetailsActivity.class);
+        startActivity(intent);
+    }
 }
