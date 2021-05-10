@@ -137,6 +137,13 @@
     <string name="search_for_department">Search for department</string>
     <string name="select_the_address">Select location on map</string>
     <string name="additional_details">Additional details</string>
+    <string name="service_or_process">Service Or Process</string>
+    <string name="the_most_prominent_offers">The most prominent offers</string>
+    <string name="reserv">Reserv</string>
+    <string name="offer_detials">offer Detials</string>
+    <string name="ratings">Ratings</string>
+    <string name="book_an_appointment_online">Book an appointment online</string>
+    <string name="more_detials">More Detials</string>
 
 
 </resources>

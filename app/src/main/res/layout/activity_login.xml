@@ -185,16 +185,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
 
                 >
+
                 <Button
                     android:id="@+id/btnLogin"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_primary"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:text="@string/login"
                     android:layout_gravity="center"
-                    />
+                    android:background="@drawable/rounded_primary"
+                    android:text="@string/login"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
                 <TextView
                     android:id="@+id/tvSignUp"
                     android:layout_width="wrap_content"
