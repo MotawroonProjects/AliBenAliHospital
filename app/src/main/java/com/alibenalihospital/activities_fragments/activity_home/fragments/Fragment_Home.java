@@ -20,6 +20,7 @@ import com.alibenalihospital.R;
 import com.alibenalihospital.activities_fragments.activity_departments.DepartmentsActivity;
 import com.alibenalihospital.activities_fragments.activity_home.HomeActivity;
 import com.alibenalihospital.activities_fragments.activity_notification.NotificationActivity;
+import com.alibenalihospital.activities_fragments.activity_service_process.ServiceProcessActivity;
 import com.alibenalihospital.adapters.SliderAdapter;
 import com.alibenalihospital.databinding.FragmentHomeBinding;
 
@@ -76,7 +77,10 @@ public class Fragment_Home extends Fragment {
             Intent intent = new Intent(activity, NotificationActivity.class);
             startActivity(intent);
         });
-
+        binding.cardViewServiceProcess.setOnClickListener(v -> {
+            Intent intent = new Intent(activity, ServiceProcessActivity.class);
+            startActivity(intent);
+        });
         binding.cardViewReserveClinic.setOnClickListener(v -> {
            navigateToDepartmentActivity(1);
         });
