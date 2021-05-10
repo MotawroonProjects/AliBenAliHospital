@@ -127,13 +127,14 @@
     <string name="home_visit">Home visit</string>
     <string name="foreign_consultant">Foreign consultant</string>
     <string name="filter">Filter</string>
-    <string name="search_for_doctors">Search for doctors</string>
+    <string name="search_for_doctors">Search for doctor</string>
     <string name="no_search_results">No search results</string>
     <string name="favorite">Favorite</string>
     <string name="no_appointments">No appointments</string>
     <string name="no_service_and_operation_to_show">No service and operation to show</string>
     <string name="my_appointment">Appointments</string>
     <string name="ser_op">Service and operations</string>
+    <string name="search_for_department">Search for department</string>
 
 
 </resources>

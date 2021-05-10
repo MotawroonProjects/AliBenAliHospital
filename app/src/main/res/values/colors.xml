@@ -23,6 +23,7 @@
 
 
 
+    <color name="rate">#ffe816</color>
     <color name="book_trans">#99000000</color>
     <color name="transparent">#00000000</color>
     <color name="colorred">#F61C00</color>

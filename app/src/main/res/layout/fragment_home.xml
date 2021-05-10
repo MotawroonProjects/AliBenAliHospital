@@ -115,6 +115,7 @@
                 android:layout_height="wrap_content">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewReserveClinic"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginStart="8dp"
@@ -198,6 +199,8 @@
                 android:padding="3dp">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewOnlineBooking"
+
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -211,6 +214,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
                         android:background="@drawable/gradient2"
+
 
                         >
                         <TextView
@@ -304,6 +308,7 @@
 
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewHomeVisit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -356,6 +361,8 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewForeign"
+
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"

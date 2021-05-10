@@ -17,6 +17,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.alibenalihospital.R;
+import com.alibenalihospital.activities_fragments.activity_departments.DepartmentsActivity;
 import com.alibenalihospital.activities_fragments.activity_home.HomeActivity;
 import com.alibenalihospital.activities_fragments.activity_notification.NotificationActivity;
 import com.alibenalihospital.adapters.SliderAdapter;
@@ -76,8 +77,29 @@ public class Fragment_Home extends Fragment {
             startActivity(intent);
         });
 
+        binding.cardViewReserveClinic.setOnClickListener(v -> {
+           navigateToDepartmentActivity(1);
+        });
+
+        binding.cardViewOnlineBooking.setOnClickListener(v -> {
+            navigateToDepartmentActivity(2);
+        });
+
+        binding.cardViewHomeVisit.setOnClickListener(v -> {
+            navigateToDepartmentActivity(3);
+        });
+
+        binding.cardViewForeign.setOnClickListener(v -> {
+            navigateToDepartmentActivity(4);
+        });
 
 
+    }
+
+    private void navigateToDepartmentActivity(int type) {
+        Intent intent = new Intent(activity, DepartmentsActivity.class);
+        intent.putExtra("type", type);
+        startActivity(intent);
     }
 
 

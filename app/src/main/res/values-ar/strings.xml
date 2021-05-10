@@ -134,5 +134,6 @@
     <string name="no_service_and_operation_to_show">لا توجد خدمات او عمليات لعرضها</string>
     <string name="my_appointment">مواعيدي</string>
     <string name="ser_op">الخدمات والعمليات</string>
+    <string name="search_for_department">بحث عن تخصص</string>
 
 </resources>
