@@ -1,6 +1,7 @@
 package com.alibenalihospital.activities_fragments.activity_service_process;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibenalihospital.R;
+import com.alibenalihospital.activities_fragments.activity_departments.DepartmentsActivity;
 import com.alibenalihospital.activities_fragments.activity_home.fragments.Fragment_Home;
+import com.alibenalihospital.activities_fragments.activity_offer_detials.OfferDetialsActivity;
+import com.alibenalihospital.activities_fragments.activity_offers.OffersActivity;
 import com.alibenalihospital.adapters.Dept1Adapter;
 import com.alibenalihospital.adapters.Dept2Adapter;
 import com.alibenalihospital.adapters.OfferAdapter;
@@ -91,6 +95,14 @@ public class ServiceProcessActivity extends AppCompatActivity {
         binding.pager.setPageMargin(15);
         binding.pager.setPadding(20, 2, 20, 0);
         binding.llBack.setOnClickListener(view -> finish());
+        binding.tvshow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ServiceProcessActivity.this, DepartmentsActivity.class);
+                intent.putExtra("type", 5);
+                startActivity(intent);
+            }
+        });
     }
 
     private void updateSliderUi(List<SliderModel> data) {
@@ -107,6 +119,16 @@ public class ServiceProcessActivity extends AppCompatActivity {
         } else {
             binding.pager.setVisibility(View.GONE);
         }
+    }
+
+    public void show() {
+        Intent intent = new Intent(ServiceProcessActivity.this, OfferDetialsActivity.class);
+        startActivity(intent);
+    }
+
+    public void setItemData(Object o) {
+        Intent intent = new Intent(ServiceProcessActivity.this, OffersActivity.class);
+        startActivity(intent);
     }
 
     public class MyTask extends TimerTask {

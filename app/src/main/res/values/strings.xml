@@ -147,6 +147,12 @@
     <string name="doctor_details">Doctor details</string>
     <string name="price2">Price</string>
     <string name="rates">Rates</string>
+    <string name="available_appointments">Available Appointments</string>
+    <string name="choose_day">Choose Day :</string>
+    <string name="choose_hour">Choose Hour :</string>
+    <string name="appoinments">Appoinments :</string>
+    <string name="confirm_appoinment_reserv">Confirm Appoinment Reserv</string>
+    <string name="show_all">Show All</string>
 
 
 </resources>

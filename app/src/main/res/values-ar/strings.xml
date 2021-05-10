@@ -140,12 +140,18 @@
     <string name="search_for_department">بحث عن تخصص</string>
     <string name="select_the_address">حدد موقعك على الخريطة</string>
     <string name="additional_details">تفاصيل إضافية</string>
-    <string name="offer_detials">offer Detials</string>
-    <string name="ratings">Ratings</string>
-    <string name="book_an_appointment_online">Book an appointment online</string>
-    <string name="more_detials">More Detials</string>
+    <string name="offer_detials">تفاصيل العرض</string>
+    <string name="ratings">التقييمات</string>
+    <string name="book_an_appointment_online">احجز موعد اونلاين</string>
+    <string name="more_detials">مزيد من التفاصيل</string>
+    <string name="available_appointments">مواعيد متاحه</string>
+    <string name="choose_day">اختر اليوم :</string>
+    <string name="choose_hour">اختر الساعه : </string>
+    <string name="appoinments">المواعيد : </string>
     <string name="doctor_details">بيانات الطبيب</string>
     <string name="price2">سعر الكشف</string>
     <string name="rates">التقييمات</string>
+    <string name="confirm_appoinment_reserv">تأكيد موعد الحجز</string>
+    <string name="show_all">Show All</string>
 
 </resources>

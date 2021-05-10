@@ -2,6 +2,7 @@ package com.alibenalihospital.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibenalihospital.R;
 import com.alibenalihospital.activities_fragments.activity_notification.NotificationActivity;
+import com.alibenalihospital.activities_fragments.activity_offers.OffersActivity;
 import com.alibenalihospital.activities_fragments.activity_service_process.ServiceProcessActivity;
 import com.alibenalihospital.databinding.NotificationRowBinding;
 import com.alibenalihospital.databinding.OfferRowBinding;
@@ -52,7 +54,18 @@ public class OfferAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         MyHolder myHolder = (MyHolder) holder;
-
+myHolder.itemView.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        if(context instanceof ServiceProcessActivity){
+        ServiceProcessActivity serviceProcessActivity=(ServiceProcessActivity)context;
+        serviceProcessActivity.show();}
+        else {
+            OffersActivity serviceProcessActivity=(OffersActivity) context;
+            serviceProcessActivity.show();
+        }
+    }
+});
 
     }
 

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibenalihospital.R;
 import com.alibenalihospital.activities_fragments.activity_departments.DepartmentsActivity;
+import com.alibenalihospital.activities_fragments.activity_service_process.ServiceProcessActivity;
 import com.alibenalihospital.databinding.Department2RowBinding;
 import com.alibenalihospital.databinding.DepartmentRowBinding;
 
@@ -20,13 +21,13 @@ public class Dept2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private List<Object> list;
     private Context context;
     private LayoutInflater inflater;
-    private DepartmentsActivity activity;
+    private ServiceProcessActivity activity;
 
     public Dept2Adapter(List<Object> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
-
+        activity = (ServiceProcessActivity) context ;
 
     }
 

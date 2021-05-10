@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibenalihospital.R;
 import com.alibenalihospital.activities_fragments.activity_map.MapActivity;
+import com.alibenalihospital.activities_fragments.activity_offers.OffersActivity;
 import com.alibenalihospital.activities_fragments.activity_reserve_clinic.ReserveClinicActivity;
 import com.alibenalihospital.activities_fragments.activity_reserve_foreign_doctor.ReserveForeignDoctorActivity;
 import com.alibenalihospital.activities_fragments.activity_reserve_online.ReserveOnlineActivity;
@@ -37,7 +38,7 @@ public class DepartmentsActivity extends AppCompatActivity {
     private Preferences preferences;
     private UserModel userModel;
     private int type;
-    private String title ="";
+    private String title = "";
     private Dept1Adapter adapter;
     private List<Object> list;
 
@@ -60,7 +61,7 @@ public class DepartmentsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         type = intent.getIntExtra("type", 1);
 
-        switch (type){
+        switch (type) {
             case 2:
                 title = getString(R.string.online_booking);
 
@@ -73,7 +74,10 @@ public class DepartmentsActivity extends AppCompatActivity {
                 title = getString(R.string.foreign_consultant);
 
                 break;
+            case 5:
+                title = getString(R.string.departments);
 
+                break;
             default:
                 title = getString(R.string.reserve_clinic);
                 break;
@@ -96,10 +100,10 @@ public class DepartmentsActivity extends AppCompatActivity {
         binding.setLang(lang);
         binding.swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
-        binding.recView.setLayoutManager(new GridLayoutManager(this,3));
+        binding.recView.setLayoutManager(new GridLayoutManager(this, 3));
         adapter = new Dept1Adapter(list, this);
         binding.recView.setAdapter(adapter);
-       // binding.swipeRefresh.setOnRefreshListener(this::getNotifications);
+        // binding.swipeRefresh.setOnRefreshListener(this::getNotifications);
 
 
         binding.llBack.setOnClickListener(view -> finish());
@@ -108,20 +112,22 @@ public class DepartmentsActivity extends AppCompatActivity {
 
     public void setItemData(Object o) {
         Intent intent = null;
-        if (type==1){
+        if (type == 1) {
             intent = new Intent(this, ReserveClinicActivity.class);
 
-        }else if (type==2){
+        } else if (type == 2) {
             intent = new Intent(this, ReserveOnlineActivity.class);
 
-        }else if (type==3){
+        } else if (type == 3) {
             intent = new Intent(this, MapActivity.class);
 
-        }else if (type==4){
+        } else if (type == 4) {
             intent = new Intent(this, ReserveForeignDoctorActivity.class);
 
-        }
+        } else if (type == 5) {
+            intent = new Intent(this, OffersActivity.class);
 
+        }
         startActivity(intent);
 
 

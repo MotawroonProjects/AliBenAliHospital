@@ -3,15 +3,22 @@ package com.alibenalihospital.activities_fragments.activity_offer_detials;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibenalihospital.R;
 import com.alibenalihospital.activities_fragments.activity_service_process.ServiceProcessActivity;
+import com.alibenalihospital.adapters.DayAdapter;
+import com.alibenalihospital.adapters.HourAdapter;
+import com.alibenalihospital.adapters.RateAdapter;
 import com.alibenalihospital.adapters.SliderAdapter;
 import com.alibenalihospital.databinding.ActivityFavoriteBinding;
 import com.alibenalihospital.databinding.ActivityOfferDetialsBinding;
@@ -37,6 +44,8 @@ public class OfferDetialsActivity extends AppCompatActivity {
     private List<SliderModel> sliderModelList;
     private Timer timer;
     private TimerTask timerTask;
+    private RateAdapter adapter;
+    private List<Object> list;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -53,6 +62,7 @@ public class OfferDetialsActivity extends AppCompatActivity {
 
 
     private void initView() {
+        list=new ArrayList<>();
         Paper.init(this);
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setLang(lang);
@@ -73,6 +83,77 @@ public class OfferDetialsActivity extends AppCompatActivity {
 
 
         binding.llBack.setOnClickListener(view -> finish());
+        binding.btnAsk.setOnClickListener(v -> openSheet());
+        binding.flSheet.setOnClickListener(v -> closeSheet());
+        binding.progBar.setVisibility(View.GONE);
+        binding.recViewSpecialization.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
+        binding.recViewSpecialization.setAdapter(new DayAdapter(this));
+        binding.recviehour.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
+        binding.recviehour.setAdapter(new HourAdapter(this));
+        binding.recViewhourhour.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
+        binding.recViewhourhour.setAdapter(new HourAdapter(this));
+        binding.recView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        adapter = new RateAdapter(list, this);
+        binding.recView.setAdapter(adapter);
+        binding.progBar.setVisibility(View.GONE);
+        binding.progBarSlider.setVisibility(View.GONE);
+        binding.progBarSpecialization.setVisibility(View.GONE);
+
+    }
+
+    private void openSheet() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_up);
+
+        binding.flSheet.clearAnimation();
+        binding.flSheet.startAnimation(animation);
+
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                binding.flSheet.setVisibility(View.VISIBLE);
+
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+    }
+
+    private void closeSheet() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_down);
+
+        binding.flSheet.clearAnimation();
+        binding.flSheet.startAnimation(animation);
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                binding.flSheet.setVisibility(View.GONE);
+
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
     }
     private void updateSliderUi(List<SliderModel> data) {
         if (data.size() > 0) {
@@ -87,6 +168,19 @@ public class OfferDetialsActivity extends AppCompatActivity {
             }
         } else {
             binding.pager.setVisibility(View.GONE);
+        }
+    }
+
+    public void setItemData(Object o) {
+        binding.expandhour.setExpanded(true);
+    }
+
+    public void setItemData() {
+        if(!binding.expandhourhour.isExpanded()){
+        binding.expandhourhour.setExpanded(true);}
+        else {
+            Log.e("ddlldldl","dlldldl");
+            binding.btnresev.setVisibility(View.VISIBLE);
         }
     }
 

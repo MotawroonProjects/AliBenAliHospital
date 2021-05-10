@@ -27,7 +27,7 @@ public class RateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
-        activity = (DoctorDetailsActivity) context;
+       // activity = (DoctorDetailsActivity) context;
 
 
     }

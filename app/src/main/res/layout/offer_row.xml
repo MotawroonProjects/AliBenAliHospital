@@ -64,7 +64,7 @@
             android:layout_gravity="center_vertical|start"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="30dp"
             app:cardBackgroundColor="@color/transparent"
             app:cardCornerRadius="90dp"
             app:cardElevation="4dp"
@@ -89,6 +89,7 @@
             android:layout_marginStart="6dp"
             android:layout_marginTop="80dp"
             android:layout_marginEnd="6dp"
+            android:layout_marginBottom="20dp"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="10dp"
             app:cardElevation="2dp"
@@ -155,6 +156,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:padding="3dp"
+                        android:layout_gravity="center"
                         android:src="@drawable/ic_star"
                         android:tint="@color/rate_color" />
 
