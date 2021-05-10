@@ -50,7 +50,7 @@ public class Dept1Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         //myHolder.binding.setModel(list.get(position));
 
         myHolder.itemView.setOnClickListener(v -> {
-           // activity.setItemData(list.get(holder.getAdapterPosition()));
+            activity.setItemData(null);
         });
 
     }
