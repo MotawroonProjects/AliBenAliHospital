@@ -1,7 +1,6 @@
 package com.alibenalihospital.models;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
@@ -11,28 +10,24 @@ import com.alibenalihospital.BR;
 import com.alibenalihospital.R;
 
 
-public class SignUpModel extends BaseObservable {
+public class HomeVisitModel extends BaseObservable {
     private String name;
     private String phone_code;
     private String phone;
-    private String password;
-    private String re_password;
+    private String details;
 
     public ObservableField<String> error_phone = new ObservableField<>();
-    public ObservableField<String> error_password = new ObservableField<>();
+    public ObservableField<String> error_details = new ObservableField<>();
     public ObservableField<String> error_name = new ObservableField<>();
-    public ObservableField<String> error_re_password = new ObservableField<>();
 
 
     public boolean isDataValid(Context context) {
         if (!name.trim().isEmpty() &&
                 !phone.isEmpty() &&
-                !password.isEmpty() &&
-                password.length() >= 6 && password.equals(re_password)) {
+                !details.isEmpty()) {
             error_phone.set(null);
-            error_password.set(null);
+            error_details.set(null);
             error_name.set(null);
-            error_re_password.set(null);
             return true;
         } else {
             if (name.isEmpty()) {
@@ -50,31 +45,22 @@ public class SignUpModel extends BaseObservable {
 
             }
 
-            if (password.isEmpty()) {
-                error_password.set(context.getString(R.string.field_req));
-            } else if (password.length() < 6) {
-                error_password.set(context.getString(R.string.password_short));
+            if (details.isEmpty()) {
+                error_details.set(context.getString(R.string.field_req));
             } else {
-                error_password.set(null);
+                error_details.set(null);
 
-                if (!password.equals(re_password)) {
-                    error_re_password.set(context.getString(R.string.pas_not_match));
-                } else {
-                    error_re_password.set(null);
-
-                }
             }
 
             return false;
         }
     }
 
-    public SignUpModel() {
+    public HomeVisitModel() {
         setName("");
         setPhone_code("+966");
         setPhone("");
-        setPassword("");
-        setRe_password("");
+        setDetails("");
 
 
     }
@@ -107,26 +93,19 @@ public class SignUpModel extends BaseObservable {
     public void setPhone(String phone) {
         this.phone = phone;
         notifyPropertyChanged(BR.phone);
-    }
-
-    @Bindable
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-        notifyPropertyChanged(BR.password);
 
     }
 
     @Bindable
-    public String getRe_password() {
-        return re_password;
+    public String getDetails() {
+        return details;
     }
 
-    public void setRe_password(String re_password) {
-        this.re_password = re_password;
-        notifyPropertyChanged(BR.re_password);
+    public void setDetails(String password) {
+        this.details = details;
+        notifyPropertyChanged(BR.details);
+
     }
+
+
 }

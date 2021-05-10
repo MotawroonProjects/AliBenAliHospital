@@ -135,5 +135,7 @@
     <string name="my_appointment">مواعيدي</string>
     <string name="ser_op">الخدمات والعمليات</string>
     <string name="search_for_department">بحث عن تخصص</string>
+    <string name="select_the_address">حدد موقعك على الخريطة</string>
+    <string name="additional_details">تفاصيل إضافية</string>
 
 </resources>

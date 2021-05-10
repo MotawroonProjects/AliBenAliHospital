@@ -1,6 +1,8 @@
 package com.alibenalihospital.services;
 
 import com.alibenalihospital.models.NotificationDataModel;
+import com.alibenalihospital.models.PlaceGeocodeData;
+import com.alibenalihospital.models.PlaceMapDetailsData;
 import com.alibenalihospital.models.SliderDataModel;
 import com.alibenalihospital.models.SettingModel;
 import com.alibenalihospital.models.StatusResponse;
@@ -20,6 +22,19 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface Service {
+
+    @GET("place/findplacefromtext/json")
+    Call<PlaceMapDetailsData> searchOnMap(@Query(value = "inputtype") String inputtype,
+                                          @Query(value = "input") String input,
+                                          @Query(value = "fields") String fields,
+                                          @Query(value = "language") String language,
+                                          @Query(value = "key") String key
+    );
+
+    @GET("geocode/json")
+    Call<PlaceGeocodeData> getGeoData(@Query(value = "latlng") String latlng,
+                                      @Query(value = "language") String language,
+                                      @Query(value = "key") String key);
 
     @FormUrlEncoded
     @POST("api/client-login")

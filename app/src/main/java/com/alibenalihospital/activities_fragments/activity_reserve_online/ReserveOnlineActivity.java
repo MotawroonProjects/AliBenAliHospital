@@ -1,4 +1,4 @@
-package com.alibenalihospital.activities_fragments.activity_reserve_clinic;
+package com.alibenalihospital.activities_fragments.activity_reserve_online;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibenalihospital.R;
 import com.alibenalihospital.adapters.ClinicDoctorAdapter;
+import com.alibenalihospital.adapters.OnlineDoctorAdapter;
 import com.alibenalihospital.databinding.ActivityDepartmentsBinding;
-import com.alibenalihospital.databinding.ActivityReserveClinicBinding;
+import com.alibenalihospital.databinding.ActivityReserveOnlineBinding;
 import com.alibenalihospital.language.Language;
 import com.alibenalihospital.models.UserModel;
 import com.alibenalihospital.preferences.Preferences;
@@ -24,13 +25,13 @@ import java.util.Locale;
 
 import io.paperdb.Paper;
 
-public class ReserveClinicActivity extends AppCompatActivity {
-    private ActivityReserveClinicBinding binding;
+public class ReserveOnlineActivity extends AppCompatActivity {
+    private ActivityReserveOnlineBinding binding;
     private String lang;
     private Preferences preferences;
     private UserModel userModel;
     private int type;
-    private ClinicDoctorAdapter adapter;
+    private OnlineDoctorAdapter adapter;
     private List<Object> list;
 
 
@@ -44,7 +45,7 @@ public class ReserveClinicActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_reserve_clinic);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_reserve_online);
         initView();
     }
 
@@ -64,7 +65,7 @@ public class ReserveClinicActivity extends AppCompatActivity {
         binding.swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         binding.recView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ClinicDoctorAdapter(list,this);
+        adapter = new OnlineDoctorAdapter(list,this);
         binding.recView.setAdapter(adapter);
        // binding.swipeRefresh.setOnRefreshListener(this::getNotifications);
 

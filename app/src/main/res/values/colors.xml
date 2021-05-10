@@ -19,9 +19,10 @@
     <color name="gray4">#B0B0B0</color>
     <color name="gray5">#eee</color>
     <color name="gray6">#B0B0B0</color>
+    <color name="gray7">#F7F7F7</color>
 
 
-
+    <color name="online">#4FC500</color>
 
     <color name="rate">#ffe816</color>
     <color name="book_trans">#99000000</color>

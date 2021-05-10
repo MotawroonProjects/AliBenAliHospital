@@ -16,13 +16,27 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
-            <com.makeramen.roundedimageview.RoundedImageView
+            <FrameLayout
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                app:riv_corner_radius="8dp"
-                app:riv_border_width="0dp"
-                android:src="@drawable/imgtest2"
-                />
+                >
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:riv_corner_radius="8dp"
+                    app:riv_border_width="0dp"
+                    android:src="@drawable/imgtest2"
+                    />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="bottom|end"
+                    android:src="@color/online"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="1dp"
+                    />
+            </FrameLayout>
+
             <Space
                 android:layout_width="8dp"
                 android:layout_height="0dp"
@@ -35,12 +49,34 @@
                 android:paddingEnd="5dp"
 
                 >
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    />
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+
+                        />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_phone_call"
+                        app:tint="@color/colorPrimary"
+                        />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_video"
+                        app:tint="@color/colorPrimary"
+                        />
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -96,6 +132,7 @@
                         />
                 </LinearLayout>
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -106,7 +143,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:padding="3dp"
-                        android:src="@drawable/ic_pin3"
+                        android:src="@drawable/ic_wallet"
                         android:layout_gravity="center_vertical"
                         app:tint="@color/gray6"
                         />
@@ -116,21 +153,10 @@
                         android:textSize="13sp"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/colorred"
                         android:layout_gravity="center_vertical"
                         />
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/gray6"
-                        android:textSize="16sp"
-                        android:text="0"
-                        />
+
 
                 </LinearLayout>
 
@@ -144,7 +170,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:padding="3dp"
-                        android:src="@drawable/ic_wallet"
+                        android:src="@drawable/ic_world"
                         android:layout_gravity="center_vertical"
                         app:tint="@color/gray6"
                         />

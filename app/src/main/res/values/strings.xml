@@ -135,6 +135,8 @@
     <string name="my_appointment">Appointments</string>
     <string name="ser_op">Service and operations</string>
     <string name="search_for_department">Search for department</string>
+    <string name="select_the_address">Select location on map</string>
+    <string name="additional_details">Additional details</string>
 
 
 </resources>

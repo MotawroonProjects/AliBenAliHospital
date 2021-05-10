@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibenalihospital.R;
+import com.alibenalihospital.activities_fragments.activity_map.MapActivity;
 import com.alibenalihospital.activities_fragments.activity_reserve_clinic.ReserveClinicActivity;
+import com.alibenalihospital.activities_fragments.activity_reserve_foreign_doctor.ReserveForeignDoctorActivity;
+import com.alibenalihospital.activities_fragments.activity_reserve_online.ReserveOnlineActivity;
 import com.alibenalihospital.adapters.Dept1Adapter;
 import com.alibenalihospital.adapters.NotificationAdapter;
 import com.alibenalihospital.databinding.ActivityDepartmentsBinding;
@@ -109,13 +112,13 @@ public class DepartmentsActivity extends AppCompatActivity {
             intent = new Intent(this, ReserveClinicActivity.class);
 
         }else if (type==2){
-            intent = new Intent(this, ReserveClinicActivity.class);
+            intent = new Intent(this, ReserveOnlineActivity.class);
 
         }else if (type==3){
-            intent = new Intent(this, ReserveClinicActivity.class);
+            intent = new Intent(this, MapActivity.class);
 
         }else if (type==4){
-            intent = new Intent(this, ReserveClinicActivity.class);
+            intent = new Intent(this, ReserveForeignDoctorActivity.class);
 
         }
 

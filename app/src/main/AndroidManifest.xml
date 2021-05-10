@@ -25,15 +25,35 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".activities_fragments.activity_departments.DepartmentsActivity"
+        <activity android:name=".activities_fragments.activity_doctor_details.DoctorDetailsActivity"></activity>
+        <activity
+            android:name=".activities_fragments.activity_reserve_home_visit.ReserveHomeVisitActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-            />
-
-        <activity android:name=".activities_fragments.activity_favorite.FavoriteActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".activities_fragments.activity_map.MapActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-            />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".activities_fragments.activity_reserve_foreign_doctor.ReserveForeignDoctorActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".activities_fragments.activity_reserve_online.ReserveOnlineActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".activities_fragments.activity_reserve_clinic.ReserveClinicActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".activities_fragments.activity_departments.DepartmentsActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".activities_fragments.activity_favorite.FavoriteActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
 
         <service
             android:name=".notifications.FireBaseMessaging"
