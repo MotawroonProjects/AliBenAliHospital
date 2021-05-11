@@ -153,6 +153,8 @@
     <string name="appoinments">Appoinments :</string>
     <string name="confirm_appoinment_reserv">Confirm Appoinment Reserv</string>
     <string name="show_all">Show All</string>
+    <string name="confirm_reservision">Confirm Reservision</string>
+    <string name="complete_name">Complete Name</string>
 
 
 </resources>

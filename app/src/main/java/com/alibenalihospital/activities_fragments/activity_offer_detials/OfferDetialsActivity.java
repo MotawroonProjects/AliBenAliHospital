@@ -1,6 +1,8 @@
 package com.alibenalihospital.activities_fragments.activity_offer_detials;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibenalihospital.R;
+import com.alibenalihospital.activities_fragments.activity_complete_reservision.CompleteReservisionActivityActivity;
 import com.alibenalihospital.activities_fragments.activity_service_process.ServiceProcessActivity;
 import com.alibenalihospital.adapters.DayAdapter;
 import com.alibenalihospital.adapters.HourAdapter;
@@ -62,7 +65,7 @@ public class OfferDetialsActivity extends AppCompatActivity {
 
 
     private void initView() {
-        list=new ArrayList<>();
+        list = new ArrayList<>();
         Paper.init(this);
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setLang(lang);
@@ -81,23 +84,30 @@ public class OfferDetialsActivity extends AppCompatActivity {
         updateSliderUi(sliderModelList);
 
 
-
         binding.llBack.setOnClickListener(view -> finish());
         binding.btnAsk.setOnClickListener(v -> openSheet());
         binding.flSheet.setOnClickListener(v -> closeSheet());
         binding.progBar.setVisibility(View.GONE);
-        binding.recViewSpecialization.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
+        binding.recViewSpecialization.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         binding.recViewSpecialization.setAdapter(new DayAdapter(this));
-        binding.recviehour.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
+        binding.recviehour.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         binding.recviehour.setAdapter(new HourAdapter(this));
-        binding.recViewhourhour.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
+        binding.recViewhourhour.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         binding.recViewhourhour.setAdapter(new HourAdapter(this));
-        binding.recView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        binding.recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         adapter = new RateAdapter(list, this);
         binding.recView.setAdapter(adapter);
         binding.progBar.setVisibility(View.GONE);
         binding.progBarSlider.setVisibility(View.GONE);
         binding.progBarSpecialization.setVisibility(View.GONE);
+        binding.tvoldprice.setPaintFlags(binding.tvoldprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        binding.btnresev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OfferDetialsActivity.this, CompleteReservisionActivityActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -155,6 +165,7 @@ public class OfferDetialsActivity extends AppCompatActivity {
         });
 
     }
+
     private void updateSliderUi(List<SliderModel> data) {
         if (data.size() > 0) {
             sliderModelList.addAll(data);
@@ -176,10 +187,10 @@ public class OfferDetialsActivity extends AppCompatActivity {
     }
 
     public void setItemData() {
-        if(!binding.expandhourhour.isExpanded()){
-        binding.expandhourhour.setExpanded(true);}
-        else {
-            Log.e("ddlldldl","dlldldl");
+        if (!binding.expandhourhour.isExpanded()) {
+            binding.expandhourhour.setExpanded(true);
+        } else {
+            Log.e("ddlldldl", "dlldldl");
             binding.btnresev.setVisibility(View.VISIBLE);
         }
     }

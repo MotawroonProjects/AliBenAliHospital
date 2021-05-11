@@ -153,5 +153,7 @@
     <string name="rates">التقييمات</string>
     <string name="confirm_appoinment_reserv">تأكيد موعد الحجز</string>
     <string name="show_all">Show All</string>
+    <string name="confirm_reservision">تأكيد الحجز</string>
+    <string name="complete_name">Complete Name</string>
 
 </resources>
