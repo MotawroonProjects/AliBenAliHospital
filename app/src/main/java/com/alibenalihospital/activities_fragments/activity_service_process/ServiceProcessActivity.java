@@ -91,7 +91,7 @@ public class ServiceProcessActivity extends AppCompatActivity {
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         binding.recViewOffers.setLayoutManager(new LinearLayoutManager(this));
         binding.recViewOffers.setAdapter(offerAdapter);
-        binding.recViewSubDepartment.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, true));
+        binding.recViewSubDepartment.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         adapter = new Dept2Adapter(departmentDataList, this);
         binding.recViewSubDepartment.setAdapter(adapter);
 //        sliderModelList.add(new SliderModel());
