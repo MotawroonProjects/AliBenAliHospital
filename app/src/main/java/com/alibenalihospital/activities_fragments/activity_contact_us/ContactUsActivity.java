@@ -57,9 +57,7 @@ public class ContactUsActivity extends AppCompatActivity {
         contactUsModel = new ContactUsModel();
         if (userModel != null) {
             contactUsModel.setName(userModel.getUser().getName());
-            if (userModel.getUser().getEmail() != null) {
-                contactUsModel.setEmail(userModel.getUser().getEmail());
-            }
+
             contactUsModel.setPhone(userModel.getUser().getPhone());
         }
 

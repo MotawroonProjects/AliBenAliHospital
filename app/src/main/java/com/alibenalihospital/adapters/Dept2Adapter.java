@@ -13,17 +13,18 @@ import com.alibenalihospital.activities_fragments.activity_departments.Departmen
 import com.alibenalihospital.activities_fragments.activity_service_process.ServiceProcessActivity;
 import com.alibenalihospital.databinding.Department2RowBinding;
 import com.alibenalihospital.databinding.DepartmentRowBinding;
+import com.alibenalihospital.models.AllDepartmentModel;
 
 import java.util.List;
 
 public class Dept2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Object> list;
+    private List<AllDepartmentModel.DepartmentData> list;
     private Context context;
     private LayoutInflater inflater;
     private ServiceProcessActivity activity;
 
-    public Dept2Adapter(List<Object> list, Context context) {
+    public Dept2Adapter(List<AllDepartmentModel.DepartmentData> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -46,7 +47,7 @@ public class Dept2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         MyHolder myHolder = (MyHolder) holder;
-
+myHolder.binding.setModel(list.get(position));
         myHolder.itemView.setOnClickListener(v -> {
             activity.setItemData(null);
         });
@@ -55,7 +56,7 @@ public class Dept2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return 8;
+        return list.size();
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder {

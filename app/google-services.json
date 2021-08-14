@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "310929549293",
-    "project_id": "ebsar-world",
-    "storage_bucket": "ebsar-world.appspot.com"
+    "project_number": "164807903652",
+    "project_id": "alibenalihospital",
+    "storage_bucket": "alibenalihospital.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:310929549293:android:52ade51529b1cd55ede9e4",
+        "mobilesdk_app_id": "1:164807903652:android:5eb185e655508111695931",
         "android_client_info": {
-          "package_name": "com.ebsar_world_center"
+          "package_name": "com.alibenalihospital"
         }
       },
       "oauth_client": [
         {
-          "client_id": "310929549293-328tocqupl61k30pv9l9q6qss5jgj5q5.apps.googleusercontent.com",
+          "client_id": "164807903652-sss49b9hv7r0fpve0aqtbcqj1au75b8v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alibenalihospital",
+            "certificate_hash": "f43abe5215a1d371349bd6bb7ce4fc8e27c6dd2f"
+          }
+        },
+        {
+          "client_id": "164807903652-io7qkhdt5i5atf0mm9scnqkvg6jl84fl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDZMGHZzbUzL7_G1VKX3VTeU6eZ03qEcsI"
+          "current_key": "AIzaSyDf3sl5GivaeHMNg9bQQgJOrybn_vldVdg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "310929549293-328tocqupl61k30pv9l9q6qss5jgj5q5.apps.googleusercontent.com",
+              "client_id": "164807903652-io7qkhdt5i5atf0mm9scnqkvg6jl84fl.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

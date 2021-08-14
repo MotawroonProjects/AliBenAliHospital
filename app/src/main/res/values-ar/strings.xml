@@ -152,8 +152,11 @@
     <string name="price2">سعر الكشف</string>
     <string name="rates">التقييمات</string>
     <string name="confirm_appoinment_reserv">تأكيد موعد الحجز</string>
-    <string name="show_all">Show All</string>
+    <string name="show_all">عرض الكل</string>
     <string name="confirm_reservision">تأكيد الحجز</string>
-    <string name="complete_name">Complete Name</string>
+    <string name="complete_name">الاسم بالكامل</string>
+    <string name="incorrect_phone_pass">رقم جوال او كلمة مرور خاطئ</string>
+    <string name="ryal"> ريال </string>
+    <string name="offers">العروض</string>
 
 </resources>

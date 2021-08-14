@@ -71,7 +71,7 @@ public class SignUpModel extends BaseObservable {
 
     public SignUpModel() {
         setName("");
-        setPhone_code("+966");
+        setPhone_code("+20");
         setPhone("");
         setPassword("");
         setRe_password("");

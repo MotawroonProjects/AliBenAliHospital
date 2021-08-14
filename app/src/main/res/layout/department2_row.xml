@@ -2,38 +2,46 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="model"
+            type="com.alibenalihospital.models.AllDepartmentModel.DepartmentData" />
+    </data>
+
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
-        app:cardElevation="3dp"
-        app:cardCornerRadius="8dp"
-        app:contentPadding="5dp"
         android:layout_margin="5dp"
-        >
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="3dp"
+        app:contentPadding="5dp">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
+
             <com.makeramen.roundedimageview.RoundedImageView
+                image="@{model.image}"
                 android:layout_width="100dp"
                 android:layout_height="70dp"
+                android:src="@drawable/testimage1"
                 app:riv_border_width="0dp"
                 app:riv_corner_radius="8dp"
-                android:src="@drawable/testimage1"
-
 
                 />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:text="@{model.name}"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:text="أنف واذن"
-                android:layout_gravity="center_horizontal"/>
+                android:textSize="14sp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

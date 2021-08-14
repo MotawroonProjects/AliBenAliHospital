@@ -21,6 +21,7 @@ import com.alibenalihospital.databinding.ActivityOfferDetialsBinding;
 import com.alibenalihospital.databinding.ActivityOffersBinding;
 import com.alibenalihospital.databinding.ActivityServiceProcessBinding;
 import com.alibenalihospital.language.Language;
+import com.alibenalihospital.models.AllOfferModel;
 import com.alibenalihospital.models.SliderModel;
 import com.alibenalihospital.models.UserModel;
 import com.alibenalihospital.preferences.Preferences;
@@ -45,6 +46,8 @@ public class OffersActivity extends AppCompatActivity {
     private TimerTask timerTask;
     private Dept2Adapter adapter;
     private List<Object> list;
+    private List<AllOfferModel.OfferData> offerDataList;
+    private OfferAdapter offerAdapter;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -66,7 +69,8 @@ public class OffersActivity extends AppCompatActivity {
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setLang(lang);
         sliderModelList = new ArrayList<>();
-
+        offerDataList = new ArrayList<>();
+        offerAdapter = new OfferAdapter(offerDataList, this);
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
         Paper.init(this);
@@ -76,7 +80,7 @@ public class OffersActivity extends AppCompatActivity {
 
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         binding.recView.setLayoutManager(new LinearLayoutManager(this));
-        binding.recView.setAdapter(new OfferAdapter(this));
+        binding.recView.setAdapter(offerAdapter);
 
     }
 
@@ -88,8 +92,6 @@ public class OffersActivity extends AppCompatActivity {
 
     public void setItemData(Object o) {
     }
-
-
 
 
 }

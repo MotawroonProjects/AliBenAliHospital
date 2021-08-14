@@ -51,14 +51,14 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_login);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         initView();
     }
 
     private void initView() {
-        preferences=Preferences.getInstance();
+        preferences = Preferences.getInstance();
         Paper.init(this);
-        lang = Paper.book().read("lang","ar");
+        lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
         loginModel = new LoginModel();
         binding.setModel(loginModel);
@@ -97,35 +97,30 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
-
     }
-
 
 
     private void login() {
 
-       /* ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
         Api.getService(Tags.base_url)
-                .login(loginModel.getPhone_code(),loginModel.getPhone(),loginModel.getPassword())
+                .login(loginModel.getPhone_code(), loginModel.getPhone(), loginModel.getPassword())
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                         dialog.dismiss();
                         if (response.isSuccessful() && response.body() != null) {
                             if (response.body().getStatus() == 200) {
-                                    preferences.create_update_userdata(LoginActivity.this, response.body());
-                                    preferences.create_update_session(LoginActivity.this, Tags.session_login);
-                                    navigateToHomeActivity();
+                                preferences.create_update_userdata(LoginActivity.this, response.body());
+                                preferences.create_update_session(LoginActivity.this, Tags.session_login);
+                                navigateToHomeActivity();
 
-                            } else if (response.body().getStatus() == 401) {
-                                Toast.makeText(LoginActivity.this,getResources().getString(R.string.incorrect_phone_pass),Toast.LENGTH_LONG).show();
+                            } else if (response.body().getStatus() == 404) {
+                                Toast.makeText(LoginActivity.this, getResources().getString(R.string.incorrect_phone_pass), Toast.LENGTH_LONG).show();
                             }
-                            else if (response.body().getStatus() == 409) {
-                                Toast.makeText(LoginActivity.this,getResources().getString(R.string.user_blocked),Toast.LENGTH_LONG).show();
-                            }
+
                         } else {
                             try {
                                 Log.e("mmmmmmmmmm", response.errorBody().string());
@@ -161,11 +156,15 @@ public class LoginActivity extends AppCompatActivity {
                             Log.e("Error", e.getMessage() + "__");
                         }
                     }
-                });*/
+                });
 
     }
 
-
+    private void navigateToHomeActivity() {
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 
 }

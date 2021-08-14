@@ -1,5 +1,7 @@
 package com.alibenalihospital.services;
 
+import com.alibenalihospital.models.AllDepartmentModel;
+import com.alibenalihospital.models.AllOfferModel;
 import com.alibenalihospital.models.NotificationDataModel;
 import com.alibenalihospital.models.PlaceGeocodeData;
 import com.alibenalihospital.models.PlaceMapDetailsData;
@@ -37,7 +39,7 @@ public interface Service {
                                       @Query(value = "key") String key);
 
     @FormUrlEncoded
-    @POST("api/client-login")
+    @POST("api/login")
     Call<UserModel> login(@Field("phone_code") String phone_code,
                           @Field("phone") String phone,
                           @Field("password") String password
@@ -46,31 +48,22 @@ public interface Service {
 
 
     @FormUrlEncoded
-    @POST("api/client-register")
+    @POST("api/register")
     Call<UserModel> signUpWithoutImage(@Field("name") String name,
                                        @Field("phone_code") String phone_code,
                                        @Field("phone") String phone,
                                        @Field("password") String password,
-                                       @Field("gender") String gender,
-                                       @Field("birthday") String birthday,
-                                       @Field("software_type") String software_type
+                                       @Field("confirm_password") String confirm_password
     );
 
-    @Multipart
-    @POST("api/client-register")
-    Call<UserModel> signUpWithImage(@Part("name") RequestBody name,
-                                    @Part("phone_code") RequestBody phone_code,
-                                    @Part("phone") RequestBody phone,
-                                    @Part("password") RequestBody password,
-                                    @Part("gender") RequestBody gender,
-                                    @Part("birthday") RequestBody birthday,
-                                    @Part("software_type") RequestBody software_type,
-                                    @Part MultipartBody.Part logo
+@GET("api/offers")
+    Call<AllOfferModel> getOffers(
+            @Header("language")String language
 
+);
+    @GET("api/departments")
+    Call<AllDepartmentModel> getDepartments(
+            @Header("language")String language
 
     );
-
-
-
-
 }

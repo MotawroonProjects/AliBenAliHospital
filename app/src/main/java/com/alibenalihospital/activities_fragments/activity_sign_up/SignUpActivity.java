@@ -1,5 +1,7 @@
 package com.alibenalihospital.activities_fragments.activity_sign_up;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -59,7 +61,6 @@ import retrofit2.Response;
 
 public class SignUpActivity extends AppCompatActivity {
     private ActivitySignUpBinding binding;
-    private Uri uri = null;
     private SignUpModel signUpModel;
     private UserModel userModel;
     private Preferences preferences;
@@ -67,6 +68,7 @@ public class SignUpActivity extends AppCompatActivity {
     private String phone_code;
     private String lang;
 
+    private ActivityResultLauncher<Intent> launcher;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -91,7 +93,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         signUpModel = new SignUpModel();
         if (userModel == null) {
-            signUpModel.setPhone_code("+966");
+            signUpModel.setPhone_code("+20");
             signUpModel.setPhone("");
             binding.tvLogin.setText(Html.fromHtml(getString(R.string.have_account)));
 
@@ -100,12 +102,19 @@ public class SignUpActivity extends AppCompatActivity {
             signUpModel.setPhone(userModel.getUser().getPhone());
             signUpModel.setPhone_code(userModel.getUser().getPhone_code());
             signUpModel.setPassword("123456");
+            signUpModel.setRe_password("123456");
             binding.ll.setVisibility(View.GONE);
             binding.btnSignUp.setText(R.string.update_profile);
         }
 
         binding.setModel(signUpModel);
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
 
+                signUp();
+
+            }
+        });
         binding.btnSignUp.setOnClickListener(view -> {
             checkDataValid();
         });
@@ -139,7 +148,7 @@ public class SignUpActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, VerificationCodeActivity.class);
                 intent.putExtra("phone_code", signUpModel.getPhone_code());
                 intent.putExtra("phone", signUpModel.getPhone());
-                startActivityForResult(intent, 100);
+                launcher.launch(intent);
             } else {
                 // finish();
                 signUp();
@@ -154,80 +163,13 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         if (userModel == null) {
-            if (uri == null) {
-                signUpWithoutImage();
-            } else {
-                signUpWithImage();
-            }
+            signUpWithoutImage();
         } else {
-            if (uri == null) {
-                updateProfileWithoutImage();
-            } else {
-                updateProfileWithImage();
-            }
+
         }
 
     }
 
-    private void updateProfileWithImage() {
-      /*  ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
-        dialog.setCancelable(false);
-        dialog.show();
-        RequestBody user_id_part = Common.getRequestBodyText(userModel.getUser().getId() + "");
-        RequestBody name_part = Common.getRequestBodyText(signUpModel.getName());
-        RequestBody gender_part = Common.getRequestBodyText(signUpModel.getGender());
-        RequestBody birthday_part = Common.getRequestBodyText(signUpModel.getBirth_date());
-
-        MultipartBody.Part image = Common.getMultiPartImage(this, uri, "logo");
-
-
-        Api.getService(Tags.base_url)
-                .updateProfileWithImage("Bearer " + userModel.getUser().getToken(), user_id_part, name_part, gender_part, birthday_part, image)
-                .enqueue(new Callback<UserModel>() {
-                    @Override
-                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        dialog.dismiss();
-                        if (response.isSuccessful() && response.body() != null) {
-                            if (response.body().getStatus() == 200) {
-                                preferences.create_update_userdata(SignUpActivity.this, response.body());
-                                setResult(RESULT_OK);
-                                finish();
-                            } else if (response.body().getStatus() == 402) {
-                                Toast.makeText(SignUpActivity.this, R.string.user_exist, Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            try {
-                                Log.e("error", response.code() + "__" + response.errorBody().string());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            if (response.code() == 500) {
-                                Toast.makeText(SignUpActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<UserModel> call, Throwable t) {
-                        try {
-                            dialog.dismiss();
-                            if (t.getMessage() != null) {
-                                Log.e("msg_category_error", t.getMessage() + "__");
-
-                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
-                                    Toast.makeText(SignUpActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        } catch (Exception e) {
-                            Log.e("Error", e.getMessage() + "__");
-                        }
-                    }
-                });*/
-    }
 
     private void updateProfileWithoutImage() {
       /*  ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
@@ -284,20 +226,25 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void signUpWithoutImage() {
-       /* ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        if(signUpModel.getPhone().startsWith("0")){
+            signUpModel.setPhone(signUpModel.getPhone().replaceFirst("0",""));
+        }
+       // signUpModel.setPhone(phone);
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
         Api.getService(Tags.base_url)
-                .signUpWithoutImage(signUpModel.getName(), signUpModel.getPhone_code(), signUpModel.getPhone(), signUpModel.getPassword(), signUpModel.getGender(), signUpModel.getBirth_date(), "android")
+                .signUpWithoutImage(signUpModel.getName(), signUpModel.getPhone_code(), signUpModel.getPhone(), signUpModel.getPassword(), signUpModel.getRe_password())
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                         dialog.dismiss();
                         if (response.isSuccessful() && response.body() != null) {
+                            Log.e("flkfkfk",response.body().getStatus()+"");
                             if (response.body().getStatus() == 200) {
                                 preferences.create_update_userdata(SignUpActivity.this, response.body());
                                 navigateToHomeActivity();
-                            } else if (response.body().getStatus() == 406) {
+                            } else if (response.body().getStatus() == 409) {
                                 Toast.makeText(SignUpActivity.this, R.string.user_exist, Toast.LENGTH_SHORT).show();
                             }
 
@@ -333,72 +280,9 @@ public class SignUpActivity extends AppCompatActivity {
                             Log.e("Error", e.getMessage() + "__");
                         }
                     }
-                });*/
+                });
     }
 
-    private void signUpWithImage() {
-
-      /*  ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
-        dialog.setCancelable(false);
-        dialog.show();
-        RequestBody name_part = Common.getRequestBodyText(signUpModel.getName());
-        RequestBody phone_code_part = Common.getRequestBodyText(signUpModel.getPhone_code());
-        RequestBody phone_part = Common.getRequestBodyText(signUpModel.getPhone());
-        RequestBody pass_part = Common.getRequestBodyText(signUpModel.getPassword());
-        RequestBody gender_part = Common.getRequestBodyText(signUpModel.getGender());
-        RequestBody birthdate_part = Common.getRequestBodyText(signUpModel.getBirth_date());
-        RequestBody software_type_part = Common.getRequestBodyText("android");
-
-        MultipartBody.Part image = Common.getMultiPart(this, uri, "logo");
-
-
-        Api.getService(Tags.base_url)
-                .signUpWithImage(name_part, phone_code_part, phone_part, pass_part, gender_part, birthdate_part, software_type_part, image)
-                .enqueue(new Callback<UserModel>() {
-                    @Override
-                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        dialog.dismiss();
-                        if (response.isSuccessful() && response.body() != null) {
-                            if (response.body().getStatus() == 200) {
-                                preferences.create_update_userdata(SignUpActivity.this, response.body());
-                                navigateToHomeActivity();
-                            } else if (response.body().getStatus() == 406) {
-                                Toast.makeText(SignUpActivity.this, R.string.user_exist, Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            try {
-                                Log.e("error", response.code() + "__" + response.errorBody().string());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            if (response.code() == 500) {
-                                Toast.makeText(SignUpActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<UserModel> call, Throwable t) {
-                        try {
-                            dialog.dismiss();
-                            if (t.getMessage() != null) {
-                                Log.e("msg_category_error", t.getMessage() + "__");
-
-                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
-                                    Toast.makeText(SignUpActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        } catch (Exception e) {
-                            Log.e("Error", e.getMessage() + "__");
-                        }
-                    }
-                });*/
-
-    }
 
     private void navigateToHomeActivity() {
         Intent intent = new Intent(this, HomeActivity.class);

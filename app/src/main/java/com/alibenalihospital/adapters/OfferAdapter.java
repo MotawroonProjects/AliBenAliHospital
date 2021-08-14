@@ -16,18 +16,19 @@ import com.alibenalihospital.activities_fragments.activity_offers.OffersActivity
 import com.alibenalihospital.activities_fragments.activity_service_process.ServiceProcessActivity;
 import com.alibenalihospital.databinding.NotificationRowBinding;
 import com.alibenalihospital.databinding.OfferRowBinding;
+import com.alibenalihospital.models.AllOfferModel;
 import com.alibenalihospital.models.NotificationModel;
 
 import java.util.List;
 
 public class OfferAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<NotificationModel> list;
+    private List<AllOfferModel.OfferData> list;
     private Context context;
     private LayoutInflater inflater;
     private NotificationActivity activity;
 
-    public OfferAdapter(List<NotificationModel> list, Context context) {
+    public OfferAdapter(List<AllOfferModel.OfferData> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -55,6 +56,7 @@ public class OfferAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         MyHolder myHolder = (MyHolder) holder;
+        myHolder.binding.setModel(list.get(position));
         myHolder.binding.tvoldprice.setPaintFlags(myHolder.binding.tvoldprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         myHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +76,7 @@ public class OfferAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return 9;
+        return list.size();
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder {

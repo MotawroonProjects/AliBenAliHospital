@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,6 +61,9 @@ public class VerificationCodeActivity extends AppCompatActivity {
         if (intent != null) {
             phone_code = intent.getStringExtra("phone_code");
             phone = intent.getStringExtra("phone");
+            if(phone.startsWith("0")){
+                phone=phone.replaceFirst("0","");
+            }
 
         }
     }
@@ -80,9 +84,9 @@ public class VerificationCodeActivity extends AppCompatActivity {
         });
         binding.btnConfirm.setOnClickListener(view -> {
             String code = binding.edtCode.getText().toString().trim();
-//            Intent intent=getIntent();
-//            setResult(RESULT_OK,intent);
-//            finish();
+            Intent intent=getIntent();
+            setResult(RESULT_OK,intent);
+            finish();
             if (!code.isEmpty()) {
                 binding.edtCode.setError(null);
                 Common.CloseKeyBoard(this, binding.edtCode);
@@ -150,6 +154,7 @@ public class VerificationCodeActivity extends AppCompatActivity {
                 SimpleDateFormat format = new SimpleDateFormat("mm:ss", Locale.ENGLISH);
                 String time = format.format(new Date(l));
                 binding.tvCounter.setText(time);
+                binding.tvResend.setVisibility(View.GONE);
             }
 
             @Override
@@ -157,6 +162,7 @@ public class VerificationCodeActivity extends AppCompatActivity {
                 canSend = true;
                 binding.tvCounter.setText("00:00");
                 binding.tvResend.setEnabled(true);
+                binding.tvResend.setVisibility(View.VISIBLE);
             }
         };
         timer.start();

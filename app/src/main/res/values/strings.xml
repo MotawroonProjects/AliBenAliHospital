@@ -155,6 +155,9 @@
     <string name="show_all">Show All</string>
     <string name="confirm_reservision">Confirm Reservision</string>
     <string name="complete_name">Complete Name</string>
+    <string name="incorrect_phone_pass">In Correct Phone or Password</string>
+    <string name="ryal"> Ryal </string>
+    <string name="offers">Offers</string>
 
 
 </resources>
