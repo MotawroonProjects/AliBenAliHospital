@@ -18,17 +18,18 @@ import com.alibenalihospital.databinding.NotificationRowBinding;
 import com.alibenalihospital.databinding.OfferRowBinding;
 import com.alibenalihospital.models.AllOfferModel;
 import com.alibenalihospital.models.NotificationModel;
+import com.alibenalihospital.models.OfferDataModel;
 
 import java.util.List;
 
 public class OfferAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<AllOfferModel.OfferData> list;
+    private List<OfferDataModel.OfferData> list;
     private Context context;
     private LayoutInflater inflater;
     private NotificationActivity activity;
 
-    public OfferAdapter(List<AllOfferModel.OfferData> list, Context context) {
+    public OfferAdapter(List<OfferDataModel.OfferData> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);

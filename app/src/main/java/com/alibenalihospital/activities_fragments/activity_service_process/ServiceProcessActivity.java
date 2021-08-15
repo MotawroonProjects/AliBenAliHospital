@@ -72,7 +72,7 @@ public class ServiceProcessActivity extends AppCompatActivity {
 
     private void initView() {
         departmentDataList = new ArrayList<>();
-        offerDataList=new ArrayList<>();
+        offerDataList = new ArrayList<>();
         Paper.init(this);
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setLang(lang);
@@ -83,7 +83,7 @@ public class ServiceProcessActivity extends AppCompatActivity {
         Paper.init(this);
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setLang(lang);
-        offerAdapter=new OfferAdapter(offerDataList,this);
+        offerAdapter = new OfferAdapter(offerDataList, this);
 
         binding.progBar.setVisibility(View.GONE);
         binding.progBarSlider.setVisibility(View.GONE);
@@ -137,8 +137,9 @@ public class ServiceProcessActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void setItemData(Object o) {
+    public void setItemData(AllDepartmentModel.DepartmentData departmentData) {
         Intent intent = new Intent(ServiceProcessActivity.this, OffersActivity.class);
+        intent.putExtra("department", departmentData);
         startActivity(intent);
     }
 
@@ -157,6 +158,7 @@ public class ServiceProcessActivity extends AppCompatActivity {
 
         }
     }
+
     private void getOffers() {
         binding.tvNoData.setVisibility(View.GONE);
 
@@ -234,6 +236,7 @@ public class ServiceProcessActivity extends AppCompatActivity {
                 });
 
     }
+
     private void getDepartments() {
 
         binding.progBarType.setVisibility(View.VISIBLE);
@@ -251,12 +254,12 @@ public class ServiceProcessActivity extends AppCompatActivity {
                                         departmentDataList.addAll(response.body().getData());
                                         adapter.notifyDataSetChanged();
                                     } else {
-                                      //  binding.tvNoData.setVisibility(View.VISIBLE);
+                                        //  binding.tvNoData.setVisibility(View.VISIBLE);
 
                                     }
                                 }
                             } else {
-                               // binding.tvNoData.setVisibility(View.VISIBLE);
+                                // binding.tvNoData.setVisibility(View.VISIBLE);
 
                                 //  Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
 
@@ -265,7 +268,7 @@ public class ServiceProcessActivity extends AppCompatActivity {
 
                         } else {
 
-                           // binding.tvNoData.setVisibility(View.VISIBLE);
+                            // binding.tvNoData.setVisibility(View.VISIBLE);
 
                             switch (response.code()) {
                                 case 500:
@@ -289,7 +292,7 @@ public class ServiceProcessActivity extends AppCompatActivity {
                     public void onFailure(Call<AllDepartmentModel> call, Throwable t) {
                         try {
                             binding.progBarType.setVisibility(View.GONE);
-                           // binding.tvNoData.setVisibility(View.VISIBLE);
+                            // binding.tvNoData.setVisibility(View.VISIBLE);
 //                            binding.arrow.setVisibility(View.VISIBLE);
 //
 //                            binding.progBar.setVisibility(View.GONE);

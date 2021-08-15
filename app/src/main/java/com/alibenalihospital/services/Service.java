@@ -3,6 +3,7 @@ package com.alibenalihospital.services;
 import com.alibenalihospital.models.AllDepartmentModel;
 import com.alibenalihospital.models.AllOfferModel;
 import com.alibenalihospital.models.NotificationDataModel;
+import com.alibenalihospital.models.OfferDataModel;
 import com.alibenalihospital.models.PlaceGeocodeData;
 import com.alibenalihospital.models.PlaceMapDetailsData;
 import com.alibenalihospital.models.SliderDataModel;
@@ -61,9 +62,23 @@ public interface Service {
             @Header("language")String language
 
 );
+    @GET("api/offer_department_id")
+    Call<AllOfferModel> getOffers(
+            @Header("language")String language,
+            @Query("department_id") String department_id
+
+    );
     @GET("api/departments")
     Call<AllDepartmentModel> getDepartments(
             @Header("language")String language
+
+    );
+    @GET("api/one_offer")
+    Call<OfferDataModel> getSingleOffer(
+            @Header("language")String language,
+            @Query("offer_id") String offer_id,
+            @Query("user_id") String user_id
+
 
     );
 }

@@ -49,7 +49,7 @@ public class Dept2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         MyHolder myHolder = (MyHolder) holder;
 myHolder.binding.setModel(list.get(position));
         myHolder.itemView.setOnClickListener(v -> {
-            activity.setItemData(null);
+            activity.setItemData(list.get(holder.getLayoutPosition()));
         });
 
     }

@@ -6,7 +6,7 @@
 
     <variable
         name="model"
-        type="com.alibenalihospital.models.AllOfferModel.OfferData" />
+        type="com.alibenalihospital.models.OfferDataModel.OfferData" />
 
     </data>
 
