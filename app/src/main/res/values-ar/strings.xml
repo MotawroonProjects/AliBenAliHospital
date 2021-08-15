@@ -158,5 +158,6 @@
     <string name="incorrect_phone_pass">رقم جوال او كلمة مرور خاطئ</string>
     <string name="ryal"> ريال </string>
     <string name="offers">العروض</string>
+    <string name="about">*نبذة مختصرة</string>
 
 </resources>

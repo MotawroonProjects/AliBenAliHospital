@@ -3,7 +3,7 @@ package com.alibenalihospital.models;
 import java.io.Serializable;
 import java.util.List;
 
-public class AvailbleDateModel implements Serializable {
+public class AvailableDateModel implements Serializable {
         private int id;
         private String doctor_id;
         private int offer_id;
@@ -45,7 +45,7 @@ public class AvailbleDateModel implements Serializable {
             return available_hour;
         }
 
-        public class AvailableHour implements Serializable{
+        public static class AvailableHour implements Serializable{
             private int id;
             private int date_id;
             private String hour;

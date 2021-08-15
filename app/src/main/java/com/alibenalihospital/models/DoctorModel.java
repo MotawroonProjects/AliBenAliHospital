@@ -36,7 +36,8 @@ public class DoctorModel implements Serializable {
     private ClinicModel clinic;
     private CountryModel country;
     private List<RateModel> rates;
-    private List<Object> available_date;
+    private List<AvailableDateModel> available_date;
+    private List<CvModel> cv;
 
 
     public int getId() {
@@ -167,7 +168,15 @@ public class DoctorModel implements Serializable {
         return rates;
     }
 
-    public List<Object> getAvailable_date() {
+    public List<AvailableDateModel> getAvailable_date() {
         return available_date;
+    }
+
+    public List<CvModel> getCv() {
+        return cv;
+    }
+
+    public void setIs_favourate(String is_favourate) {
+        this.is_favourate = is_favourate;
     }
 }

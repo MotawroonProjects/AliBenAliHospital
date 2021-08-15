@@ -30,7 +30,7 @@ public class OfferDataModel extends StatusResponse implements Serializable {
         private Clinic clinic;
         private FirstImage first_image;
         private List<RateModel> rates;
-        private List<AvailbleDateModel> available_date;
+        private List<AvailableDateModel> available_date;
 
         public int getId() {
             return id;
@@ -108,7 +108,7 @@ public class OfferDataModel extends StatusResponse implements Serializable {
             return rates;
         }
 
-        public List<AvailbleDateModel> getAvailable_date() {
+        public List<AvailableDateModel> getAvailable_date() {
             return available_date;
         }
 

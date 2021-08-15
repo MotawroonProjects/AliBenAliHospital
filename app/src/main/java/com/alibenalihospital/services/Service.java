@@ -1,7 +1,9 @@
 package com.alibenalihospital.services;
 
+import com.alibenalihospital.adapters.SingleDoctorModel;
 import com.alibenalihospital.models.AllDepartmentModel;
 import com.alibenalihospital.models.AllOfferModel;
+import com.alibenalihospital.models.DoctorsDataModel;
 import com.alibenalihospital.models.NotificationDataModel;
 import com.alibenalihospital.models.OfferDataModel;
 import com.alibenalihospital.models.PlaceGeocodeData;
@@ -57,28 +59,65 @@ public interface Service {
                                        @Field("confirm_password") String confirm_password
     );
 
-@GET("api/offers")
+    @GET("api/offers")
     Call<AllOfferModel> getOffers(
-            @Header("language")String language
+            @Header("language") String language
 
-);
+    );
+
     @GET("api/offer_department_id")
     Call<AllOfferModel> getOffers(
-            @Header("language")String language,
+            @Header("language") String language,
             @Query("department_id") String department_id
 
     );
+
     @GET("api/departments")
     Call<AllDepartmentModel> getDepartments(
-            @Header("language")String language
+            @Header("language") String language
 
     );
+
     @GET("api/one_offer")
-    Call<OfferDataModel> getSingleOffer(
-            @Header("language")String language,
-            @Query("offer_id") String offer_id,
-            @Query("user_id") String user_id
+    Call<OfferDataModel> getSingleOffer(@Header("language") String language,
+                                        @Query("offer_id") String offer_id,
+                                        @Query("user_id") String user_id
 
 
     );
+
+    @GET("api/search_doctor")
+    Call<DoctorsDataModel> searchDoctors(@Header("language") String language,
+                                         @Query("name") String name,
+                                         @Query("user_id") String user_id
+
+
+    );
+
+    @GET("api/doctor")
+    Call<SingleDoctorModel> doctorById(@Header("language") String language,
+                                       @Query("user_id") String user_id,
+                                       @Query("doctor_id") String doctor_id
+
+
+    );
+
+    @FormUrlEncoded
+    @POST("api/favourite_doctor")
+    Call<StatusResponse> fav_un_fav(@Header("language") String language,
+                                    @Query("user_id") String user_id,
+                                    @Query("doctor_id") String doctor_id
+
+
+    );
+
+    @FormUrlEncoded
+    @POST("api/favourite_doctors")
+    Call<DoctorsDataModel> getFavorites(@Header("language") String language,
+                                        @Query("user_id") String user_id
+
+
+    );
+
+
 }

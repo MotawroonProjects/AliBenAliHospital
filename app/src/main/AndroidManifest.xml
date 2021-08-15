@@ -25,7 +25,20 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".activities_fragments.activity_doctor_details.DoctorDetailsActivity"></activity>
+        <activity android:name=".activities_fragments.activity_doctor_details.DoctorDetailsActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="ali-bin-ali.linkcom.tech"
+                    android:pathPrefix="/details/"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities_fragments.activity_reserve_home_visit.ReserveHomeVisitActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"

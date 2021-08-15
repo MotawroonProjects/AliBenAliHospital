@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ebsar</string>
+    <string name="app_name">Ali Bn Ali hospital</string>
     <string name="map_key"></string>
 
     <string name="login">Log In</string>
@@ -158,6 +158,7 @@
     <string name="incorrect_phone_pass">In Correct Phone or Password</string>
     <string name="ryal"> Ryal </string>
     <string name="offers">Offers</string>
+    <string name="about">*About</string>
 
 
 </resources>
