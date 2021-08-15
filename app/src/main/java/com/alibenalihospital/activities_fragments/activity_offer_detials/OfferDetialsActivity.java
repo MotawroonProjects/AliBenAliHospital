@@ -96,7 +96,7 @@ public class OfferDetialsActivity extends AppCompatActivity {
         binding.flSheet.setOnClickListener(v -> closeSheet());
         binding.progBar.setVisibility(View.GONE);
         binding.recViewDay.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        binding.recViewDay.setAdapter(new DayAdapter(this));
+       // binding.recViewDay.setAdapter(new DayAdapter(this));
         binding.recviehour.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         binding.recviehour.setAdapter(new HourAdapter(this));
         binding.recViewhourhour.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
