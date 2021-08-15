@@ -24,6 +24,7 @@ import com.alibenalihospital.databinding.ActivityServiceProcessBinding;
 import com.alibenalihospital.language.Language;
 import com.alibenalihospital.models.AllDepartmentModel;
 import com.alibenalihospital.models.AllOfferModel;
+import com.alibenalihospital.models.OfferDataModel;
 import com.alibenalihospital.models.SliderModel;
 import com.alibenalihospital.models.UserModel;
 import com.alibenalihospital.preferences.Preferences;
@@ -47,13 +48,13 @@ public class ServiceProcessActivity extends AppCompatActivity {
     private Preferences preferences;
     private UserModel userModel;
 
-    private SliderAdapter sliderAdapter;
-    private List<SliderModel> sliderModelList;
+//    private SliderAdapter sliderAdapter;
+//    private List<SliderModel> sliderModelList;
     private Timer timer;
     private TimerTask timerTask;
     private Dept2Adapter adapter;
     private List<AllDepartmentModel.DepartmentData> departmentDataList;
-    private List<AllOfferModel.OfferData> offerDataList;
+    private List<OfferDataModel.OfferData> offerDataList;
     private OfferAdapter offerAdapter;
 
     @Override
@@ -76,7 +77,7 @@ public class ServiceProcessActivity extends AppCompatActivity {
         Paper.init(this);
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setLang(lang);
-        sliderModelList = new ArrayList<>();
+        //sliderModelList = new ArrayList<>();
 
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
@@ -132,8 +133,10 @@ public class ServiceProcessActivity extends AppCompatActivity {
 //        }
 //    }
 
-    public void show() {
+    public void show(OfferDataModel.OfferData offerData) {
         Intent intent = new Intent(ServiceProcessActivity.this, OfferDetialsActivity.class);
+        intent.putExtra("offerid", offerData.getId()+"");
+
         startActivity(intent);
     }
 
@@ -143,21 +146,21 @@ public class ServiceProcessActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public class MyTask extends TimerTask {
-        @Override
-        public void run() {
-            runOnUiThread(() -> {
-                int current_page = binding.pager.getCurrentItem();
-                if (current_page < sliderAdapter.getCount() - 1) {
-                    binding.pager.setCurrentItem(binding.pager.getCurrentItem() + 1);
-                } else {
-                    binding.pager.setCurrentItem(0);
-
-                }
-            });
-
-        }
-    }
+//    public class MyTask extends TimerTask {
+//        @Override
+//        public void run() {
+//            runOnUiThread(() -> {
+//                int current_page = binding.pager.getCurrentItem();
+//                if (current_page < sliderAdapter.getCount() - 1) {
+//                    binding.pager.setCurrentItem(binding.pager.getCurrentItem() + 1);
+//                } else {
+//                    binding.pager.setCurrentItem(0);
+//
+//                }
+//            });
+//
+//        }
+//    }
 
     private void getOffers() {
         binding.tvNoData.setVisibility(View.GONE);

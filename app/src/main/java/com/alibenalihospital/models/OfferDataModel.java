@@ -26,7 +26,7 @@ public class OfferDataModel extends StatusResponse implements Serializable {
         private String  updated_at;
         private String title;
         private String details;
-        private List<Image> images;
+        private List<Images> images;
         private Clinic clinic;
         private FirstImage first_image;
         private List<Rate> rates;
@@ -92,7 +92,7 @@ public class OfferDataModel extends StatusResponse implements Serializable {
             return details;
         }
 
-        public List<Image> getImages() {
+        public List<Images> getImages() {
             return images;
         }
 
@@ -112,7 +112,7 @@ public class OfferDataModel extends StatusResponse implements Serializable {
             return available_date;
         }
 
-        private class Image{
+        public class Images implements Serializable{
             private int id;
             private int offer_id;
             private String image;
