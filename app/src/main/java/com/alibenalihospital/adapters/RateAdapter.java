@@ -13,17 +13,18 @@ import com.alibenalihospital.activities_fragments.activity_departments.Departmen
 import com.alibenalihospital.activities_fragments.activity_doctor_details.DoctorDetailsActivity;
 import com.alibenalihospital.databinding.DepartmentRowBinding;
 import com.alibenalihospital.databinding.RateRowBinding;
+import com.alibenalihospital.models.RateModel;
 
 import java.util.List;
 
 public class RateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Object> list;
+    private List<RateModel> list;
     private Context context;
     private LayoutInflater inflater;
     private DoctorDetailsActivity activity;
 
-    public RateAdapter(List<Object> list, Context context) {
+    public RateAdapter(List<RateModel> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);

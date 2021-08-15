@@ -17,11 +17,11 @@ import com.alibenalihospital.models.SliderModel;
 import java.util.List;
 
 public class SliderAdapter extends PagerAdapter {
-    private List<OfferDataModel.OfferData.Images> list;
+    private List<SliderModel> list;
     private Context context;
     private LayoutInflater inflater;
 
-    public SliderAdapter(List<OfferDataModel.OfferData.Images> list, Context context) {
+    public SliderAdapter(List<SliderModel> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);

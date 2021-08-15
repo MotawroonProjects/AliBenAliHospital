@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="model"
+            type="com.alibenalihospital.models.RateModel" />
+    </data>
     <androidx.cardview.widget.CardView
         android:layout_width="230dp"
         android:layout_height="wrap_content"
@@ -28,7 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/gray1"
-                    android:text="10/05/2021"
+                    android:text="@{model.created_at}"
                     android:textSize="12sp"
                     />
                 <Space
@@ -44,6 +49,7 @@
                     app:srb_starBackgroundColor="@color/gray5"
                     app:srb_starBorderWidth="1"
                     app:srb_starSize="13dp"
+rate="@{model.rate}"
                     app:srb_starsSeparation="3dp"
                     app:srb_borderColor="@color/gray5"
                     app:srb_fillColor="@color/rate_color"
@@ -58,7 +64,7 @@
                 android:textColor="@color/black"
                 android:layout_marginTop="8dp"
                 android:textSize="15sp"
-                android:text="Name"
+                android:text="@{model.user.name}"
                 android:singleLine="true"/>
 
             <TextView
@@ -67,7 +73,7 @@
                 android:textColor="@color/black"
                 android:layout_marginTop="8dp"
                 android:textSize="13sp"
-                android:text="ممتاز"
+                android:text="@{model.title}"
                 android:lines="3"
                 android:ellipsize="end"
                 />

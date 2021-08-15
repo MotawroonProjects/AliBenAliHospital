@@ -3,7 +3,6 @@ package com.alibenalihospital.activities_fragments.activity_offer_detials;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,24 +10,20 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibenalihospital.R;
 import com.alibenalihospital.activities_fragments.activity_complete_reservision.CompleteReservisionActivityActivity;
-import com.alibenalihospital.activities_fragments.activity_service_process.ServiceProcessActivity;
 import com.alibenalihospital.adapters.DayAdapter;
 import com.alibenalihospital.adapters.HourAdapter;
 import com.alibenalihospital.adapters.RateAdapter;
 import com.alibenalihospital.adapters.SliderAdapter;
-import com.alibenalihospital.databinding.ActivityFavoriteBinding;
 import com.alibenalihospital.databinding.ActivityOfferDetialsBinding;
 import com.alibenalihospital.language.Language;
-import com.alibenalihospital.models.AllDepartmentModel;
 import com.alibenalihospital.models.OfferDataModel;
-import com.alibenalihospital.models.OfferDataModel;
+import com.alibenalihospital.models.RateModel;
 import com.alibenalihospital.models.SliderModel;
 import com.alibenalihospital.models.UserModel;
 import com.alibenalihospital.preferences.Preferences;
@@ -52,12 +47,13 @@ public class OfferDetialsActivity extends AppCompatActivity {
     private Preferences preferences;
     private UserModel userModel;
     private SliderAdapter sliderAdapter;
-    private List<OfferDataModel.OfferData.Images> sliderModelList;
+    private List<SliderModel> sliderModelList;
     private Timer timer;
     private TimerTask timerTask;
     private RateAdapter adapter;
-    private List<Object> list;
-private String offerid;
+    private List<RateModel> rateModelList;
+    private String offerid;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -71,6 +67,7 @@ private String offerid;
         getDataFromIntent();
         initView();
     }
+
     private void getDataFromIntent() {
         Intent intent = getIntent();
         if (intent != null) {
@@ -81,7 +78,7 @@ private String offerid;
     }
 
     private void initView() {
-        list = new ArrayList<>();
+        rateModelList = new ArrayList<>();
         Paper.init(this);
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setLang(lang);
@@ -94,19 +91,18 @@ private String offerid;
         binding.setLang(lang);
 
 
-
         binding.llBack.setOnClickListener(view -> finish());
         binding.btnAsk.setOnClickListener(v -> openSheet());
         binding.flSheet.setOnClickListener(v -> closeSheet());
         binding.progBar.setVisibility(View.GONE);
-        binding.recViewSpecialization.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        binding.recViewSpecialization.setAdapter(new DayAdapter(this));
+        binding.recViewDay.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        binding.recViewDay.setAdapter(new DayAdapter(this));
         binding.recviehour.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         binding.recviehour.setAdapter(new HourAdapter(this));
         binding.recViewhourhour.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         binding.recViewhourhour.setAdapter(new HourAdapter(this));
         binding.recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        adapter = new RateAdapter(list, this);
+        adapter = new RateAdapter(rateModelList, this);
         binding.recView.setAdapter(adapter);
         binding.progBar.setVisibility(View.GONE);
         binding.progBarSlider.setVisibility(View.GONE);
@@ -177,7 +173,7 @@ private String offerid;
 
     }
 
-    private void updateSliderUi(List<OfferDataModel.OfferData.Images> data) {
+    private void updateSliderUi(List<SliderModel> data) {
         if (data.size() > 0) {
             sliderModelList.addAll(data);
             sliderAdapter = new SliderAdapter(sliderModelList, this);
@@ -221,14 +217,15 @@ private String offerid;
 
         }
     }
+
     private void getSingleoffer() {
-        String userid=null;
-        if(userModel!=null){
-            userid=userModel.getUser().getId()+"";
+        String userid = null;
+        if (userModel != null) {
+            userid = userModel.getUser().getId() + "";
         }
-       
+
         Api.getService(Tags.base_url)
-                .getSingleOffer(lang, offerid,userid)
+                .getSingleOffer(lang, offerid, userid)
                 .enqueue(new Callback<OfferDataModel>() {
                     @Override
                     public void onResponse(Call<OfferDataModel> call, Response<OfferDataModel> response) {
@@ -237,7 +234,7 @@ private String offerid;
 
                             if (response.body() != null && response.body().getStatus() == 200) {
                                 if (response.body().getData() != null) {
-                                  updatedata(response.body().getData());
+                                    updatedata(response.body().getData());
                                 }
                             } else {
 
@@ -270,7 +267,7 @@ private String offerid;
                     @Override
                     public void onFailure(Call<OfferDataModel> call, Throwable t) {
                         try {
-                           
+
 //                            binding.arrow.setVisibility(View.VISIBLE);
 //
 //                            binding.progBar.setVisibility(View.GONE);
@@ -296,7 +293,14 @@ private String offerid;
         binding.setModel(data);
         updateSliderUi(data.getImages());
         binding.progBarSlider.setVisibility(View.GONE);
-
+        if (data.getRates() != null && data.getRates().size() > 0) {
+            binding.tvNoData.setVisibility(View.VISIBLE);
+            rateModelList.clear();
+            rateModelList.addAll(data.getRates());
+            adapter.notifyDataSetChanged();
+        } else {
+            binding.tvNoData.setVisibility(View.VISIBLE);
+        }
     }
 
 }

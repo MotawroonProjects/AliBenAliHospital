@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class RateModel implements Serializable {
     private int id;
-    private int rate;
+    private float rate;
     private int doctor_id;
     private String offer_id;
     private int user_id;
@@ -17,7 +17,7 @@ public class RateModel implements Serializable {
         return id;
     }
 
-    public int getRate() {
+    public float getRate() {
         return rate;
     }
 
