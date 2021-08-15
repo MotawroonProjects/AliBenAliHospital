@@ -26,11 +26,11 @@ public class OfferDataModel extends StatusResponse implements Serializable {
         private String  updated_at;
         private String title;
         private String details;
-        private List<Images> images;
+        private List<SliderModel> images;
         private Clinic clinic;
         private FirstImage first_image;
-        private List<Rate> rates;
-        private List<AvailableDate> available_date;
+        private List<RateModel> rates;
+        private List<AvailbleDateModel> available_date;
 
         public int getId() {
             return id;
@@ -92,7 +92,7 @@ public class OfferDataModel extends StatusResponse implements Serializable {
             return details;
         }
 
-        public List<Images> getImages() {
+        public List<SliderModel> getImages() {
             return images;
         }
 
@@ -104,41 +104,15 @@ public class OfferDataModel extends StatusResponse implements Serializable {
             return first_image;
         }
 
-        public List<Rate> getRates() {
+        public List<RateModel> getRates() {
             return rates;
         }
 
-        public List<AvailableDate> getAvailable_date() {
+        public List<AvailbleDateModel> getAvailable_date() {
             return available_date;
         }
 
-        public class Images implements Serializable{
-            private int id;
-            private int offer_id;
-            private String image;
-            private String created_at;
-            private String updated_at;
 
-            public int getId() {
-                return id;
-            }
-
-            public int getOffer_id() {
-                return offer_id;
-            }
-
-            public String getImage() {
-                return image;
-            }
-
-            public String getCreated_at() {
-                return created_at;
-            }
-
-            public String getUpdated_at() {
-                return updated_at;
-            }
-        }
 
         public class Clinic{
             private int id;
@@ -208,131 +182,9 @@ public class OfferDataModel extends StatusResponse implements Serializable {
 
 
 
-        public class Rate{
-            private int id;
-            private int rate;
-            private String doctor_id;
-            private int offer_id;
-            private int user_id;
-            private String title;
-            private String created_at;
-            private String updated_at;
-            private UserModel.User user;
-
-            public int getId() {
-                return id;
-            }
-
-            public int getRate() {
-                return rate;
-            }
-
-            public String getDoctor_id() {
-                return doctor_id;
-            }
-
-            public int getOffer_id() {
-                return offer_id;
-            }
-
-            public int getUser_id() {
-                return user_id;
-            }
-
-            public String getTitle() {
-                return title;
-            }
-
-            public String getCreated_at() {
-                return created_at;
-            }
-
-            public String getUpdated_at() {
-                return updated_at;
-            }
-
-            public UserModel.User getUser() {
-                return user;
-            }
-        }
 
 
-        public class AvailableDate{
-            private int id;
-            private String doctor_id;
-            private int offer_id;
-            private String date;
-            private String is_reserved;
-            private String created_at;
-            private String updated_at;
-            private List<AvailableHour> available_hour;
 
-            public int getId() {
-                return id;
-            }
-
-            public String getDoctor_id() {
-                return doctor_id;
-            }
-
-            public int getOffer_id() {
-                return offer_id;
-            }
-
-            public String getDate() {
-                return date;
-            }
-
-            public String getIs_reserved() {
-                return is_reserved;
-            }
-
-            public String getCreated_at() {
-                return created_at;
-            }
-
-            public String getUpdated_at() {
-                return updated_at;
-            }
-
-            public List<AvailableHour> getAvailable_hour() {
-                return available_hour;
-            }
-
-            public class AvailableHour{
-                private int id;
-                private int date_id;
-                private String hour;
-                private String is_reserved;
-                private String created_at;
-                private String updated_at;
-
-                public int getId() {
-                    return id;
-                }
-
-                public int getDate_id() {
-                    return date_id;
-                }
-
-                public String getHour() {
-                    return hour;
-                }
-
-                public String getIs_reserved() {
-                    return is_reserved;
-                }
-
-                public String getCreated_at() {
-                    return created_at;
-                }
-
-                public String getUpdated_at() {
-                    return updated_at;
-                }
-            }
-
-        }
     }
 
 }
