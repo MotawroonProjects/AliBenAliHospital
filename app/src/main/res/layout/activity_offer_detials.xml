@@ -8,7 +8,9 @@
         <variable
             name="lang"
             type="String" />
-
+<variable
+    name="model"
+    type="com.alibenalihospital.models.OfferDataModel.OfferData" />
         <variable
             name="backListener"
             type="com.alibenalihospital.interfaces.Listeners.BackListener" />
@@ -121,6 +123,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="20dp"
                             android:layout_marginBottom="40dp"
+                            android:visibility="gone"
                             app:cardBackgroundColor="@color/transparent"
                             app:cardCornerRadius="90dp"
                             app:cardElevation="4dp"
@@ -164,9 +167,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
-                                    android:layout_marginStart="100dp"
+                                    android:layout_marginStart="5dp"
                                     android:layout_marginEnd="5dp"
-                                    android:text="محمد"
+                                    android:text="@{model.title}"
                                     android:textColor="@color/black"
                                     android:textSize="16sp"
                                     app:layout_constraintBottom_toTopOf="@+id/ll"
@@ -190,7 +193,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
 
-                                        android:text="4.7"
+                                        android:text='@{model.rate+""}'
                                         android:textColor="@color/colorAccent"
                                         android:textSize="16sp"
 
@@ -214,7 +217,7 @@
                                         android:layout_gravity="center"
                                         android:padding="3dp"
                                         android:src="@drawable/ic_star"
-                                        android:tint="@color/rate_color" />
+                                        app:tint="@color/rate_color" />
 
                                 </LinearLayout>
 
@@ -233,8 +236,9 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="20dp"
-                                        android:text="عرض لعملية تجميل الاسنان"
                                         android:textColor="@color/black"
+                                        android:text="@{model.details}"
+                                        android:visibility="gone"
                                         android:textSize="14sp" />
 
                                     <LinearLayout
@@ -277,7 +281,7 @@
                                                 android:layout_gravity="end"
                                                 android:background="@drawable/rounded_primary"
                                                 android:padding="5dp"
-                                                android:text="-30%"
+                                                android:text='@{model.offer+""}'
                                                 android:textColor="@color/white"
                                                 android:textSize="13sp" />
 
@@ -337,7 +341,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
-                                android:text="حشو الأسنان هو إجراء يتم فيه إزالة الجزء التالف أو المسوس من السن ويتم ملء المنطقة بمادة بديلة للحماية من أي ضرر إضافي واستعادة مظهر ووظيفة السن."
+                                android:text="@{model.details}"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 
@@ -350,6 +354,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         app:cardBackgroundColor="@color/white"
+                        android:visibility="gone"
                         app:cardCornerRadius="5dp"
                         app:cardElevation="2dp"
                         app:contentPadding="8dp">
@@ -572,11 +577,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
-                        <ProgressBar
-                            android:id="@+id/progBarSpecialization"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center" />
 
                         <TextView
                             android:layout_width="wrap_content"

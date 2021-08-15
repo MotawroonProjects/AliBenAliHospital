@@ -65,7 +65,7 @@ public class OfferAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onClick(View v) {
         if(context instanceof ServiceProcessActivity){
         ServiceProcessActivity serviceProcessActivity=(ServiceProcessActivity)context;
-        serviceProcessActivity.show();}
+        serviceProcessActivity.show(list.get(holder.getLayoutPosition()));}
         else {
             OffersActivity serviceProcessActivity=(OffersActivity) context;
             serviceProcessActivity.show();

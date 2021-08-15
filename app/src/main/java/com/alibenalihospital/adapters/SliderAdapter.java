@@ -11,16 +11,17 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.alibenalihospital.R;
 import com.alibenalihospital.databinding.SliderRowBinding;
+import com.alibenalihospital.models.OfferDataModel;
 import com.alibenalihospital.models.SliderModel;
 
 import java.util.List;
 
 public class SliderAdapter extends PagerAdapter {
-    private List<SliderModel> list;
+    private List<OfferDataModel.OfferData.Images> list;
     private Context context;
     private LayoutInflater inflater;
 
-    public SliderAdapter(List<SliderModel> list, Context context) {
+    public SliderAdapter(List<OfferDataModel.OfferData.Images> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);

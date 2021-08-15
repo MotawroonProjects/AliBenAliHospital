@@ -108,19 +108,19 @@ public class Fragment_Home extends Fragment {
 
 
     private void updateSliderUi(List<SliderModel> data) {
-        if (data.size()>0){
-            sliderModelList.addAll(data);
-            sliderAdapter = new SliderAdapter(sliderModelList,activity);
-            binding.pager.setAdapter(sliderAdapter);
-
-            if (data.size()>1){
-                timer = new Timer();
-                timerTask = new MyTask();
-                timer.scheduleAtFixedRate(timerTask, 6000, 6000);
-            }
-        }else {
-            binding.pager.setVisibility(View.GONE);
-        }
+//        if (data.size()>0){
+//            sliderModelList.addAll(data);
+//            sliderAdapter = new SliderAdapter(sliderModelList,activity);
+//            binding.pager.setAdapter(sliderAdapter);
+//
+//            if (data.size()>1){
+//                timer = new Timer();
+//                timerTask = new MyTask();
+//                timer.scheduleAtFixedRate(timerTask, 6000, 6000);
+//            }
+//        }else {
+//            binding.pager.setVisibility(View.GONE);
+//        }
     }
 
     public class MyTask extends TimerTask {
