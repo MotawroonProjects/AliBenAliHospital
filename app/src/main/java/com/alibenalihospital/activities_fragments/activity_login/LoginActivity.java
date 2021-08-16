@@ -115,7 +115,8 @@ public class LoginActivity extends AppCompatActivity {
                             if (response.body().getStatus() == 200) {
                                 preferences.create_update_userdata(LoginActivity.this, response.body());
                                 preferences.create_update_session(LoginActivity.this, Tags.session_login);
-                                navigateToHomeActivity();
+                                setResult(RESULT_OK);
+                                finish();
 
                             } else if (response.body().getStatus() == 404) {
                                 Toast.makeText(LoginActivity.this, getResources().getString(R.string.incorrect_phone_pass), Toast.LENGTH_LONG).show();

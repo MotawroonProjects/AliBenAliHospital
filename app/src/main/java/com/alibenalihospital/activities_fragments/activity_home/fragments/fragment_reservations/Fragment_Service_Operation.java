@@ -91,6 +91,8 @@ public class Fragment_Service_Operation extends Fragment implements Listeners.Re
     }
 
     private void getData() {
+        userModel = preferences.getUserData(activity);
+
         binding.progBar.setVisibility(View.VISIBLE);
         binding.tvNoData.setVisibility(View.GONE);
         list.clear();
