@@ -130,4 +130,8 @@ public class ReservationOfferModel implements Serializable {
     public DateModel getDate() {
         return date;
     }
+
+    public void setIs_deleted(String is_deleted) {
+        this.is_deleted = is_deleted;
+    }
 }
