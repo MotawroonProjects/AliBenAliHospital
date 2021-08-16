@@ -2,6 +2,8 @@ package com.alibenalihospital.interfaces;
 
 
 import com.alibenalihospital.models.DoctorModel;
+import com.alibenalihospital.models.ReservationModel;
+import com.alibenalihospital.models.ReservationOfferModel;
 
 public interface Listeners {
 
@@ -12,6 +14,16 @@ public interface Listeners {
     interface FavListener{
         void setDoctorData(DoctorModel model);
         void unFav(DoctorModel model,int pos);
+
+    }
+
+    interface ReservationListener{
+        void setReservationData(ReservationModel model,int pos,int type);
+
+    }
+
+    interface ReservationOfferListener{
+        void setReservationData(ReservationOfferModel model, int pos, int type);
 
     }
 

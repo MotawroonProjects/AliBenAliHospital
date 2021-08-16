@@ -159,5 +159,7 @@
     <string name="ryal"> ريال </string>
     <string name="offers">العروض</string>
     <string name="about">*نبذة مختصرة</string>
+    <string name="change">تغيير</string>
+    <string name="canceled">تم الالغاء</string>
 
 </resources>

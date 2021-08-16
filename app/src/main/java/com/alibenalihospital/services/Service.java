@@ -8,6 +8,8 @@ import com.alibenalihospital.models.NotificationDataModel;
 import com.alibenalihospital.models.OfferDataModel;
 import com.alibenalihospital.models.PlaceGeocodeData;
 import com.alibenalihospital.models.PlaceMapDetailsData;
+import com.alibenalihospital.models.ReservationDataModel;
+import com.alibenalihospital.models.ReservationOfferDataModel;
 import com.alibenalihospital.models.SliderDataModel;
 import com.alibenalihospital.models.SettingModel;
 import com.alibenalihospital.models.StatusResponse;
@@ -118,6 +120,27 @@ public interface Service {
 
 
     );
+
+
+    @GET("api/my_reservations")
+    Call<ReservationDataModel> myReservation(@Header("language") String language,
+                                             @Query("user_id") String user_id
+
+    );
+
+    @GET("api/my_offer_reservations")
+    Call<ReservationOfferDataModel> myReservationOffer(@Header("language") String language,
+                                                       @Query("user_id") String user_id
+
+    );
+
+    @GET("api/delete_reservation")
+    Call<StatusResponse> deleteReservation(@Header("language") String language,
+                                           @Query("reservation_id") String reservation_id
+
+    );
+
+
 
 
 }

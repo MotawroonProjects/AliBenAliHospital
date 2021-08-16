@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -72,8 +74,9 @@ public class Fragment_More extends Fragment implements Listeners.SettingAction {
 
     @Override
     public void onFavorite() {
-        Intent intent = new Intent(activity, FavoriteActivity.class);
-        startActivity(intent);
+       /* Intent intent = new Intent(activity, FavoriteActivity.class);
+        startActivity(intent);*/
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
 
     @Override

@@ -159,6 +159,8 @@
     <string name="ryal"> Ryal </string>
     <string name="offers">Offers</string>
     <string name="about">*About</string>
+    <string name="change">Change</string>
+    <string name="canceled">Canceled</string>
 
 
 </resources>
