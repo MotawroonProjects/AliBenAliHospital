@@ -193,11 +193,9 @@ public class Fragment_Service_Operation extends Fragment implements Listeners.Re
                         dialog.dismiss();
                         if (response.isSuccessful() && response.body() != null) {
                             if (response.body().getStatus() == 200) {
-                                list.remove(pos);
-                                adapter.notifyItemRemoved(pos);
-                                if (list.size() == 0) {
-                                    binding.tvNoData.setVisibility(View.VISIBLE);
-                                }
+                                model.setIs_deleted("yes");
+                                list.set(pos, model);
+                                adapter.notifyItemChanged(pos);
                             }
 
                         } else {

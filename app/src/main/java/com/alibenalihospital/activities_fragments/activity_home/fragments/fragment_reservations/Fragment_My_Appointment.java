@@ -163,7 +163,6 @@ public class Fragment_My_Appointment extends Fragment implements Listeners.Reser
                 });
     }
 
-
     @Override
     public void setReservationData(ReservationModel model, int pos, int type) {
         if (type==1){
@@ -175,6 +174,7 @@ public class Fragment_My_Appointment extends Fragment implements Listeners.Reser
         }
 
     }
+
     private void show(ReservationModel model) {
 
     }
@@ -193,11 +193,9 @@ public class Fragment_My_Appointment extends Fragment implements Listeners.Reser
                         dialog.dismiss();
                         if (response.isSuccessful() && response.body() != null) {
                             if (response.body().getStatus() == 200) {
-                                list.remove(pos);
-                                adapter.notifyItemRemoved(pos);
-                                if (list.size()==0){
-                                    binding.tvNoData.setVisibility(View.VISIBLE);
-                                }
+                                model.setIs_deleted("yes");
+                                list.set(pos, model);
+                                adapter.notifyItemChanged(pos);
                             }
 
                         } else {
