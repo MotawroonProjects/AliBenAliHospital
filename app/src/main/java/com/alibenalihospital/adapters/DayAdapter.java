@@ -1,5 +1,6 @@
 package com.alibenalihospital.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -13,24 +14,28 @@ import com.alibenalihospital.activities_fragments.activity_departments.Departmen
 import com.alibenalihospital.activities_fragments.activity_offer_detials.OfferDetialsActivity;
 import com.alibenalihospital.databinding.DayRowBinding;
 import com.alibenalihospital.databinding.Department2RowBinding;
+import com.alibenalihospital.models.AvailableDateModel;
+import com.alibenalihospital.models.RateModel;
 
 import java.util.List;
 
 public class DayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Object> list;
+    private List<AvailableDateModel> list;
     private Context context;
     private LayoutInflater inflater;
     private OfferDetialsActivity activity;
     private int i=-1;
 
-    public DayAdapter(Context context) {
+
+    public DayAdapter(List<AvailableDateModel> list, Context context) {
+        this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
-        activity = (OfferDetialsActivity) context;
+        // activity = (DoctorDetailsActivity) context;
+
 
     }
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -24,9 +24,12 @@ import com.alibenalihospital.activities_fragments.activity_service_process.Servi
 import com.alibenalihospital.adapters.SliderAdapter;
 import com.alibenalihospital.databinding.FragmentHomeBinding;
 
+import com.alibenalihospital.models.SliderDataModel;
 import com.alibenalihospital.models.SliderModel;
 import com.alibenalihospital.models.UserModel;
 import com.alibenalihospital.preferences.Preferences;
+import com.alibenalihospital.remote.Api;
+import com.alibenalihospital.tags.Tags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +85,7 @@ public class Fragment_Home extends Fragment {
             startActivity(intent);
         });
         binding.cardViewReserveClinic.setOnClickListener(v -> {
-           navigateToDepartmentActivity(1);
+            navigateToDepartmentActivity(1);
         });
 
         binding.cardViewOnlineBooking.setOnClickListener(v -> {
@@ -97,7 +100,7 @@ public class Fragment_Home extends Fragment {
             navigateToDepartmentActivity(4);
         });
 
-
+        getSlider();
     }
 
     private void navigateToDepartmentActivity(int type) {
@@ -107,20 +110,66 @@ public class Fragment_Home extends Fragment {
     }
 
 
+    private void getSlider() {
+        Api.getService(Tags.base_url)
+                .getSlider()
+                .enqueue(new Callback<SliderDataModel>() {
+                    @Override
+                    public void onResponse(Call<SliderDataModel> call, Response<SliderDataModel> response) {
+                        binding.progBarSlider.setVisibility(View.GONE);
+                        if (response.isSuccessful() && response.body() != null && response.body().getStatus() == 200) {
+
+                            if (response.body().getData().size() > 0) {
+                                updateSliderUi(response.body().getData());
+
+                            } else {
+
+                                binding.flslider.setVisibility(View.GONE);
+                                binding.progBarSlider.setVisibility(View.GONE);
+                            }
+
+                        } else {
+
+                            binding.flslider.setVisibility(View.GONE);
+                            binding.progBarSlider.setVisibility(View.GONE);
+
+
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<SliderDataModel> call, Throwable t) {
+                        try {
+                            Log.e("error", t.getMessage() + "__");
+                            binding.flslider.setVisibility(View.GONE);
+                            binding.progBarSlider.setVisibility(View.GONE);
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
+    }
+
+
     private void updateSliderUi(List<SliderModel> data) {
-//        if (data.size()>0){
-//            sliderModelList.addAll(data);
-//            sliderAdapter = new SliderAdapter(sliderModelList,activity);
-//            binding.pager.setAdapter(sliderAdapter);
-//
-//            if (data.size()>1){
-//                timer = new Timer();
-//                timerTask = new MyTask();
-//                timer.scheduleAtFixedRate(timerTask, 6000, 6000);
-//            }
-//        }else {
-//            binding.pager.setVisibility(View.GONE);
-//        }
+        sliderModelList.clear();
+        sliderModelList.addAll(data);
+        sliderAdapter = new SliderAdapter(sliderModelList, activity);
+        binding.pager.setAdapter(sliderAdapter);
+        binding.pager.setClipToPadding(false);
+        binding.pager.setPadding(90, 8, 90, 8);
+        binding.pager.setPageMargin(24);
+        binding.pager.setOffscreenPageLimit(sliderModelList.size());
+        binding.flslider.setVisibility(View.VISIBLE);
+        binding.pager.setVisibility(View.VISIBLE);
+
+        if (data.size() > 1) {
+            timer = new Timer();
+            timerTask = new MyTask();
+            timer.scheduleAtFixedRate(timerTask, 6000, 6000);
+        }
     }
 
     public class MyTask extends TimerTask {
@@ -138,7 +187,6 @@ public class Fragment_Home extends Fragment {
 
         }
     }
-
 
 
     @Override

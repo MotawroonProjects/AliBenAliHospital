@@ -93,7 +93,7 @@
                         <FrameLayout
                             android:id="@+id/imageTop"
                             android:layout_width="match_parent"
-                            android:layout_height="140dp"
+                            android:layout_height="200dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
@@ -102,7 +102,7 @@
                             <androidx.viewpager.widget.ViewPager
                                 android:id="@+id/pager"
                                 android:layout_width="match_parent"
-                                android:layout_height="140dp"
+                                android:layout_height="200dp"
 
                                 />
 
@@ -121,7 +121,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical|start"
                             android:layout_marginStart="20dp"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="40dp"
                             android:layout_marginBottom="40dp"
                             android:visibility="gone"
                             app:cardBackgroundColor="@color/transparent"
@@ -146,7 +146,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="6dp"
-                            android:layout_marginTop="120dp"
+                            android:layout_marginTop="200dp"
                             android:layout_marginEnd="6dp"
                             app:cardBackgroundColor="@color/white"
                             app:cardCornerRadius="10dp"
@@ -281,7 +281,7 @@
                                                 android:layout_gravity="end"
                                                 android:background="@drawable/rounded_primary"
                                                 android:padding="5dp"
-                                                android:text='@{model.offer+""}'
+                                                android:text='@{model.offer+"%"}'
                                                 android:textColor="@color/white"
                                                 android:textSize="13sp" />
 

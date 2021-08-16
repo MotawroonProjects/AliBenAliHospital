@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
@@ -25,13 +24,14 @@ android {
                 enabled true
             }
 
-    compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
-    }
+
     repositories {
         maven { url "https://jitpack.io" }
 
+    }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -77,3 +77,4 @@ dependencies {
 
 
 }
+apply plugin: 'com.google.gms.google-services'

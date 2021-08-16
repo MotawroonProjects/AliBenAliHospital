@@ -114,6 +114,12 @@ public class OfferDetialsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        binding.llBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         getSingleoffer();
 
     }
@@ -294,7 +300,7 @@ public class OfferDetialsActivity extends AppCompatActivity {
         updateSliderUi(data.getImages());
         binding.progBarSlider.setVisibility(View.GONE);
         if (data.getRates() != null && data.getRates().size() > 0) {
-            binding.tvNoData.setVisibility(View.VISIBLE);
+            binding.tvNoData.setVisibility(View.GONE);
             rateModelList.clear();
             rateModelList.addAll(data.getRates());
             adapter.notifyDataSetChanged();

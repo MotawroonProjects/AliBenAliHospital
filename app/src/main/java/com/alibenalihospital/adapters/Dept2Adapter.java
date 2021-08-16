@@ -28,7 +28,7 @@ public class Dept2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
-        activity = (ServiceProcessActivity) context ;
+        activity = (ServiceProcessActivity) context;
 
     }
 
@@ -47,7 +47,7 @@ public class Dept2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         MyHolder myHolder = (MyHolder) holder;
-myHolder.binding.setModel(list.get(position));
+        myHolder.binding.setModel(list.get(position));
         myHolder.itemView.setOnClickListener(v -> {
             activity.setItemData(list.get(holder.getLayoutPosition()));
         });

@@ -75,6 +75,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <FrameLayout
+                    android:id="@+id/flslider"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:layout_marginTop="8dp"

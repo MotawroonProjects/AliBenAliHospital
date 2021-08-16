@@ -7,6 +7,9 @@
         <variable
             name="lang"
             type="String" />
+        <variable
+            name="model"
+            type="com.alibenalihospital.models.AvailableDateModel" />
 
     </data>
 
@@ -31,7 +34,6 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="يونيو"
                 android:textColor="@color/gray1"
                 android:textSize="15sp" />
 

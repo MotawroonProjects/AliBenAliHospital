@@ -120,6 +120,13 @@ public interface Service {
 
 
     );
+    @GET("api/slider")
+    Call<SliderDataModel> getSlider();
+    @GET("api/search_department")
+    Call<AllDepartmentModel> searchDepartments(@Header("language") String language,
+                                         @Query("name") String name
+
+    );
 
 
     @GET("api/my_reservations")
