@@ -79,17 +79,15 @@ public class DepartmentsActivity extends AppCompatActivity {
 
                 break;
             case 3:
-                title = getString(R.string.home_visit);
-
-                break;
-            case 4:
-                title = getString(R.string.foreign_consultant);
-
-                break;
             case 5:
                 title = getString(R.string.departments);
 
                 break;
+            case 4:
+                title = getString(R.string.doctors);
+
+                break;
+
             default:
                 title = getString(R.string.reserve_clinic);
                 break;

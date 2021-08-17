@@ -98,15 +98,16 @@ public class Fragment_More extends Fragment implements Listeners.SettingAction {
 
     @Override
     public void onEditProfile() {
+        request = 2;
         Intent intent = new Intent(activity, SignUpActivity.class);
-        startActivityForResult(intent, 200);
+        launcher.launch(intent);
     }
 
     @Override
     public void onLanguageSetting() {
-        request = 2;
+        request = 3;
         Intent intent = new Intent(activity, LanguageActivity.class);
-        startActivityForResult(intent, 300);
+        launcher.launch(intent);
     }
 
     @Override
@@ -169,7 +170,7 @@ public class Fragment_More extends Fragment implements Listeners.SettingAction {
                     if (userModel != null) {
                         binding.tvLogin.setText(getResources().getString(R.string.logout));
                     }
-                } else if (request == 2 && result.getData() != null) {
+                } else if (request == 3 && result.getData() != null) {
                     String lang = result.getData().getStringExtra("lang");
                     activity.refreshActivity(lang);
                 }
