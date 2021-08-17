@@ -107,10 +107,11 @@ public interface Service {
 
     );
 
-    @GET("api/favourite_doctor")
+    @FormUrlEncoded
+    @POST("api/favourite_doctor")
     Call<StatusResponse> fav_un_fav(@Header("language") String language,
-                                    @Query("user_id") String user_id,
-                                    @Query("doctor_id") String doctor_id
+                                    @Field("user_id") String user_id,
+                                    @Field("doctor_id") String doctor_id
 
 
     );

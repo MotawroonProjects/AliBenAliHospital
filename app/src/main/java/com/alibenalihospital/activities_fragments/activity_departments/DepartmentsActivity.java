@@ -85,7 +85,6 @@ public class DepartmentsActivity extends AppCompatActivity {
                 break;
             case 4:
                 title = getString(R.string.doctors);
-
                 break;
 
             default:
