@@ -159,7 +159,7 @@ public class Fragment_Home extends Fragment {
         sliderAdapter = new SliderAdapter(sliderModelList, activity);
         binding.pager.setAdapter(sliderAdapter);
         binding.pager.setClipToPadding(false);
-        binding.pager.setPadding(90, 8, 90, 8);
+        binding.pager.setPadding(20, 8, 20, 8);
         binding.pager.setPageMargin(24);
         binding.pager.setOffscreenPageLimit(sliderModelList.size());
         binding.flslider.setVisibility(View.VISIBLE);

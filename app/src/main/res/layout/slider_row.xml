@@ -1,4 +1,5 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,20 +10,21 @@
 
     </data>
 
-    <FrameLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        app:cardCornerRadius="10dp"
+       >
 
-        >
-
-        <ImageView
+        <com.github.siyamed.shapeimageview.RoundedImageView
             android:id="@+id/iv_auto_image_slider"
+            image="@{sliderData}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            image="@{sliderData}"
-            android:src="@drawable/img1"
+
+            app:riv_corner_radius="20dp"
+
             />
 
 
@@ -53,5 +55,5 @@
 
         <!--    </FrameLayout>-->
 
-    </FrameLayout>
+    </androidx.cardview.widget.CardView>
 </layout>
