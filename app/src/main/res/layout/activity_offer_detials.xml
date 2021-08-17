@@ -8,14 +8,15 @@
         <variable
             name="lang"
             type="String" />
-<variable
-    name="model"
-    type="com.alibenalihospital.models.OfferDataModel.OfferData" />
+
+        <variable
+            name="model"
+            type="com.alibenalihospital.models.OfferDataModel.OfferData" />
+
         <variable
             name="backListener"
             type="com.alibenalihospital.interfaces.Listeners.BackListener" />
     </data>
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -236,10 +237,10 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="20dp"
-                                        android:textColor="@color/black"
                                         android:text="@{model.details}"
-                                        android:visibility="gone"
-                                        android:textSize="14sp" />
+                                        android:textColor="@color/black"
+                                        android:textSize="14sp"
+                                        android:visibility="gone" />
 
                                     <LinearLayout
                                         android:layout_width="match_parent"
@@ -353,8 +354,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        app:cardBackgroundColor="@color/white"
                         android:visibility="gone"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="5dp"
                         app:cardElevation="2dp"
                         app:contentPadding="8dp">
@@ -506,8 +507,7 @@
             android:background="@color/book_trans"
             android:clickable="true"
             android:focusable="true"
-            android:visibility="gone"
-           >
+            android:visibility="gone">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -685,18 +685,20 @@
                             </FrameLayout>
                         </LinearLayout>
                     </net.cachapa.expandablelayout.ExpandableLayout>
+
                     <Button
                         android:id="@+id/btnresev"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorPrimary"
-                        android:visibility="gone"
                         android:text="@string/confirm_appoinment_reserv"
                         android:textColor="@color/white"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:visibility="gone" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </FrameLayout>
     </FrameLayout>
+
 </layout>

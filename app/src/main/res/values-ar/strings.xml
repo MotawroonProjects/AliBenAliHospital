@@ -161,5 +161,10 @@
     <string name="about">*نبذة مختصرة</string>
     <string name="change">تغيير</string>
     <string name="canceled">تم الالغاء</string>
+    <string name="complete_request">إكمال الطلب</string>
+    <string name="call_method">نوع المكالمة</string>
+    <string name="additional_notes">معلومات اضافية(إختياري)</string>
+    <string name="age">العمر</string>
+    <string name="log_sign_up">قم بتسجيل الدخول او إنشاء حساب جديد</string>
 
 </resources>

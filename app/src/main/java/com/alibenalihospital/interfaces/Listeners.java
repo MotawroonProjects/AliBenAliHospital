@@ -1,7 +1,9 @@
 package com.alibenalihospital.interfaces;
 
 
+import com.alibenalihospital.models.DateModel;
 import com.alibenalihospital.models.DoctorModel;
+import com.alibenalihospital.models.HourModel;
 import com.alibenalihospital.models.ReservationModel;
 import com.alibenalihospital.models.ReservationOfferModel;
 
@@ -24,6 +26,16 @@ public interface Listeners {
 
     interface ReservationOfferListener{
         void setReservationData(ReservationOfferModel model, int pos, int type);
+
+    }
+
+    interface DateListener{
+        void setDate(DateModel dateModel);
+
+    }
+
+    interface HourListener{
+        void setHour(HourModel hourModel);
 
     }
 

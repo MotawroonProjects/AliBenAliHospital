@@ -1,5 +1,9 @@
 package com.alibenalihospital.activities_fragments.activity_doctor_details;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -15,17 +19,28 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import com.alibenalihospital.BuildConfig;
 import com.alibenalihospital.R;
+import com.alibenalihospital.activities_fragments.activity_create_reservation.CreateReservationActivity;
+import com.alibenalihospital.activities_fragments.activity_login.LoginActivity;
+import com.alibenalihospital.adapters.DayAdapter;
+import com.alibenalihospital.adapters.HourAdapter;
 import com.alibenalihospital.adapters.NotificationAdapter;
 import com.alibenalihospital.adapters.RateAdapter;
 import com.alibenalihospital.adapters.SingleDoctorModel;
 import com.alibenalihospital.databinding.ActivityDoctorDetailsBinding;
 import com.alibenalihospital.databinding.ActivityNotificationBinding;
+import com.alibenalihospital.interfaces.Listeners;
 import com.alibenalihospital.language.Language;
+import com.alibenalihospital.models.AddReservationModel;
+import com.alibenalihospital.models.DateModel;
 import com.alibenalihospital.models.DoctorModel;
 import com.alibenalihospital.models.DoctorsDataModel;
+import com.alibenalihospital.models.HourModel;
 import com.alibenalihospital.models.NotificationModel;
 import com.alibenalihospital.models.RateModel;
 import com.alibenalihospital.models.StatusResponse;
@@ -49,7 +64,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DoctorDetailsActivity extends AppCompatActivity {
+public class DoctorDetailsActivity extends AppCompatActivity implements Listeners.DateListener, Listeners.HourListener {
     private ActivityDoctorDetailsBinding binding;
     private String lang;
     private RateAdapter adapter;
@@ -59,7 +74,13 @@ public class DoctorDetailsActivity extends AppCompatActivity {
     private String doctor_id = "";
     private DoctorModel model;
     private boolean isFavChanged = false;
-
+    private Animation animation;
+    private List<DateModel> dateModelList;
+    private DayAdapter dayAdapter;
+    private DateModel selectedDate;
+    private HourModel selectedHourModel;
+    private ActivityResultLauncher<Intent> launcher;
+    private int req ;
 
 
     @Override
@@ -85,19 +106,20 @@ public class DoctorDetailsActivity extends AppCompatActivity {
             doctor_id = intent.getData().getLastPathSegment();
 
         }
+
+
     }
 
 
     private void initView() {
         list = new ArrayList<>();
-        Paper.init(this);
-        lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
+        dateModelList = new ArrayList<>();
         binding.setLang(lang);
         binding.setModel(model);
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
         Paper.init(this);
-        lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
+        lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
         binding.recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binding.llBack.setOnClickListener(view -> onBackPressed());
@@ -110,9 +132,89 @@ public class DoctorDetailsActivity extends AppCompatActivity {
             share();
         });
 
+        binding.btnConfirm.setOnClickListener(v -> {
+            openSheet();
+        });
+
+        binding.imageCloseSpecialization.setOnClickListener(v -> {
+            closeSheet();
+        });
+
+        binding.btnReserve.setOnClickListener(v -> {
+            userModel = preferences.getUserData(this);
+            if (userModel==null){
+                Toast.makeText(this, R.string.log_sign_up, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            req = 2;
+            step2();
+
+        });
+
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (req ==1&&result.getResultCode()==RESULT_OK){
+                step2();
+            }else if (req ==2&&result.getResultCode()==RESULT_OK){
+                finish();
+            }
+        });
+
         getDoctorById();
     }
 
+    private void step2() {
+        closeSheet();
+        AddReservationModel addReservationModel = new AddReservationModel(model,selectedDate,selectedHourModel,userModel.getUser().getName(),userModel.getUser().getPhone_code()+userModel.getUser().getPhone());
+        Intent intent = new Intent(this, CreateReservationActivity.class);
+        intent.putExtra("data", addReservationModel);
+        launcher.launch(intent);
+    }
+
+    private void openSheet(){
+        binding.flSheet.clearAnimation();
+        animation = AnimationUtils.loadAnimation(this,R.anim.slide_up);
+        binding.flSheet.startAnimation(animation);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                binding.flSheet.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+    }
+
+    private void closeSheet(){
+        binding.flSheet.clearAnimation();
+        animation = AnimationUtils.loadAnimation(this,R.anim.slide_down);
+        binding.flSheet.startAnimation(animation);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                binding.flSheet.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+    }
     private void share() {
         Picasso.get().load(Uri.parse(Tags.IMAGE_URL+model.getImage())).into(new Target() {
             @Override
@@ -310,13 +412,38 @@ public class DoctorDetailsActivity extends AppCompatActivity {
         list.addAll(model.getRates());
         adapter = new RateAdapter(list, this);
         binding.recView.setAdapter(adapter);
+
+        binding.recViewDay.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        dateModelList.addAll(model.getAvailable_date());
+        dayAdapter = new DayAdapter(dateModelList,this,this);
+        binding.recViewDay.setAdapter(dayAdapter);
+        binding.recViewHour.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
     }
 
     @Override
     public void onBackPressed() {
-        if (isFavChanged){
-            setResult(RESULT_OK);
+        if (binding.flSheet.getVisibility()==View.VISIBLE){
+            closeSheet();
+        }else {
+            if (isFavChanged){
+                setResult(RESULT_OK);
+            }
+            finish();
         }
-        finish();
+
+    }
+
+    @Override
+    public void setDate(DateModel dateModel) {
+        this.selectedDate = dateModel;
+        HourAdapter hourAdapter = new HourAdapter(this,dateModel.getAvailable_hour(),this);
+        binding.recViewHour.setAdapter(hourAdapter);
+        binding.expandHour.setExpanded(true);
+        binding.btnReserve.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void setHour(HourModel hourModel) {
+        this.selectedHourModel  =hourModel;
     }
 }

@@ -36,7 +36,7 @@ public class DoctorModel implements Serializable {
     private ClinicModel clinic;
     private CountryModel country;
     private List<RateModel> rates;
-    private List<AvailableDateModel> available_date;
+    private List<DateModel> available_date;
     private List<CvModel> cv;
 
 
@@ -168,7 +168,7 @@ public class DoctorModel implements Serializable {
         return rates;
     }
 
-    public List<AvailableDateModel> getAvailable_date() {
+    public List<DateModel> getAvailable_date() {
         return available_date;
     }
 

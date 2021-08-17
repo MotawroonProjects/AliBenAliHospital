@@ -13,21 +13,25 @@ import com.alibenalihospital.activities_fragments.activity_departments.Departmen
 import com.alibenalihospital.activities_fragments.activity_offer_detials.OfferDetialsActivity;
 import com.alibenalihospital.databinding.DayRowBinding;
 import com.alibenalihospital.databinding.HourRowBinding;
+import com.alibenalihospital.interfaces.Listeners;
+import com.alibenalihospital.models.DateModel;
+import com.alibenalihospital.models.HourModel;
 
 import java.util.List;
 
 public class HourAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Object> list;
+    private List<HourModel> list;
     private Context context;
     private LayoutInflater inflater;
-    private OfferDetialsActivity activity;
-    private int i = -1;
-
-    public HourAdapter(Context context) {
+    private int pos=-1;
+    private int oldPos = pos;
+    private Listeners.HourListener listener;
+    public HourAdapter(Context context,List<HourModel> list,Listeners.HourListener listener) {
         this.context = context;
         inflater = LayoutInflater.from(context);
-        activity = (OfferDetialsActivity) context;
+        this.list = list;
+        this.listener = listener;
 
     }
 
@@ -46,29 +50,30 @@ public class HourAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         MyHolder myHolder = (MyHolder) holder;
+        HourModel model = list.get(position);
+        myHolder.binding.setModel(model);
 
         myHolder.itemView.setOnClickListener(v -> {
-            activity.setItemData();
-            i = position;
-            notifyDataSetChanged();
+            if (oldPos!=-1){
+                HourModel hourModel = list.get(oldPos);
+                hourModel.setSelected(false);
+                list.set(oldPos,hourModel);
+                notifyItemChanged(oldPos);
+            }
+            pos = myHolder.getAdapterPosition();
+            HourModel hourModel = list.get(position);
+            hourModel.setSelected(true);
+            list.set(pos,hourModel);
+            notifyItemChanged(pos);
+            oldPos = pos;
         });
-        if (i == position) {
 
-            ((HourAdapter.MyHolder) holder).binding.fl.setBackground(context.getResources().getDrawable(R.drawable.rounded_primary));
-            ((MyHolder) holder).binding.tvhour.setTextColor(context.getResources().getColor(R.color.white));
-
-        } else {
-            ((MyHolder) holder).binding.tvhour.setTextColor(context.getResources().getColor(R.color.gray1));
-
-            ((HourAdapter.MyHolder) holder).binding.fl.setBackground(context.getResources().getDrawable(R.drawable.small_rounded_stroke_gray2));
-
-        }
 
     }
 
     @Override
     public int getItemCount() {
-        return 8;
+        return list.size();
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder {

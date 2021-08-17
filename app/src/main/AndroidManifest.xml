@@ -25,8 +25,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity
+            android:name=".activities_fragments.activity_create_reservation.CreateReservationActivity"
+            android:exported="true" />
         <activity android:name=".activities_fragments.activity_doctor_details.DoctorDetailsActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -136,6 +138,7 @@
             android:name=".activities_fragments.activity_complete_reservision.CompleteReservisionActivityActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />

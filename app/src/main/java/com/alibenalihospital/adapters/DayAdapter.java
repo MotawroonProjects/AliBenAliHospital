@@ -14,25 +14,29 @@ import com.alibenalihospital.activities_fragments.activity_departments.Departmen
 import com.alibenalihospital.activities_fragments.activity_offer_detials.OfferDetialsActivity;
 import com.alibenalihospital.databinding.DayRowBinding;
 import com.alibenalihospital.databinding.Department2RowBinding;
+import com.alibenalihospital.interfaces.Listeners;
 import com.alibenalihospital.models.AvailableDateModel;
+import com.alibenalihospital.models.DateModel;
 import com.alibenalihospital.models.RateModel;
 
+import java.util.Date;
 import java.util.List;
 
 public class DayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<AvailableDateModel> list;
+    private List<DateModel> list;
     private Context context;
     private LayoutInflater inflater;
-    private OfferDetialsActivity activity;
-    private int i=-1;
+    private int pos=-1;
+    private int oldPos = pos;
+    private Listeners.DateListener listener;
 
 
-    public DayAdapter(List<AvailableDateModel> list, Context context) {
+    public DayAdapter(List<DateModel> list, Context context,Listeners.DateListener listener) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
-        // activity = (DoctorDetailsActivity) context;
+        this.listener = listener;
 
 
     }
@@ -51,32 +55,33 @@ public class DayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         MyHolder myHolder = (MyHolder) holder;
+        DateModel model = list.get(position);
+        myHolder.binding.setModel(model);
 
         myHolder.itemView.setOnClickListener(v -> {
-            activity.setItemData(null);
-            i=position;
-            notifyDataSetChanged();
+            if (oldPos!=-1){
+                DateModel dateModel = list.get(oldPos);
+                dateModel.setSelected(false);
+                list.set(oldPos,dateModel);
+                notifyItemChanged(oldPos);
+            }
+            pos = myHolder.getAdapterPosition();
+            DateModel dateModel = list.get(position);
+            dateModel.setSelected(true);
+            list.set(pos,dateModel);
+            notifyItemChanged(pos);
+            oldPos = pos;
+            listener.setDate(dateModel);
         });
-        if(i==position){
-            ((MyHolder) holder).binding.fl.setBackground(context.getResources().getDrawable(R.drawable.small_rounded_stroke_primary2));
-            ((MyHolder) holder).binding.tvdaynum.setTextColor(context.getResources().getColor(R.color.colorAccent));
-            ((MyHolder) holder).binding.tvmonth.setTextColor(context.getResources().getColor(R.color.colorAccent));
-            ((MyHolder) holder).binding.tvDay.setBackground(context.getResources().getDrawable(R.drawable.rounded_primary3));
 
-        }
-        else {
-            ((MyHolder) holder).binding.fl.setBackground(context.getResources().getDrawable(R.drawable.small_rounded_stroke_gray2));
-            ((MyHolder) holder).binding.tvdaynum.setTextColor(context.getResources().getColor(R.color.gray1));
-            ((MyHolder) holder).binding.tvmonth.setTextColor(context.getResources().getColor(R.color.gray1));
-            ((MyHolder) holder).binding.tvDay.setBackground(context.getResources().getDrawable(R.drawable.rounded_gray3));
 
-        }
+
 
     }
 
     @Override
     public int getItemCount() {
-        return 8;
+        return list.size();
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder {

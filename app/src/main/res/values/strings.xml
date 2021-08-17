@@ -161,6 +161,11 @@
     <string name="about">*About</string>
     <string name="change">Change</string>
     <string name="canceled">Canceled</string>
+    <string name="complete_request">Complete request</string>
+    <string name="call_method">Call method</string>
+    <string name="additional_notes">Additional notes(optional)</string>
+    <string name="age">Age</string>
+    <string name="log_sign_up">Please login or sign up</string>
 
 
 </resources>

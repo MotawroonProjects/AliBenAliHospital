@@ -1,6 +1,7 @@
 package com.alibenalihospital.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class DateModel implements Serializable {
    private int id;
@@ -11,6 +12,8 @@ public class DateModel implements Serializable {
    private String day_number;
    private String day_text;
    private String month;
+   private boolean isSelected = false;
+   private List<HourModel> available_hour;
 
     public int getId() {
         return id;
@@ -42,5 +45,17 @@ public class DateModel implements Serializable {
 
     public String getMonth() {
         return month;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public List<HourModel> getAvailable_hour() {
+        return available_hour;
     }
 }

@@ -97,13 +97,13 @@ public class OfferDetialsActivity extends AppCompatActivity {
         binding.progBar.setVisibility(View.GONE);
         binding.recViewDay.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
        // binding.recViewDay.setAdapter(new DayAdapter(this));
-        binding.recviehour.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+       /* binding.recviehour.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         binding.recviehour.setAdapter(new HourAdapter(this));
         binding.recViewhourhour.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         binding.recViewhourhour.setAdapter(new HourAdapter(this));
         binding.recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         adapter = new RateAdapter(rateModelList, this);
-        binding.recView.setAdapter(adapter);
+        binding.recView.setAdapter(adapter);*/
         binding.progBar.setVisibility(View.GONE);
         binding.progBarSlider.setVisibility(View.GONE);
         binding.tvoldprice.setPaintFlags(binding.tvoldprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);

@@ -9,6 +9,7 @@ public class HourModel implements Serializable {
     private String is_reserved;
     private String phone_hour;
     private String period;
+    private boolean isSelected = false;
 
     public String getId() {
         return id;
@@ -32,5 +33,13 @@ public class HourModel implements Serializable {
 
     public String getPeriod() {
         return period;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }
