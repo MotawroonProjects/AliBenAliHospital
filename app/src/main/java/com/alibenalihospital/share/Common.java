@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -209,14 +210,17 @@ public class Common {
     public static MultipartBody.Part getMultiPart(Context context, Uri uri, String partName) {
         File file = getFileFromImagePath(getImagePath(context, uri));
         RequestBody requestBody = getRequestBodyImage(file);
-        MultipartBody.Part part = MultipartBody.Part.createFormData(partName, file.getName(), requestBody);
+        String path = getImagePath(context, uri);
+        String ext = path.substring(path.lastIndexOf("."));
+        MultipartBody.Part part = MultipartBody.Part.createFormData(partName, System.currentTimeMillis()+ext, requestBody);
         return part;
 
     }
     public static MultipartBody.Part getMultiPartFromPath( String path, String partName) {
         File file = new File(path);
         RequestBody requestBody = getRequestBodyImage(file);
-        MultipartBody.Part part = MultipartBody.Part.createFormData(partName, file.getName(), requestBody);
+        String ext = path.substring(path.lastIndexOf("."));
+        MultipartBody.Part part = MultipartBody.Part.createFormData(partName, System.currentTimeMillis()+ext, requestBody);
         return part;
 
     }
