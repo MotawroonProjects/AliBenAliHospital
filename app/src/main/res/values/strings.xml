@@ -166,6 +166,9 @@
     <string name="additional_notes">Additional notes(optional)</string>
     <string name="age">Age</string>
     <string name="log_sign_up">Please login or sign up</string>
+    <string name="call">Call</string>
+    <string name="video">Video</string>
+    <string name="ch">Choose</string>
 
 
 </resources>

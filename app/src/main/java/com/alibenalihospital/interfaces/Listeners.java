@@ -39,6 +39,11 @@ public interface Listeners {
 
     }
 
+    interface DeleteDiseaseListener{
+        void deleteDisease(int pos);
+
+    }
+
 
     interface SettingAction{
         void onLogIn();

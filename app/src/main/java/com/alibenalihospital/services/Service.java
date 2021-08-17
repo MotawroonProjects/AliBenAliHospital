@@ -3,6 +3,7 @@ package com.alibenalihospital.services;
 import com.alibenalihospital.adapters.SingleDoctorModel;
 import com.alibenalihospital.models.AllDepartmentModel;
 import com.alibenalihospital.models.AllOfferModel;
+import com.alibenalihospital.models.DiseasesDataModel;
 import com.alibenalihospital.models.DoctorsDataModel;
 import com.alibenalihospital.models.NotificationDataModel;
 import com.alibenalihospital.models.OfferDataModel;
@@ -14,6 +15,8 @@ import com.alibenalihospital.models.SliderDataModel;
 import com.alibenalihospital.models.SettingModel;
 import com.alibenalihospital.models.StatusResponse;
 import com.alibenalihospital.models.UserModel;
+
+import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -104,8 +107,7 @@ public interface Service {
 
     );
 
-    @FormUrlEncoded
-    @POST("api/favourite_doctor")
+    @GET("api/favourite_doctor")
     Call<StatusResponse> fav_un_fav(@Header("language") String language,
                                     @Query("user_id") String user_id,
                                     @Query("doctor_id") String doctor_id
@@ -113,18 +115,19 @@ public interface Service {
 
     );
 
-    @FormUrlEncoded
-    @POST("api/favourite_doctors")
+    @GET("api/favourite_doctors")
     Call<DoctorsDataModel> getFavorites(@Header("language") String language,
                                         @Query("user_id") String user_id
 
 
     );
+
     @GET("api/slider")
     Call<SliderDataModel> getSlider();
+
     @GET("api/search_department")
     Call<AllDepartmentModel> searchDepartments(@Header("language") String language,
-                                         @Query("name") String name
+                                               @Query("name") String name
 
     );
 
@@ -147,7 +150,45 @@ public interface Service {
 
     );
 
+    @GET("api/diseases")
+    Call<DiseasesDataModel> getDiseases(@Header("language") String language
 
+    );
+
+    @FormUrlEncoded
+    @POST("api/reservation")
+    Call<StatusResponse> reserveDoctor(@Header("language") String language,
+                                       @Field("doctor_id") String doctor_id,
+                                       @Field("date_id") String date_id,
+                                       @Field("hour_id") String hour_id,
+                                       @Field("user_id") String user_id,
+                                       @Field("name") String name,
+                                       @Field("phone") String phone,
+                                       @Field("call_type") String call_type,
+                                       @Field("gender") String gender,
+                                       @Field("age") String age,
+                                       @Field("reservation_diseases[]") List<String> diseases
+
+
+    );
+
+    @Multipart
+    @POST("api/reservation")
+    Call<StatusResponse> reserveDoctorWithFiles(@Header("language") String language,
+                                                @Part("doctor_id") RequestBody doctor_id,
+                                                @Part("date_id") RequestBody date_id,
+                                                @Part("hour_id") RequestBody hour_id,
+                                                @Part("user_id") RequestBody user_id,
+                                                @Part("name") RequestBody name,
+                                                @Part("phone") RequestBody phone,
+                                                @Part("call_type") RequestBody call_type,
+                                                @Part("gender") RequestBody gender,
+                                                @Part("age") RequestBody age,
+                                                @Part("reservation_diseases[]") List<RequestBody> diseases,
+                                                @Part List<MultipartBody.Part> images
+
+
+    );
 
 
 }

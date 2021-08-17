@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,6 +53,15 @@ public class HourAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         MyHolder myHolder = (MyHolder) holder;
         HourModel model = list.get(position);
         myHolder.binding.setModel(model);
+        if (position==pos){
+            myHolder.binding.flHour.setBackgroundResource(R.drawable.rounded_primary);
+            myHolder.binding.tvHour.setTextColor(ContextCompat.getColor(context,R.color.white));
+        }else {
+            myHolder.binding.flHour.setBackgroundResource(R.drawable.small_rounded_stroke_gray2);
+            myHolder.binding.tvHour.setTextColor(ContextCompat.getColor(context,R.color.gray1));
+
+
+        }
 
         myHolder.itemView.setOnClickListener(v -> {
             if (oldPos!=-1){
@@ -66,6 +76,8 @@ public class HourAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             list.set(pos,hourModel);
             notifyItemChanged(pos);
             oldPos = pos;
+
+            listener.setHour(hourModel);
         });
 
 

@@ -213,6 +213,13 @@ public class Common {
         return part;
 
     }
+    public static MultipartBody.Part getMultiPartFromPath( String path, String partName) {
+        File file = new File(path);
+        RequestBody requestBody = getRequestBodyImage(file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData(partName, file.getName(), requestBody);
+        return part;
+
+    }
 
     public static MultipartBody.Part getMultiPartImage(Context context, Uri uri, String partName) {
         File file = getFileFromImagePath(getImagePath(context, uri));

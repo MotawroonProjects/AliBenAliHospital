@@ -166,5 +166,8 @@
     <string name="additional_notes">معلومات اضافية(إختياري)</string>
     <string name="age">العمر</string>
     <string name="log_sign_up">قم بتسجيل الدخول او إنشاء حساب جديد</string>
+    <string name="call">مكالمة صوتية</string>
+    <string name="video">فيديو</string>
+    <string name="ch">إختر</string>
 
 </resources>

@@ -9,7 +9,7 @@ public class AddReservationModel implements Serializable {
     private HourModel hourModel;
     private String name;
     private String phone;
-    private String callMethod;
+    private String callMethod = "audio";
     private String gender;
     private String age;
     private List<String> diseases;

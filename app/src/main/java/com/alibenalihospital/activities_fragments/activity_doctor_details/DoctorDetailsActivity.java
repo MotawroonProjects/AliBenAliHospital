@@ -155,7 +155,7 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
             if (req ==1&&result.getResultCode()==RESULT_OK){
                 step2();
             }else if (req ==2&&result.getResultCode()==RESULT_OK){
-                finish();
+                Toast.makeText(this, getString(R.string.suc), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -439,11 +439,12 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
         HourAdapter hourAdapter = new HourAdapter(this,dateModel.getAvailable_hour(),this);
         binding.recViewHour.setAdapter(hourAdapter);
         binding.expandHour.setExpanded(true);
-        binding.btnReserve.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void setHour(HourModel hourModel) {
         this.selectedHourModel  =hourModel;
+        binding.btnReserve.setVisibility(View.VISIBLE);
+
     }
 }

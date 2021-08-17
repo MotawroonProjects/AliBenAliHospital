@@ -8,6 +8,7 @@ public class DiseasesModel implements Serializable {
     private String title_en;
     private String title;
 
+
     public int getId() {
         return id;
     }
@@ -22,5 +23,10 @@ public class DiseasesModel implements Serializable {
 
     public String getTitle() {
         return title;
+    }
+
+    public DiseasesModel(int id, String title) {
+        this.id = id;
+        this.title = title;
     }
 }

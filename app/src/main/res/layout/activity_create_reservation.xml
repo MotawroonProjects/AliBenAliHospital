@@ -308,7 +308,7 @@
                                     <View
                                         android:layout_width="match_parent"
                                         android:layout_height="1px"
-                                        android:background="@color/gray2"
+                                        android:background="@color/gray4"
                                         android:layout_marginTop="8dp"
                                         android:layout_marginBottom="8dp"
                                         />
@@ -360,7 +360,7 @@
                                     <View
                                         android:layout_width="match_parent"
                                         android:layout_height="1px"
-                                        android:background="@color/gray2"
+                                        android:background="@color/gray4"
                                         android:layout_marginTop="8dp"
                                         android:layout_marginBottom="8dp"
                                         />
@@ -412,7 +412,7 @@
                                     <View
                                         android:layout_width="match_parent"
                                         android:layout_height="1px"
-                                        android:background="@color/gray2"
+                                        android:background="@color/gray4"
                                         android:layout_marginTop="8dp"
                                         android:layout_marginBottom="8dp"
                                         />
@@ -454,12 +454,107 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:textColor="@color/black"
-                                                android:textSize="15sp"
+                                                android:textSize="13sp"
                                                 android:layout_marginTop="10dp"
+                                                android:text='@{model.callMethod.equals("audio")?@string/call:@string/video}'
                                                 />
 
                                         </LinearLayout>
                                     </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:gravity="center_vertical"
+                                        android:layout_marginTop="20dp"
+                                        android:paddingStart="8dp"
+                                        android:paddingEnd="8dp"
+                                        android:layout_marginBottom="20dp"
+                                        >
+                                        <FrameLayout
+                                            android:id="@+id/flCall"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            >
+                                            <LinearLayout
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="center_horizontal"
+                                                android:layout_gravity="center"
+                                                android:orientation="vertical"
+                                                >
+                                                <ImageView
+                                                    android:id="@+id/imageCall"
+                                                    android:layout_width="24dp"
+                                                    android:layout_height="24dp"
+                                                    android:src="@drawable/ic_call2"
+                                                    app:tint="@color/colorPrimary"
+                                                    android:padding="3dp"
+                                                    />
+                                                <Space
+                                                    android:layout_width="8dp"
+                                                    android:layout_height="0dp"/>
+                                                <TextView
+                                                    android:id="@+id/tvCall"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:textColor="@color/colorPrimary"
+                                                    android:textSize="15sp"
+                                                    android:text="@string/call"
+                                                    />
+                                            </LinearLayout>
+                                        </FrameLayout>
+                                        <View
+                                            android:layout_width="1px"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/gray4"
+                                            android:layout_marginStart="8dp"
+                                            android:layout_marginEnd="8dp"
+                                            android:layout_marginTop="2dp"
+                                            android:layout_marginBottom="2dp"
+                                            />
+                                        <FrameLayout
+                                            android:id="@+id/flVideo"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+
+                                            >
+                                            <LinearLayout
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="center_horizontal"
+                                                android:layout_gravity="center"
+                                                android:orientation="vertical"
+                                                >
+                                                <ImageView
+                                                    android:id="@+id/imageVideo"
+                                                    android:layout_width="24dp"
+                                                    android:layout_height="24dp"
+                                                    android:src="@drawable/ic_video"
+                                                    app:tint="@color/gray1"
+                                                    android:padding="3dp"
+
+                                                    />
+                                                <Space
+                                                    android:layout_width="8dp"
+                                                    android:layout_height="0dp"/>
+                                                <TextView
+                                                    android:id="@+id/tvVideo"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:textColor="@color/gray1"
+                                                    android:textSize="15sp"
+                                                    android:text="@string/video"
+                                                    />
+                                            </LinearLayout>
+
+                                        </FrameLayout>
+                                    </LinearLayout>
+
 
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
@@ -521,6 +616,7 @@
                                                 android:layout_gravity="center"
                                                 >
                                                 <ImageView
+                                                    android:id="@+id/imageMale"
                                                     android:layout_width="24dp"
                                                     android:layout_height="24dp"
                                                     android:src="@drawable/ic_male"
@@ -533,10 +629,14 @@
                                                 <TextView
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
-                                                    android:textColor="@color/gray1"
+                                                    android:textColor='@{model.gender.equals("male")?@color/colorPrimary:@color/gray1}'
                                                     android:textSize="15sp"
                                                     android:text="@string/male"
-                                                    />
+
+
+
+
+                                                />
                                             </LinearLayout>
                                         </FrameLayout>
                                         <Space
@@ -557,6 +657,7 @@
                                                 android:layout_gravity="center"
                                                 >
                                                 <ImageView
+                                                    android:id="@+id/imageFemale"
                                                     android:layout_width="24dp"
                                                     android:layout_height="24dp"
                                                     android:src="@drawable/ic_female"
@@ -569,9 +670,10 @@
                                                 <TextView
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
-                                                    android:textColor="@color/gray1"
                                                     android:textSize="15sp"
                                                     android:text="@string/female"
+                                                    android:textColor='@{model.gender.equals("female")?@color/colorPrimary:@color/gray1}'
+
                                                     />
                                             </LinearLayout>
 
@@ -580,6 +682,7 @@
 
 
                                     <EditText
+                                        android:id="@+id/edtAge"
                                         android:layout_width="match_parent"
                                         android:layout_height="45dp"
                                         android:layout_marginTop="8dp"
@@ -620,12 +723,14 @@
                                         android:layout_height="wrap_content"
                                         android:orientation="horizontal"
                                         android:layout_marginTop="8dp"
+                                        android:layout_marginBottom="12dp"
                                         >
                                         <Space
                                             android:layout_width="8dp"
                                             android:layout_height="0dp"
                                             />
                                         <FrameLayout
+                                            android:id="@+id/flSelectImage"
                                             android:layout_width="100dp"
                                             android:layout_height="100dp"
                                             android:background="@drawable/rounded_descreate"
