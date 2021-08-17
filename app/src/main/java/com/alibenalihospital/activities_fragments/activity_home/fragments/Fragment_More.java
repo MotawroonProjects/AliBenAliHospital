@@ -3,6 +3,7 @@ package com.alibenalihospital.activities_fragments.activity_home.fragments;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -67,20 +68,7 @@ public class Fragment_More extends Fragment implements Listeners.SettingAction {
         binding.setLang(lang);
         binding.setModel(userModel);
         binding.setAction(this);
-//        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-//           // Log.e("llll",result.getResultCode() +"");
-//
-//            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-//
-//                if (request == 1) {
-//                    userModel = preferences.getUserData(activity);
-//                    if (userModel != null) {
-//                        binding.tvLogin.setText(getResources().getString(R.string.logout));
-//                    }
-//                }
-//
-//            }
-//        });
+
         if (userModel != null) {
             binding.tvLogin.setText(getResources().getString(R.string.logout));
         }
@@ -94,8 +82,8 @@ public class Fragment_More extends Fragment implements Listeners.SettingAction {
             request = 1;
             Intent intent = new Intent(activity, LoginActivity.class);
 
-            startActivity(intent);
-            activity.finish();
+            launcher.launch(intent);
+       //     activity.finish();
         } else {
 
         }
@@ -145,25 +133,45 @@ public class Fragment_More extends Fragment implements Listeners.SettingAction {
         activity.logout();
     }
 
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 100) {
+//            if (resultCode == RESULT_OK) {
+//                userModel = preferences.getUserData(activity);
+//                binding.setModel(userModel);
+//            }
+//        } else if (requestCode == 200) {
+//            if (resultCode == RESULT_OK) {
+//                userModel = preferences.getUserData(activity);
+//                binding.setModel(userModel);
+//
+//            }
+//        } else if (requestCode == 300) {
+//            if (resultCode == RESULT_OK && data != null) {
+//                String lang = data.getStringExtra("lang");
+//                activity.refreshActivity(lang);
+//            }
+//        }
+//    }
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100) {
-            if (resultCode == RESULT_OK) {
-                userModel = preferences.getUserData(activity);
-                binding.setModel(userModel);
-            }
-        } else if (requestCode == 200) {
-            if (resultCode == RESULT_OK) {
-                userModel = preferences.getUserData(activity);
-                binding.setModel(userModel);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+             Log.e("llll",result.getResultCode() +"");
+
+            if (result.getResultCode() == RESULT_OK ) {
+
+                if (request == 1) {
+                    userModel = preferences.getUserData(activity);
+                    binding.setModel(userModel);
+                    if (userModel != null) {
+                        binding.tvLogin.setText(getResources().getString(R.string.logout));
+                    }
+                }
 
             }
-        } else if (requestCode == 300) {
-            if (resultCode == RESULT_OK && data != null) {
-                String lang = data.getStringExtra("lang");
-                activity.refreshActivity(lang);
-            }
-        }
+        });
     }
 }

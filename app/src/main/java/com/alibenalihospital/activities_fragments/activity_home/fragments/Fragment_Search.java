@@ -104,6 +104,7 @@ public class Fragment_Search extends Fragment implements Listeners.DoctorListene
     }
 
     private void getData(String query) {
+        userModel = preferences.getUserData(activity);
         list.clear();
         adapter.notifyDataSetChanged();
         binding.tvNoData.setVisibility(View.GONE);

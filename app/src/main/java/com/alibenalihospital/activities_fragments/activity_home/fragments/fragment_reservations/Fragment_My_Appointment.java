@@ -94,6 +94,8 @@ public class Fragment_My_Appointment extends Fragment implements Listeners.Reser
     }
 
     private void getData() {
+        userModel = preferences.getUserData(activity);
+
         binding.progBar.setVisibility(View.VISIBLE);
         binding.tvNoData.setVisibility(View.GONE);
         list.clear();
