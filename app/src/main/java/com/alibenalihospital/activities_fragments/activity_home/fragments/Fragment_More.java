@@ -83,7 +83,7 @@ public class Fragment_More extends Fragment implements Listeners.SettingAction {
             Intent intent = new Intent(activity, LoginActivity.class);
 
             launcher.launch(intent);
-       //     activity.finish();
+            //     activity.finish();
         } else {
 
         }
@@ -104,6 +104,7 @@ public class Fragment_More extends Fragment implements Listeners.SettingAction {
 
     @Override
     public void onLanguageSetting() {
+        request = 2;
         Intent intent = new Intent(activity, LanguageActivity.class);
         startActivityForResult(intent, 300);
     }
@@ -159,9 +160,8 @@ public class Fragment_More extends Fragment implements Listeners.SettingAction {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-             Log.e("llll",result.getResultCode() +"");
 
-            if (result.getResultCode() == RESULT_OK ) {
+            if (result.getResultCode() == RESULT_OK) {
 
                 if (request == 1) {
                     userModel = preferences.getUserData(activity);
@@ -169,6 +169,9 @@ public class Fragment_More extends Fragment implements Listeners.SettingAction {
                     if (userModel != null) {
                         binding.tvLogin.setText(getResources().getString(R.string.logout));
                     }
+                } else if (request == 2 && result.getData() != null) {
+                    String lang = result.getData().getStringExtra("lang");
+                    activity.refreshActivity(lang);
                 }
 
             }
