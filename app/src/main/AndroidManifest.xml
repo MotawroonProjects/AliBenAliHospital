@@ -36,6 +36,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".activities_fragments.activity_create_offer_reservation.CreateOfferReservationActivity"
+            android:exported="true" />
+        <activity
             android:name=".activities_fragments.activity_create_reservation.CreateReservationActivity"
             android:exported="true" />
         <activity android:name=".activities_fragments.activity_doctor_details.DoctorDetailsActivity">

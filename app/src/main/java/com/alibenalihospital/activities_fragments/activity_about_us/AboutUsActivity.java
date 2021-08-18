@@ -17,6 +17,7 @@ import androidx.databinding.DataBindingUtil;
 import com.alibenalihospital.R;
 import com.alibenalihospital.databinding.ActivityAboutUsBinding;
 import com.alibenalihospital.language.Language;
+import com.alibenalihospital.tags.Tags;
 
 import io.paperdb.Paper;
 
@@ -48,23 +49,32 @@ public class AboutUsActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        if(type == 2){
-            binding.tvtitle.setText(getResources().getString(R.string.terms_and_conditions));
-            url="";
-        }
-        else {
-            url="";
-            binding.tvtitle.setText(getResources().getString(R.string.about_app));
-
-        }
         Paper.init(this);
         lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
+
+        if(type == 2){
+            binding.tvtitle.setText(getResources().getString(R.string.terms_and_conditions));
+            url = Tags.base_url +lang+"/terms#2";
+        }
+        else {
+            binding.tvtitle.setText(getResources().getString(R.string.about_app));
+            url = Tags.base_url +lang+"/terms#3";
+
+        }
+
+        loadUrl(url);
         binding.flBack.setOnClickListener(v -> {
 
             finish();
         });
-        //createDialogAlert();
+
+
+    }
+
+
+
+    private void loadUrl(String url){
         binding.webView.getSettings().setAllowFileAccessFromFileURLs(true);
         binding.webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
         binding.webView.getSettings().setAllowContentAccess(true);
@@ -104,8 +114,6 @@ public class AboutUsActivity extends AppCompatActivity {
 
 
         });
-
-
     }
 
 

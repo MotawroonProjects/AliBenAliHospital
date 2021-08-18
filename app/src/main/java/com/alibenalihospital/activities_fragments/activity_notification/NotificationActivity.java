@@ -83,7 +83,7 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void getNotifications() {
-      /*  try {
+        try {
             binding.progBar.setVisibility(View.VISIBLE);
 
             if (userModel == null) {
@@ -94,7 +94,7 @@ public class NotificationActivity extends AppCompatActivity {
                 return;
             }
             Api.getService(Tags.base_url)
-                    .getNotifications("Bearer " + userModel.getUser().getToken(), userModel.getUser().getId(), "desc")
+                    .getNotifications(lang, userModel.getUser().getId()+"")
                     .enqueue(new Callback<NotificationDataModel>() {
                         @Override
                         public void onResponse(Call<NotificationDataModel> call, Response<NotificationDataModel> response) {
@@ -156,7 +156,7 @@ public class NotificationActivity extends AppCompatActivity {
                     });
         } catch (Exception e) {
 
-        }*/
+        }
     }
 
     public void setItemData(NotificationModel model) {

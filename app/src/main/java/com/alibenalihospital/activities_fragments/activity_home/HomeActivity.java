@@ -1,10 +1,13 @@
 package com.alibenalihospital.activities_fragments.activity_home;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,18 +21,28 @@ import com.alibenalihospital.activities_fragments.activity_home.fragments.Fragme
 import com.alibenalihospital.activities_fragments.activity_home.fragments.Fragment_More;
 import com.alibenalihospital.activities_fragments.activity_home.fragments.Fragment_Search;
 import com.alibenalihospital.activities_fragments.activity_home.fragments.fragment_reservations.Fragment_My_Reservations;
+import com.alibenalihospital.activities_fragments.activity_splash.SplashActivity;
 import com.alibenalihospital.databinding.ActivityHomeBinding;
 import com.alibenalihospital.language.Language;
 
+import com.alibenalihospital.models.StatusResponse;
 import com.alibenalihospital.models.UserModel;
 import com.alibenalihospital.preferences.Preferences;
+import com.alibenalihospital.remote.Api;
+import com.alibenalihospital.share.Common;
+import com.alibenalihospital.tags.Tags;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.IOException;
 import java.util.List;
 
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
     private ActivityHomeBinding binding;
@@ -73,11 +86,10 @@ public class HomeActivity extends AppCompatActivity {
         displayFragmentMain();
 
 
-        updateFirebaseToken();
-//        if (userModel != null) {
-//            EventBus.getDefault().register(this);
-//
-//        }
+        if (userModel != null) {
+           // EventBus.getDefault().register(this);
+            updateFirebaseToken();
+        }
 
         binding.bottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -249,9 +261,7 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private void getNotificationCount() {
 
-    }
 
     @Override
     public void onBackPressed() {
@@ -297,17 +307,16 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void updateFirebaseToken() {
-      /*  FirebaseInstanceId.getInstance()
-                .getInstanceId()
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
+        FirebaseInstanceId.getInstance()
+                .getInstanceId().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
                         String token = task.getResult().getToken();
                         try {
                             Api.getService(Tags.base_url)
-                                    .updatePhoneToken(userModel.getUser().getToken(), token, userModel.getUser().getId(), "android")
-                                    .enqueue(new Callback<ResponseBody>() {
+                                    .updateFirebaseToken(lang,userModel.getUser().getId()+"",token, "android")
+                                    .enqueue(new Callback<StatusResponse>() {
                                         @Override
-                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
                                             if (response.isSuccessful() && response.body() != null) {
                                                 userModel.getUser().setFirebaseToken(token);
                                                 preferences.create_update_userdata(HomeActivity.this, userModel);
@@ -324,7 +333,7 @@ public class HomeActivity extends AppCompatActivity {
                                         }
 
                                         @Override
-                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        public void onFailure(Call<StatusResponse> call, Throwable t) {
                                             try {
 
                                                 if (t.getMessage() != null) {
@@ -345,7 +354,6 @@ public class HomeActivity extends AppCompatActivity {
                         }
                     }
                 });
-*/
     }
 
     public void logout() {
@@ -354,19 +362,20 @@ public class HomeActivity extends AppCompatActivity {
             finish();
             return;
         }
-       /* ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         Api.getService(Tags.base_url)
-                .logout("Bearer " + userModel.getUser().getToken(), userModel.getUser().getId(), userModel.getUser().getFirebaseToken())
+                .logout(lang, userModel.getUser().getId()+"", userModel.getUser().getFirebaseToken())
                 .enqueue(new Callback<StatusResponse>() {
                     @Override
                     public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
                         dialog.dismiss();
                         if (response.isSuccessful()) {
                             if (response.body() != null && response.body().getStatus() == 200) {
-                                navigateToSignInActivity();
+                                preferences.clear(HomeActivity.this);
+                                navigateToSplashActivity();
                             }
 
                         } else {
@@ -402,8 +411,14 @@ public class HomeActivity extends AppCompatActivity {
                             Log.e("Error", e.getMessage() + "__");
                         }
                     }
-                });*/
+                });
 
+    }
+
+    private void navigateToSplashActivity() {
+        Intent intent  = new Intent(this, SplashActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

@@ -19,16 +19,19 @@
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/drawable/small_rounded_stroke_primary.xml" value="0.18802083333333333" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/drawable/small_rounded_stroke_primary2.xml" value="0.18802083333333333" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_complete_reserv.xml" value="0.13405797101449277" />
+        <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_contact_us.xml" value="0.22" />
+        <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_create_offer_reservation.xml" value="0.22" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_create_reservation.xml" value="0.20470438652256834" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_departments.xml" value="0.1308876811594203" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_doctor_details.xml" value="0.33541666666666664" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_favorite.xml" value="0.13722826086956522" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_notification.xml" value="0.13722826086956522" />
-        <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_offer_detials.xml" value="0.13405797101449277" />
+        <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_offer_detials.xml" value="0.18" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_reserve_clinic.xml" value="0.13405797101449277" />
-        <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_reserve_foreign.xml" value="0.12454710144927536" />
+        <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_reserve_foreign.xml" value="0.18" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_reserve_online.xml" value="0.13405797101449277" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_service_process.xml" value="0.1" />
+        <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_sign_up.xml" value="0.22" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/clinic_doctor_row.xml" value="0.25" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/day_row.xml" value="0.67" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/department2_row.xml" value="0.1" />
@@ -37,10 +40,12 @@
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/file_row.xml" value="0.18" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/foreign_doctor_row.xml" value="0.33" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/fragment_more.xml" value="0.2" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/fragment_my_dates.xml" value="0.13405797101449277" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/fragment_search.xml" value="0.21" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/fragment_service_operation.xml" value="0.16779572694111516" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/hour_row.xml" value="0.25" />
+        <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/notification_row.xml" value="0.33" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/online_doctor_row.xml" value="0.5" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/rate_row.xml" value="0.22" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/reservation_offer_row.xml" value="0.33" />

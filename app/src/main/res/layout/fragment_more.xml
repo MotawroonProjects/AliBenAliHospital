@@ -29,119 +29,122 @@
         android:fitsSystemWindows="true"
 
         >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/llData"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_margin="8dp"
-                android:visibility='@{model==null?View.GONE:View.VISIBLE}'
-                >
+                android:orientation="horizontal"
+                android:visibility='@{model==null?View.GONE:View.VISIBLE}'>
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_weight="1"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:gravity="start"
-                        android:text='@{""+@string/welcome}'
-                        android:textAlignment="viewStart"
-                        />
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
                         android:gravity="start"
+                        android:text='@{@string/welcome+" "+model.user.name}'
                         android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        />
+                        android:gravity="start"
+                        android:text="@{model.user.phone_code+model.user.phone}"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
                 </LinearLayout>
+
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_edit"
                     android:onClick="@{()->action.onEditProfile()}"
-                    />
+                    android:src="@drawable/ic_edit" />
             </LinearLayout>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:onClick="@{()->action.onLogIn()}"
                 app:cardCornerRadius="8dp"
                 app:contentPadding="5dp"
-                android:onClick="@{()->action.onLogIn()}"
 
                 >
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    >
+                    android:orientation="horizontal">
+
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_nav_user"
-                        app:tint="@color/colorPrimary"
                         android:padding="3dp"
-                        />
+                        android:src="@drawable/ic_nav_user"
+                        app:tint="@color/colorPrimary" />
+
                     <TextView
                         android:id="@+id/tvLogin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
-                        android:textColor="@color/gray1"
-                        android:textSize="16sp"
                         android:text="@string/login"
-                        />
+                        android:textColor="@color/gray1"
+                        android:textSize="16sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:onClick="@{()->action.onFavorite()}"
                 app:cardCornerRadius="8dp"
                 app:contentPadding="5dp"
-                android:onClick="@{()->action.onFavorite()}"
 
                 >
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:orientation="horizontal"
                     android:gravity="center_vertical"
+                    android:orientation="horizontal"
 
                     >
+
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_fill_heart"
-                        app:tint="@color/colorPrimary"
                         android:padding="3dp"
-                        />
+                        android:src="@drawable/ic_fill_heart"
+                        app:tint="@color/colorPrimary" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
-                        android:textColor="@color/gray1"
-                        android:textSize="16sp"
                         android:text="@string/favorite"
-                        />
+                        android:textColor="@color/gray1"
+                        android:textSize="16sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -150,180 +153,158 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 app:cardCornerRadius="8dp"
-                app:contentPadding="5dp"
-                >
+                app:contentPadding="5dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_margin="8dp"
+                    android:orientation="vertical"
 
                     >
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:onClick="@{()->action.onLanguageSetting()}"
+                        android:orientation="horizontal"
 
                         >
+
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_lang"
-                            app:tint="@color/colorPrimary"
                             android:padding="3dp"
-                            />
+                            android:src="@drawable/ic_lang"
+                            app:tint="@color/colorPrimary" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
-                            android:textColor="@color/gray1"
-                            android:textSize="16sp"
                             android:text="@string/change_language"
-                            />
+                            android:textColor="@color/gray1"
+                            android:textSize="16sp" />
+
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1" />
+
                         <TextView
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
-                            android:textSize="14sp"
-                            android:textColor="@color/gray1"
                             android:text='@{lang.equals("ar")?"عربي":"English"}'
-                            />
+                            android:textColor="@color/gray1"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="4dp"
-                        android:background="@drawable/line2"
-                        />
+                        android:background="@drawable/line2" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
                         android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
                         android:onClick="@{()->action.onAbout()}"
+                        android:orientation="horizontal"
 
                         >
+
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
+                            android:padding="3dp"
                             android:src="@drawable/ic_info"
-                            app:tint="@color/colorPrimary"
-                            android:padding="3dp"
-                            />
+                            app:tint="@color/colorPrimary" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
-                            android:textColor="@color/gray1"
-                            android:textSize="16sp"
                             android:text="@string/about_app"
-                            />
+                            android:textColor="@color/gray1"
+                            android:textSize="16sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="4dp"
-                        android:background="@drawable/line2"
-                        />
+                        android:background="@drawable/line2" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
                         android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
                         android:onClick="@{()->action.onContactUs()}"
+                        android:orientation="horizontal"
 
 
                         >
+
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_phone_call"
-                            app:tint="@color/colorPrimary"
                             android:padding="3dp"
-                            />
+                            android:src="@drawable/ic_phone_call"
+                            app:tint="@color/colorPrimary" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
-                            android:textColor="@color/gray1"
-                            android:textSize="16sp"
                             android:text="@string/contact_us"
-                            />
+                            android:textColor="@color/gray1"
+                            android:textSize="16sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="4dp"
-                        android:background="@drawable/line2"
-                        />
+                        android:background="@drawable/line2" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
                         android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
                         android:onClick="@{()->action.onTerms()}"
+                        android:orientation="horizontal"
 
                         >
+
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_terms"
-                            app:tint="@color/colorPrimary"
                             android:padding="3dp"
-                            />
+                            android:src="@drawable/ic_terms"
+                            app:tint="@color/colorPrimary" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
-                            android:textColor="@color/gray1"
-                            android:textSize="16sp"
                             android:text="@string/terms_and_conditions"
-                            />
+                            android:textColor="@color/gray1"
+                            android:textSize="16sp" />
                     </LinearLayout>
 
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <LinearLayout
-                android:id="@+id/logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="50dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:onClick="@{()->action.onLogout()}"
-                android:visibility='@{model==null?View.GONE:View.VISIBLE}'
-
-                >
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_logout"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/logout"
-                    />
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

@@ -81,19 +81,17 @@ public class Fragment_More extends Fragment implements Listeners.SettingAction {
         if (userModel == null) {
             request = 1;
             Intent intent = new Intent(activity, LoginActivity.class);
-
             launcher.launch(intent);
-            //     activity.finish();
         } else {
+            activity.logout();
 
         }
     }
 
     @Override
     public void onFavorite() {
-       /* Intent intent = new Intent(activity, FavoriteActivity.class);
-        startActivity(intent);*/
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        Intent intent = new Intent(activity, FavoriteActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -130,10 +128,7 @@ public class Fragment_More extends Fragment implements Listeners.SettingAction {
         startActivity(intent);
     }
 
-    @Override
-    public void onLogout() {
-        activity.logout();
-    }
+
 
 //    @Override
 //    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -170,6 +165,9 @@ public class Fragment_More extends Fragment implements Listeners.SettingAction {
                     if (userModel != null) {
                         binding.tvLogin.setText(getResources().getString(R.string.logout));
                     }
+                } else if (request == 2) {
+                    userModel = Preferences.getInstance().getUserData(activity);
+                    binding.setModel(userModel);
                 } else if (request == 3 && result.getData() != null) {
                     String lang = result.getData().getStringExtra("lang");
                     activity.refreshActivity(lang);

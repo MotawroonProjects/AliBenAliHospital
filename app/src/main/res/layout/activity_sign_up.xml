@@ -124,110 +124,119 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/user_phone"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+
 
                 <LinearLayout
+                    android:id="@+id/llPassword"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/small_rounded_color1"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:padding="3dp"
-                        android:src="@drawable/ic_call2" />
-
-                    <EditText
-                        android:id="@+id/edtPhone"
-                        error="@{model.error_phone}"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/transparent"
-                        android:hint="@string/user_phone"
-                        android:inputType="number"
-                        android:paddingStart="22dp"
-                        android:paddingEnd="22dp"
-                        android:singleLine="true"
-                        android:text="@={model.phone}"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/user_phone"
                         android:textColor="@color/black"
-                        android:textColorHint="@color/gray2"
-                        android:textSize="15sp" />
+                        android:textSize="16sp" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/small_rounded_color1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:padding="3dp"
+                            android:src="@drawable/ic_call2" />
+
+                        <EditText
+                            android:id="@+id/edtPhone"
+                            error="@{model.error_phone}"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:hint="@string/user_phone"
+                            android:inputType="number"
+                            android:paddingStart="22dp"
+                            android:paddingEnd="22dp"
+                            android:singleLine="true"
+                            android:text="@={model.phone}"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/gray2"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/password"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/small_rounded_color1"
+                        app:hintEnabled="false"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="@color/gray2"
+                        app:startIconDrawable="@drawable/ic_lock">
+
+                        <EditText
+                            error="@{model.error_password}"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:hint="@string/password"
+                            android:inputType="textPassword"
+                            android:singleLine="true"
+                            android:text="@={model.password}"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/re_password"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/small_rounded_color1"
+                        app:hintEnabled="false"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="@color/gray2"
+                        app:startIconDrawable="@drawable/ic_lock">
+
+                        <EditText
+                            error="@{model.error_re_password}"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:hint="@string/re_password"
+                            android:inputType="textPassword"
+                            android:singleLine="true"
+                            android:text="@={model.re_password}"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/password"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/small_rounded_color1"
-                    app:hintEnabled="false"
-                    app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/gray2"
-                    app:startIconDrawable="@drawable/ic_lock">
-
-                    <EditText
-                        error="@{model.error_password}"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/transparent"
-                        android:hint="@string/password"
-                        android:inputType="textPassword"
-                        android:singleLine="true"
-                        android:text="@={model.password}"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/re_password"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/small_rounded_color1"
-                    app:hintEnabled="false"
-                    app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/gray2"
-                    app:startIconDrawable="@drawable/ic_lock">
-
-                    <EditText
-                        error="@{model.error_re_password}"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/transparent"
-                        android:hint="@string/re_password"
-                        android:inputType="textPassword"
-                        android:singleLine="true"
-                        android:text="@={model.re_password}"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-                </com.google.android.material.textfield.TextInputLayout>
 
 
                 <Button

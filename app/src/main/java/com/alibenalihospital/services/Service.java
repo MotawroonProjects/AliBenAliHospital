@@ -200,4 +200,75 @@ public interface Service {
     );
 
 
+    @FormUrlEncoded
+    @POST("api/offer_reservation")
+    Call<StatusResponse> reserveOffer(@Header("language") String language,
+                                      @Field("offer_id") String offer_id,
+                                      @Field("date_id") String date_id,
+                                      @Field("hour_id") String hour_id,
+                                      @Field("user_id") String user_id,
+                                      @Field("name") String name,
+                                      @Field("phone") String phone,
+                                      @Field("call_type") String call_type,
+                                      @Field("gender") String gender,
+                                      @Field("age") String age,
+                                      @Field("reservation_diseases[]") List<String> diseases
+
+
+    );
+
+    @Multipart
+    @POST("api/offer_reservation")
+    Call<StatusResponse> reserveOfferWithFiles(@Header("language") String language,
+                                               @Part("offer_id") RequestBody offer_id,
+                                               @Part("date_id") RequestBody date_id,
+                                               @Part("hour_id") RequestBody hour_id,
+                                               @Part("user_id") RequestBody user_id,
+                                               @Part("name") RequestBody name,
+                                               @Part("phone") RequestBody phone,
+                                               @Part("call_type") RequestBody call_type,
+                                               @Part("gender") RequestBody gender,
+                                               @Part("age") RequestBody age,
+                                               @Part("reservation_diseases[]") List<RequestBody> diseases,
+                                               @Part List<MultipartBody.Part> images
+
+
+    );
+
+    @FormUrlEncoded
+    @POST("api/contact")
+    Call<StatusResponse> contactUs(@Header("language") String language,
+                                   @Field("name") String name,
+                                   @Field("email") String email,
+                                   @Field("phone") String phone,
+                                   @Field("message") String message
+    );
+
+    @GET("api/notifications")
+    Call<NotificationDataModel> getNotifications(@Header("language") String language,
+                                                 @Query("user_id") String user_id
+
+    );
+
+    @FormUrlEncoded
+    @POST("api/inser_token")
+    Call<StatusResponse> updateFirebaseToken(@Header("language") String language,
+                                             @Field("user_id") String user_id,
+                                             @Field("firebase_token") String firebase_token,
+                                             @Field("type") String type
+    );
+
+    @FormUrlEncoded
+    @POST("api/inser_token")
+    Call<StatusResponse> logout(@Header("language") String language,
+                                @Field("user_id") String user_id,
+                                @Field("firebase_token") String firebase_token
+    );
+
+    @FormUrlEncoded
+    @POST("api/update_profile")
+    Call<UserModel> updateProfile(@Field("user_id") String user_id,
+                                  @Field("name") String name
+    );
+
 }

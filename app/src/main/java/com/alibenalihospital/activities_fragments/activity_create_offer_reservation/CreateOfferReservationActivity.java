@@ -1,7 +1,5 @@
-package com.alibenalihospital.activities_fragments.activity_create_reservation;
+package com.alibenalihospital.activities_fragments.activity_create_offer_reservation;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -32,15 +30,14 @@ import com.alibenalihospital.R;
 import com.alibenalihospital.adapters.DiseasesAdapter;
 import com.alibenalihospital.adapters.FilesAdapter;
 import com.alibenalihospital.adapters.SpinnerDiseasesAdapter;
-import com.alibenalihospital.databinding.ActivityContactUsBinding;
+import com.alibenalihospital.databinding.ActivityCreateOfferReservationBinding;
 import com.alibenalihospital.databinding.ActivityCreateReservationBinding;
 import com.alibenalihospital.interfaces.Listeners;
 import com.alibenalihospital.language.Language;
+import com.alibenalihospital.models.AddOfferReservationModel;
 import com.alibenalihospital.models.AddReservationModel;
-import com.alibenalihospital.models.ContactUsModel;
 import com.alibenalihospital.models.DiseasesDataModel;
 import com.alibenalihospital.models.DiseasesModel;
-import com.alibenalihospital.models.ReservationOfferDataModel;
 import com.alibenalihospital.models.StatusResponse;
 import com.alibenalihospital.models.UserModel;
 import com.alibenalihospital.preferences.Preferences;
@@ -50,11 +47,8 @@ import com.alibenalihospital.tags.Tags;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 
 import io.paperdb.Paper;
 import okhttp3.MultipartBody;
@@ -63,13 +57,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CreateReservationActivity extends AppCompatActivity implements Listeners.DeleteDiseaseListener {
-
-    private ActivityCreateReservationBinding binding;
+public class CreateOfferReservationActivity extends AppCompatActivity implements Listeners.DeleteDiseaseListener{
+    private ActivityCreateOfferReservationBinding binding;
     private Preferences preferences;
     private UserModel userModel;
     private String lang = "ar";
-    private AddReservationModel model;
+    private AddOfferReservationModel model;
     private List<DiseasesModel> list;
     private List<DiseasesModel> selectedDiseasesList;
     private DiseasesAdapter adapter;
@@ -91,7 +84,7 @@ public class CreateReservationActivity extends AppCompatActivity implements List
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_create_reservation);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_create_offer_reservation);
         getDataFromIntent();
         initView();
 
@@ -99,7 +92,7 @@ public class CreateReservationActivity extends AppCompatActivity implements List
 
     private void getDataFromIntent() {
         Intent intent = getIntent();
-        model = (AddReservationModel) intent.getSerializableExtra("data");
+        model = (AddOfferReservationModel) intent.getSerializableExtra("data");
     }
 
     private void initView() {
@@ -125,7 +118,6 @@ public class CreateReservationActivity extends AppCompatActivity implements List
         binding.recViewImages.setAdapter(filesAdapter);
 
         spinnerDiseasesAdapter = new SpinnerDiseasesAdapter(list, this);
-
         binding.spinner.setAdapter(spinnerDiseasesAdapter);
 
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -145,6 +137,7 @@ public class CreateReservationActivity extends AppCompatActivity implements List
 
             }
         });
+
 
         binding.flMale.setOnClickListener(v -> {
             model.setGender("male");
@@ -186,6 +179,7 @@ public class CreateReservationActivity extends AppCompatActivity implements List
             checkPermissions();
         });
 
+
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK) {
                 Uri uri = getResultImageUri(result.getData());
@@ -210,7 +204,6 @@ public class CreateReservationActivity extends AppCompatActivity implements List
                 reserve();
             }
         });
-
         getDiseases();
 
     }
@@ -227,7 +220,7 @@ public class CreateReservationActivity extends AppCompatActivity implements List
         }
 
         Api.getService(Tags.base_url)
-                .reserveDoctor(lang,model.getDoctorModel().getId()+"",model.getDateModel().getId()+"", model.getHourModel().getId(), userModel.getUser().getId()+"", model.getName(), model.getPhone(), model.getCallMethod(), model.getGender(), age,diseasesIds)
+                .reserveOffer(lang,model.getOfferModel().getId()+"",model.getDateModel().getId()+"", model.getHourModel().getId(), userModel.getUser().getId()+"", model.getName(), model.getPhone(), model.getCallMethod(), model.getGender(), age,diseasesIds)
                 .enqueue(new Callback<StatusResponse>() {
                     @Override
                     public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
@@ -269,7 +262,7 @@ public class CreateReservationActivity extends AppCompatActivity implements List
         dialog.setCancelable(false);
         dialog.show();
         String age = binding.edtAge.getText().toString().trim();
-        RequestBody doc_id_part = Common.getRequestBodyText(model.getDoctorModel().getId()+"");
+        RequestBody offer_id_part = Common.getRequestBodyText(model.getOfferModel().getId()+"");
         RequestBody date_id_part = Common.getRequestBodyText(model.getDateModel().getId()+"");
         RequestBody hour_id_part = Common.getRequestBodyText(model.getHourModel().getId());
         RequestBody user_id_part = Common.getRequestBodyText(userModel.getUser().getId()+"");
@@ -288,12 +281,12 @@ public class CreateReservationActivity extends AppCompatActivity implements List
 
         List<MultipartBody.Part> imagesParts = new ArrayList<>();
         for (String path:images){
-           MultipartBody.Part part = Common.getMultiPartFromPath(path,"reservation_files[]");
-           imagesParts.add(part);
+            MultipartBody.Part part = Common.getMultiPartFromPath(path,"reservation_files[]");
+            imagesParts.add(part);
         }
 
         Api.getService(Tags.base_url)
-                .reserveDoctorWithFiles(lang,doc_id_part,date_id_part,hour_id_part,user_id_part,name_part,phone_part,call_part,gender_part,age_part,diseasesIds,imagesParts)
+                .reserveOfferWithFiles(lang,offer_id_part,date_id_part,hour_id_part,user_id_part,name_part,phone_part,call_part,gender_part,age_part,diseasesIds,imagesParts)
                 .enqueue(new Callback<StatusResponse>() {
                     @Override
                     public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
@@ -497,13 +490,11 @@ public class CreateReservationActivity extends AppCompatActivity implements List
             binding.spinner.setSelection(0, true);
         }
     }
-
     @Override
     public void deleteImage(int pos) {
         images.remove(pos);
         filesAdapter.notifyItemRemoved(pos);
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -513,4 +504,5 @@ public class CreateReservationActivity extends AppCompatActivity implements List
 
         }
     }
+
 }

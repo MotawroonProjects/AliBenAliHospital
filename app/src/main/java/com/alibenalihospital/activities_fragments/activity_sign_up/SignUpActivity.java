@@ -98,6 +98,7 @@ public class SignUpActivity extends AppCompatActivity {
             binding.tvLogin.setText(Html.fromHtml(getString(R.string.have_account)));
 
         } else {
+            binding.llPassword.setVisibility(View.GONE);
             signUpModel.setName(userModel.getUser().getName());
             signUpModel.setPhone(userModel.getUser().getPhone());
             signUpModel.setPhone_code(userModel.getUser().getPhone_code());
@@ -105,6 +106,7 @@ public class SignUpActivity extends AppCompatActivity {
             signUpModel.setRe_password("123456");
             binding.ll.setVisibility(View.GONE);
             binding.btnSignUp.setText(R.string.update_profile);
+
         }
 
         binding.setModel(signUpModel);
@@ -165,18 +167,17 @@ public class SignUpActivity extends AppCompatActivity {
         if (userModel == null) {
             signUpWithoutImage();
         } else {
-
+            updateProfile();
         }
 
     }
 
-
-    private void updateProfileWithoutImage() {
-      /*  ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+    private void updateProfile() {
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
         Api.getService(Tags.base_url)
-                .updateProfileWithoutImage("Bearer " + userModel.getUser().getToken(),userModel.getUser().getId()+"", signUpModel.getName(), signUpModel.getGender(),signUpModel.getBirth_date())
+                .updateProfile(userModel.getUser().getId()+"",signUpModel.getName())
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
@@ -186,7 +187,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 preferences.create_update_userdata(SignUpActivity.this, response.body());
                                 setResult(RESULT_OK);
                                 finish();
-                            } else if (response.body().getStatus() == 402) {
+                            } else if (response.body().getStatus() == 409) {
                                 Toast.makeText(SignUpActivity.this, R.string.user_exist, Toast.LENGTH_SHORT).show();
                             }
 
@@ -222,8 +223,9 @@ public class SignUpActivity extends AppCompatActivity {
                             Log.e("Error", e.getMessage() + "__");
                         }
                     }
-                });*/
+                });
     }
+
 
     private void signUpWithoutImage() {
         if(signUpModel.getPhone().startsWith("0")){

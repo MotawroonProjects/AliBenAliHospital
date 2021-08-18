@@ -15,8 +15,8 @@ public class OfferDataModel extends StatusResponse implements Serializable {
         private String doctor_id;
         private int clinic_id;
         private int offer;
-        private double old_price;
-        private double new_price;
+        private String old_price;
+        private String new_price;
         private double rate;
         private String title_ar;
         private String title_en;
@@ -30,7 +30,7 @@ public class OfferDataModel extends StatusResponse implements Serializable {
         private Clinic clinic;
         private FirstImage first_image;
         private List<RateModel> rates;
-        private List<AvailableDateModel> available_date;
+        private List<DateModel> available_date;
 
         public int getId() {
             return id;
@@ -48,11 +48,11 @@ public class OfferDataModel extends StatusResponse implements Serializable {
             return offer;
         }
 
-        public double getOld_price() {
+        public String getOld_price() {
             return old_price;
         }
 
-        public double getNew_price() {
+        public String getNew_price() {
             return new_price;
         }
 
@@ -108,13 +108,13 @@ public class OfferDataModel extends StatusResponse implements Serializable {
             return rates;
         }
 
-        public List<AvailableDateModel> getAvailable_date() {
+        public List<DateModel> getAvailable_date() {
             return available_date;
         }
 
 
 
-        public class Clinic{
+        public class Clinic implements Serializable{
             private int id;
             private String image;
             private String name_ar;
@@ -152,7 +152,7 @@ public class OfferDataModel extends StatusResponse implements Serializable {
             }
         }
 
-        public class FirstImage{
+        public class FirstImage implements Serializable{
             private int id;
             private int offer_id;
             private String image;

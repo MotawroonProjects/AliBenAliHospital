@@ -5,6 +5,7 @@
 
     <data>
 
+        <import type="android.view.View"/>
         <variable
             name="lang"
             type="String" />
@@ -13,9 +14,7 @@
             name="model"
             type="com.alibenalihospital.models.OfferDataModel.OfferData" />
 
-        <variable
-            name="backListener"
-            type="com.alibenalihospital.interfaces.Listeners.BackListener" />
+
     </data>
     <FrameLayout
         android:layout_width="match_parent"
@@ -42,8 +41,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:onClick="@{()->backListener.back()}"
-
                         android:orientation="horizontal">
 
                         <ImageView
@@ -70,434 +67,379 @@
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.AppBarLayout>
 
-            <ScrollView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:fillViewport="true"
-                android:fitsSystemWindows="true">
-
+                android:layout_height="match_parent"
+                >
                 <LinearLayout
+                    android:id="@+id/llData"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <FrameLayout
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="@{model!=null?View.VISIBLE:View.GONE,default=gone}"
+                    >
+                    <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:background="@color/transparent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fillViewport="true"
+                        android:fitsSystemWindows="true">
 
-                        android:orientation="vertical">
-
-
-                        <FrameLayout
-                            android:id="@+id/imageTop"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-
-                            <androidx.viewpager.widget.ViewPager
-                                android:id="@+id/pager"
-                                android:layout_width="match_parent"
-                                android:layout_height="200dp"
-
-                                />
-
-                            <ProgressBar
-                                android:id="@+id/progBarSlider"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center" />
-
-
-                        </FrameLayout>
-
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical|start"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="40dp"
-                            android:layout_marginBottom="40dp"
-                            android:visibility="gone"
-                            app:cardBackgroundColor="@color/transparent"
-                            app:cardCornerRadius="90dp"
-                            app:cardElevation="4dp"
-                            tools:ignore="RtlCompat">
+                            android:orientation="vertical">
 
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/image"
-                                android:layout_width="90dp"
-                                android:layout_height="90dp"
-                                android:src="@drawable/ic_avatar"
-                                android:transitionName="image"
-                                app:civ_border_color="@color/white"
-                                app:civ_border_width="3dp"
-
-                                tools:ignore="UnusedAttribute" />
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="6dp"
-                            android:layout_marginTop="200dp"
-                            android:layout_marginEnd="6dp"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="10dp"
-                            app:cardElevation="2dp"
-                            app:contentPadding="5dp"
-
-                            >
-
-                            <androidx.constraintlayout.widget.ConstraintLayout
+                            <FrameLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:background="@color/transparent"
 
-                                android:layout_marginTop="30dp"
-                                android:paddingBottom="10dp">
+                                android:orientation="vertical">
 
-                                <TextView
-                                    android:id="@+id/tv"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:text="@{model.title}"
-                                    android:textColor="@color/black"
-                                    android:textSize="16sp"
-                                    app:layout_constraintBottom_toTopOf="@+id/ll"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    tools:ignore="RtlCompat" />
 
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    app:layout_constraintBottom_toTopOf="@+id/ll"
+                                <FrameLayout
+                                    android:id="@+id/imageTop"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="200dp"
                                     app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintHorizontal_bias="1"
-                                    app:layout_constraintStart_toEndOf="@+id/tv"
-
+                                    app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent">
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center_vertical"
 
-                                        android:text='@{model.rate+""}'
-                                        android:textColor="@color/colorAccent"
-                                        android:textSize="16sp"
+                                    <androidx.viewpager.widget.ViewPager
+                                        android:id="@+id/pager"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="200dp"
 
                                         />
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-
-                                        android:layout_gravity="center"
-                                        android:text="/5"
-                                        android:textColor="@color/gray1"
-                                        android:textSize="13sp"
 
 
-                                        />
+                                </FrameLayout>
 
-                                    <ImageView
-                                        android:layout_width="20dp"
-                                        android:layout_height="20dp"
-                                        android:layout_gravity="center"
-                                        android:padding="3dp"
-                                        android:src="@drawable/ic_star"
-                                        app:tint="@color/rate_color" />
 
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:id="@+id/ll"
-                                    android:layout_width="match_parent"
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical"
+                                    android:layout_gravity="center_vertical|start"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginTop="40dp"
+                                    android:layout_marginBottom="40dp"
+                                    android:visibility="gone"
+                                    app:cardBackgroundColor="@color/transparent"
+                                    app:cardCornerRadius="90dp"
+                                    app:cardElevation="4dp"
+                                    tools:ignore="RtlCompat">
 
-                                    app:layout_constraintStart_toStartOf="parent"
 
-                                    app:layout_constraintTop_toBottomOf="@+id/tv">
+                                    <de.hdodenhof.circleimageview.CircleImageView
+                                        android:id="@+id/image"
+                                        android:layout_width="90dp"
+                                        android:layout_height="90dp"
+                                        android:src="@drawable/ic_avatar"
+                                        android:transitionName="image"
+                                        app:civ_border_color="@color/white"
+                                        app:civ_border_width="3dp"
 
+                                        tools:ignore="UnusedAttribute" />
+                                </androidx.cardview.widget.CardView>
 
-                                    <TextView
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="6dp"
+                                    android:layout_marginTop="200dp"
+                                    android:layout_marginEnd="6dp"
+                                    app:cardBackgroundColor="@color/white"
+                                    app:cardCornerRadius="10dp"
+                                    app:cardElevation="2dp"
+                                    app:contentPadding="5dp"
+
+                                    >
+
+                                    <androidx.constraintlayout.widget.ConstraintLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="20dp"
-                                        android:text="@{model.details}"
-                                        android:textColor="@color/black"
-                                        android:textSize="14sp"
-                                        android:visibility="gone" />
 
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="20dp"
-                                        android:orientation="horizontal">
+                                        android:layout_marginTop="30dp"
+                                        android:paddingBottom="10dp">
 
                                         <TextView
-                                            android:id="@+id/tvoldprice"
+                                            android:id="@+id/tv"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center_vertical"
-
-                                            android:text="200 ريال"
-                                            android:textColor="@color/gray1"
-                                            android:textSize="13sp"
-
-                                            />
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_gravity="center_vertical"
-
-                                            android:text="120 ريال"
-                                            android:textColor="@color/colorAccent"
+                                            android:layout_marginStart="5dp"
+                                            android:layout_marginEnd="5dp"
+                                            android:text="@{model.title}"
+                                            android:textColor="@color/black"
                                             android:textSize="16sp"
+                                            app:layout_constraintBottom_toTopOf="@+id/ll"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent"
+                                            tools:ignore="RtlCompat" />
 
-                                            />
-
-                                        <FrameLayout
-                                            android:layout_width="0dp"
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:layout_weight="1">
+                                            android:orientation="horizontal"
+                                            app:layout_constraintBottom_toTopOf="@+id/ll"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintHorizontal_bias="1"
+                                            app:layout_constraintStart_toEndOf="@+id/tv"
+
+                                            app:layout_constraintTop_toTopOf="parent">
 
                                             <TextView
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
-                                                android:layout_gravity="end"
-                                                android:background="@drawable/rounded_primary"
-                                                android:padding="5dp"
-                                                android:text='@{model.offer+"%"}'
-                                                android:textColor="@color/white"
-                                                android:textSize="13sp" />
+                                                android:layout_gravity="center_vertical"
 
-                                        </FrameLayout>
+                                                android:text='@{model.rate+""}'
+                                                android:textColor="@color/colorAccent"
+                                                android:textSize="16sp"
 
-                                    </LinearLayout>
+                                                />
 
-                                </LinearLayout>
-                            </androidx.constraintlayout.widget.ConstraintLayout>
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
 
-                        </androidx.cardview.widget.CardView>
+                                                android:layout_gravity="center"
+                                                android:text="/5"
+                                                android:textColor="@color/gray1"
+                                                android:textSize="13sp"
 
-                    </FrameLayout>
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="5dp"
-                        app:cardElevation="2dp"
-                        app:contentPadding="8dp">
+                                                />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                                            <ImageView
+                                                android:layout_width="20dp"
+                                                android:layout_height="20dp"
+                                                android:layout_gravity="center"
+                                                android:padding="3dp"
+                                                android:src="@drawable/ic_star"
+                                                app:tint="@color/rate_color" />
 
-                            <LinearLayout
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/ll"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="vertical"
+
+                                            app:layout_constraintStart_toStartOf="parent"
+
+                                            app:layout_constraintTop_toBottomOf="@+id/tv">
+
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="20dp"
+                                                android:text="@{model.details}"
+                                                android:textColor="@color/black"
+                                                android:textSize="14sp"
+                                                android:visibility="gone" />
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="20dp"
+                                                android:orientation="horizontal">
+
+                                                <TextView
+                                                    android:id="@+id/tvOldPrice"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_gravity="center_vertical"
+                                                    android:textColor="@color/gray1"
+                                                    android:textSize="13sp"
+                                                    android:text='@{model.old_price+" "+@string/sar}'
+
+                                                    />
+
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_gravity="center_vertical"
+                                                    android:textColor="@color/colorAccent"
+                                                    android:textSize="16sp"
+                                                    android:text='@{model.new_price+" "+@string/sar}'
+
+                                                    />
+
+                                                <FrameLayout
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_weight="1">
+
+                                                    <TextView
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_gravity="end"
+                                                        android:background="@drawable/rounded_primary"
+                                                        android:padding="5dp"
+                                                        android:text='@{model.offer+"%"}'
+                                                        android:textColor="@color/white"
+                                                        android:textSize="13sp" />
+
+                                                </FrameLayout>
+
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+                                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                </androidx.cardview.widget.CardView>
+
+                            </FrameLayout>
+
+                            <androidx.cardview.widget.CardView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                tools:ignore="UnusedAttribute">
-
-                                <ImageView
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    android:layout_gravity="top"
-                                    android:padding="4dp"
-                                    android:src="@drawable/ic_info2"
-                                    app:tint="@color/colorPrimary" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_marginEnd="10dp"
-                                    android:text="@string/more_detials"
-                                    android:textColor="@color/black"
-                                    android:textSize="14sp" />
-
-
-                            </LinearLayout>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginEnd="10dp"
-                                android:text="@{model.details}"
-                                android:textColor="@color/black"
-                                android:textSize="14sp" />
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:visibility="gone"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="5dp"
-                        app:cardElevation="2dp"
-                        app:contentPadding="8dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                tools:ignore="UnusedAttribute">
+                                android:layout_margin="8dp"
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="5dp"
+                                app:cardElevation="2dp"
+                                app:contentPadding="8dp">
 
                                 <LinearLayout
-                                    android:layout_width="0dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:orientation="horizontal"
-                                    android:transitionName="address">
+                                    android:orientation="vertical">
 
-                                    <ImageView
-                                        android:layout_width="24dp"
-                                        android:layout_height="24dp"
-                                        android:layout_gravity="top"
-                                        android:padding="4dp"
-                                        android:src="@drawable/ic_pin"
-                                        app:tint="@color/colorPrimary" />
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        tools:ignore="UnusedAttribute">
+
+                                        <ImageView
+                                            android:layout_width="24dp"
+                                            android:layout_height="24dp"
+                                            android:layout_gravity="top"
+                                            android:padding="4dp"
+                                            android:src="@drawable/ic_info2"
+                                            app:tint="@color/colorPrimary" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="10dp"
+                                            android:layout_marginEnd="10dp"
+                                            android:text="@string/more_detials"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp" />
+
+
+                                    </LinearLayout>
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="10dp"
                                         android:layout_marginEnd="10dp"
-                                        android:text="القاهرة / شارع الجامعة"
+                                        android:text="@{model.details}"
                                         android:textColor="@color/black"
                                         android:textSize="14sp" />
+
                                 </LinearLayout>
 
-
-                            </LinearLayout>
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="match_parent"
-                                android:layout_height="150dp"
-                                android:layout_marginTop="8dp"
-                                app:cardCornerRadius="8dp"
-                                app:cardElevation="0dp">
-
-                                <fragment
-                                    android:id="@+id/fragment"
-                                    android:name="com.google.android.gms.maps.SupportMapFragment"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="150dp" />
                             </androidx.cardview.widget.CardView>
 
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/card"
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/card"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="5dp"
+                                app:cardElevation="2dp"
+                                app:contentPadding="8dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        tools:ignore="UnusedAttribute">
+
+                                        <ImageView
+                                            android:layout_width="24dp"
+                                            android:layout_height="24dp"
+                                            android:layout_gravity="top"
+                                            android:padding="4dp"
+                                            android:src="@drawable/ic_star"
+                                            app:tint="@color/colorPrimary" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="10dp"
+                                            android:layout_marginEnd="10dp"
+                                            android:text="@string/ratings"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp" />
+
+
+                                    </LinearLayout>
+
+                                    <FrameLayout
+
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp">
+
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/recView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content" />
+
+
+                                        <TextView
+                                            android:id="@+id/tvNoData"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:text="@string/no_data_to_show"
+                                            android:textColor="@color/black"
+                                            android:textSize="18sp"
+                                            android:visibility="gone" />
+                                    </FrameLayout>
+                                </LinearLayout>
+
+                            </androidx.cardview.widget.CardView>
+                        </LinearLayout>
+                    </ScrollView>
+
+                    <Button
+                        android:id="@+id/btnConfirm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="5dp"
-                        app:cardElevation="2dp"
-                        app:contentPadding="8dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                tools:ignore="UnusedAttribute">
-
-                                <ImageView
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    android:layout_gravity="top"
-                                    android:padding="4dp"
-                                    android:src="@drawable/ic_star"
-                                    app:tint="@color/colorPrimary" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_marginEnd="10dp"
-                                    android:text="@string/ratings"
-                                    android:textColor="@color/black"
-                                    android:textSize="14sp" />
-
-
-                            </LinearLayout>
-
-                            <FrameLayout
-
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp">
-
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/recView"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-
-                                <ProgressBar
-                                    android:id="@+id/progBar"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center" />
-
-                                <TextView
-                                    android:id="@+id/tvNoData"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="@string/no_data_to_show"
-                                    android:textColor="@color/black"
-                                    android:textSize="18sp"
-                                    android:visibility="gone" />
-                            </FrameLayout>
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
+                        android:background="@color/colorPrimary"
+                        android:text="@string/book_an_appointment_online"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
                 </LinearLayout>
-            </ScrollView>
+                <ProgressBar
+                    android:id="@+id/progBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="@{model!=null?View.GONE:View.VISIBLE,default=visible}"
 
-            <Button
-                android:id="@+id/btnAsk"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:text="@string/book_an_appointment_online"
-                android:textColor="@color/white"
-                android:textSize="13sp" />
+                    />
+            </FrameLayout>
+
         </LinearLayout>
 
         <FrameLayout
@@ -547,7 +489,7 @@
                         </FrameLayout>
 
                         <ImageView
-                            android:id="@+id/imageCloseSpecialization"
+                            android:id="@+id/imageCloseSheet"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_gravity="center_vertical"
@@ -578,18 +520,11 @@
                             android:layout_height="wrap_content" />
 
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/no_data_to_show"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:visibility="gone" />
+
                     </FrameLayout>
 
                     <net.cachapa.expandablelayout.ExpandableLayout
-                        android:id="@+id/expandhour"
+                        android:id="@+id/expandHour"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -614,80 +549,19 @@
                                 android:layout_marginTop="10dp">
 
                                 <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/recviehour"
+                                    android:id="@+id/recViewHour"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content" />
 
-                                <ProgressBar
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:visibility="gone" />
 
-                                <TextView
-                                    android:id="@+id/tvNoDataSpecialization"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="@string/no_data_to_show"
-                                    android:textColor="@color/black"
-                                    android:textSize="16sp"
-                                    android:visibility="gone" />
+
                             </FrameLayout>
                         </LinearLayout>
                     </net.cachapa.expandablelayout.ExpandableLayout>
 
-                    <net.cachapa.expandablelayout.ExpandableLayout
-                        android:id="@+id/expandhourhour"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical|start"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginEnd="10dp"
-                                android:text="@string/appoinments"
-                                android:textColor="@color/gray1"
-                                android:textSize="15sp" />
-
-                            <FrameLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical|start"
-                                android:layout_marginTop="10dp">
-
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/recViewhourhour"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-
-                                <ProgressBar
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:visibility="gone" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="@string/no_data_to_show"
-                                    android:textColor="@color/black"
-                                    android:textSize="16sp"
-                                    android:visibility="gone" />
-                            </FrameLayout>
-                        </LinearLayout>
-                    </net.cachapa.expandablelayout.ExpandableLayout>
 
                     <Button
-                        android:id="@+id/btnresev"
+                        android:id="@+id/btnReserve"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorPrimary"

@@ -41,6 +41,7 @@ public interface Listeners {
 
     interface DeleteDiseaseListener{
         void deleteDisease(int pos);
+        void deleteImage(int pos);
 
     }
 
@@ -53,7 +54,6 @@ public interface Listeners {
         void onAbout();
         void onTerms();
         void onContactUs();
-        void onLogout();
     }
     interface BackListener
     {

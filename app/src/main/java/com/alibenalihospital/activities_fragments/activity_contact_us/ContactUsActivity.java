@@ -73,12 +73,12 @@ public class ContactUsActivity extends AppCompatActivity {
     }
 
     private void contactUs() {
-       /* ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         Api.getService(Tags.base_url)
-                .contactUs(contactUsModel.getName(), contactUsModel.getEmail(), contactUsModel.getPhone(), contactUsModel.getMessage())
+                .contactUs(lang,contactUsModel.getName(), contactUsModel.getEmail(), contactUsModel.getPhone(), contactUsModel.getMessage())
                 .enqueue(new Callback<StatusResponse>() {
                     @Override
                     public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
@@ -124,6 +124,6 @@ public class ContactUsActivity extends AppCompatActivity {
                             Log.e("Error", e.getMessage() + "__");
                         }
                     }
-                });*/
+                });
     }
 }
