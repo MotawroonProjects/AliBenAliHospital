@@ -156,7 +156,7 @@ public class DepartmentsActivity extends AppCompatActivity {
 
         }
 
-        intent.putExtra("department", departmentData);
+        intent.putExtra("id", departmentData.id);
         startActivity(intent);
     }
 

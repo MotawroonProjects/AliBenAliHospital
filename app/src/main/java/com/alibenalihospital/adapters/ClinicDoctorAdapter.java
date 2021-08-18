@@ -13,18 +13,19 @@ import com.alibenalihospital.activities_fragments.activity_notification.Notifica
 import com.alibenalihospital.activities_fragments.activity_reserve_clinic.ReserveClinicActivity;
 import com.alibenalihospital.databinding.ClinicDoctorRowBinding;
 import com.alibenalihospital.databinding.NotificationRowBinding;
+import com.alibenalihospital.models.DoctorModel;
 import com.alibenalihospital.models.NotificationModel;
 
 import java.util.List;
 
 public class ClinicDoctorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Object> list;
+    private List<DoctorModel> list;
     private Context context;
     private LayoutInflater inflater;
     private ReserveClinicActivity activity;
 
-    public ClinicDoctorAdapter(List<Object> list, Context context) {
+    public ClinicDoctorAdapter(List<DoctorModel> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -48,17 +49,17 @@ public class ClinicDoctorAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         MyHolder myHolder = (MyHolder) holder;
-        //myHolder.binding.setModel(list.get(position));
+        myHolder.binding.setModel(list.get(position));
 
         myHolder.itemView.setOnClickListener(v -> {
-            activity.setItemData(null);
+            activity.setItemData(list.get(myHolder.getAdapterPosition()));
         });
 
     }
 
     @Override
     public int getItemCount() {
-        return 8;
+        return list.size();
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder {

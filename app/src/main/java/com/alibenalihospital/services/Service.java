@@ -191,5 +191,13 @@ public interface Service {
 
     );
 
+    @GET("api/doctor_department_id")
+    Call<DoctorsDataModel> searchDoctorsByDepartment(@Header("language") String language,
+                                                     @Query("name") String name,
+                                                     @Query("department_id") String department_id
+
+
+    );
+
 
 }
