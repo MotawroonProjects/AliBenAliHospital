@@ -129,29 +129,6 @@ public class Fragment_More extends Fragment implements Listeners.SettingAction {
     }
 
 
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == 100) {
-//            if (resultCode == RESULT_OK) {
-//                userModel = preferences.getUserData(activity);
-//                binding.setModel(userModel);
-//            }
-//        } else if (requestCode == 200) {
-//            if (resultCode == RESULT_OK) {
-//                userModel = preferences.getUserData(activity);
-//                binding.setModel(userModel);
-//
-//            }
-//        } else if (requestCode == 300) {
-//            if (resultCode == RESULT_OK && data != null) {
-//                String lang = data.getStringExtra("lang");
-//                activity.refreshActivity(lang);
-//            }
-//        }
-//    }
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
