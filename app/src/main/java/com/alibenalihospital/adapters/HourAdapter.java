@@ -98,5 +98,10 @@ public class HourAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
+    public void updatePos(int pos){
+        this.pos = pos;
+        this.oldPos = pos;
+        notifyItemChanged(pos);
+    }
 
 }

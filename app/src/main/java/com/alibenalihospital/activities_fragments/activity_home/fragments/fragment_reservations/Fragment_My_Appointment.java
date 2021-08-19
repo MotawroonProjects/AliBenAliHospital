@@ -1,6 +1,7 @@
 package com.alibenalihospital.activities_fragments.activity_home.fragments.fragment_reservations;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibenalihospital.R;
+import com.alibenalihospital.activities_fragments.activity_doctor_details.DoctorDetailsActivity;
 import com.alibenalihospital.activities_fragments.activity_home.HomeActivity;
 import com.alibenalihospital.activities_fragments.activity_sign_up.SignUpActivity;
 import com.alibenalihospital.adapters.MyPagerAdapter;
@@ -179,7 +181,11 @@ public class Fragment_My_Appointment extends Fragment implements Listeners.Reser
 
     }
     private void update(ReservationModel model, int pos) {
+        Intent intent = new Intent(activity, DoctorDetailsActivity.class);
+        intent.putExtra("data", model.getDoctor_id()+"");
+        intent.putExtra("reservation", model);
 
+        startActivity(intent);
     }
     private void delete(ReservationModel model, int pos) {
         ProgressDialog dialog = Common.createProgressDialog(activity, getString(R.string.wait));

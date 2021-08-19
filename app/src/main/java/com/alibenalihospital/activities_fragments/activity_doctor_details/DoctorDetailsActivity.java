@@ -43,6 +43,7 @@ import com.alibenalihospital.models.DoctorsDataModel;
 import com.alibenalihospital.models.HourModel;
 import com.alibenalihospital.models.NotificationModel;
 import com.alibenalihospital.models.RateModel;
+import com.alibenalihospital.models.ReservationModel;
 import com.alibenalihospital.models.StatusResponse;
 import com.alibenalihospital.models.UserModel;
 import com.alibenalihospital.preferences.Preferences;
@@ -80,7 +81,8 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
     private DateModel selectedDate;
     private HourModel selectedHourModel;
     private ActivityResultLauncher<Intent> launcher;
-    private int req ;
+    private int req;
+    private ReservationModel reservationModel;
 
 
     @Override
@@ -99,13 +101,20 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
 
     private void getDataFromIntent() {
         Intent intent = getIntent();
-        if (intent.hasExtra("data")){
+        if (intent.hasExtra("reservation")) {
+            doctor_id = intent.getStringExtra("data");
+            reservationModel = (ReservationModel) intent.getSerializableExtra("reservation");
+            selectedHourModel = reservationModel.getHour();
+            selectedDate = reservationModel.getDate();
+        } else if (intent.hasExtra("data")) {
             doctor_id = intent.getStringExtra("data");
 
-        }else {
+        } else {
             doctor_id = intent.getData().getLastPathSegment();
 
         }
+
+
 
 
     }
@@ -142,19 +151,24 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
 
         binding.btnReserve.setOnClickListener(v -> {
             userModel = preferences.getUserData(this);
-            if (userModel==null){
+            if (userModel == null) {
                 Toast.makeText(this, R.string.log_sign_up, Toast.LENGTH_SHORT).show();
                 return;
             }
-            req = 2;
-            step2();
+            if (reservationModel == null) {
+                req = 2;
+                step2();
+            } else {
+                updateDate();
+            }
+
 
         });
 
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            if (req ==1&&result.getResultCode()==RESULT_OK){
+            if (req == 1 && result.getResultCode() == RESULT_OK) {
                 step2();
-            }else if (req ==2&&result.getResultCode()==RESULT_OK){
+            } else if (req == 2 && result.getResultCode() == RESULT_OK) {
                 Toast.makeText(this, getString(R.string.suc), Toast.LENGTH_SHORT).show();
             }
         });
@@ -162,17 +176,22 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
         getDoctorById();
     }
 
+
     private void step2() {
         closeSheet();
-        AddReservationModel addReservationModel = new AddReservationModel(model,selectedDate,selectedHourModel,userModel.getUser().getName(),userModel.getUser().getPhone_code()+userModel.getUser().getPhone());
+        AddReservationModel addReservationModel = new AddReservationModel(model, selectedDate, selectedHourModel, userModel.getUser().getName(), userModel.getUser().getPhone_code() + userModel.getUser().getPhone());
         Intent intent = new Intent(this, CreateReservationActivity.class);
         intent.putExtra("data", addReservationModel);
         launcher.launch(intent);
     }
 
-    private void openSheet(){
+    private void updateDate() {
+
+    }
+
+    private void openSheet() {
         binding.flSheet.clearAnimation();
-        animation = AnimationUtils.loadAnimation(this,R.anim.slide_up);
+        animation = AnimationUtils.loadAnimation(this, R.anim.slide_up);
         binding.flSheet.startAnimation(animation);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -193,9 +212,9 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
 
     }
 
-    private void closeSheet(){
+    private void closeSheet() {
         binding.flSheet.clearAnimation();
-        animation = AnimationUtils.loadAnimation(this,R.anim.slide_down);
+        animation = AnimationUtils.loadAnimation(this, R.anim.slide_down);
         binding.flSheet.startAnimation(animation);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -215,23 +234,24 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
         });
 
     }
+
     private void share() {
-        Picasso.get().load(Uri.parse(Tags.IMAGE_URL+model.getImage())).into(new Target() {
+        Picasso.get().load(Uri.parse(Tags.IMAGE_URL + model.getImage())).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
 
                 Intent intent = new Intent();
-                String data = model.getName()+"\n"+model.getCategory()+"\n"+Tags.base_url+"details/" + model.getId();
+                String data = model.getName() + "\n" + model.getCategory() + "\n" + Tags.base_url + "details/" + model.getId();
                 intent.setAction(Intent.ACTION_SEND);
                 intent.setType("*/*");
-                intent.putExtra(Intent.EXTRA_TEXT,data);
+                intent.putExtra(Intent.EXTRA_TEXT, data);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                if (bitmap!=null){
+                if (bitmap != null) {
 
-                    File file = new File(getExternalCacheDir(),"share.png");
+                    File file = new File(getExternalCacheDir(), "share.png");
                     try {
                         FileOutputStream fos = new FileOutputStream(file);
-                        bitmap.compress(Bitmap.CompressFormat.PNG,100,fos);
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
                         fos.flush();
                         fos.close();
                         Uri myImageFileUri = FileProvider.getUriForFile(DoctorDetailsActivity.this, BuildConfig.APPLICATION_ID + ".provider", file);
@@ -253,10 +273,10 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
             @Override
             public void onBitmapFailed(Exception e, Drawable errorDrawable) {
                 Intent intent = new Intent();
-                String data = model.getName()+"\n"+model.getCategory()+"\n"+Tags.base_url+"details/" + model.getId();
+                String data = model.getName() + "\n" + model.getCategory() + "\n" + Tags.base_url + "details/" + model.getId();
                 intent.setAction(Intent.ACTION_SEND);
                 intent.setType("*/*");
-                intent.putExtra(Intent.EXTRA_TEXT,data);
+                intent.putExtra(Intent.EXTRA_TEXT, data);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivity(intent);
             }
@@ -270,16 +290,16 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
 
     private void favorite(boolean checked) {
         String user_id;
-        if (userModel==null){
+        if (userModel == null) {
             binding.checkbox.setChecked(!checked);
             return;
-        }else {
-            user_id = userModel.getUser().getId()+"";
+        } else {
+            user_id = userModel.getUser().getId() + "";
         }
 
         isFavChanged = true;
 
-        Api.getService(Tags.base_url).fav_un_fav(lang,user_id, doctor_id)
+        Api.getService(Tags.base_url).fav_un_fav(lang, user_id, doctor_id)
                 .enqueue(new Callback<StatusResponse>() {
                     @Override
                     public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
@@ -287,23 +307,23 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
 
                         if (response.isSuccessful()) {
 
-                            if (response.body() != null&& response.body().getStatus() == 200) {
-                               if (checked){
-                                   model.setIs_favourate("yes");
-                               }else{
-                                   model.setIs_favourate("no");
+                            if (response.body() != null && response.body().getStatus() == 200) {
+                                if (checked) {
+                                    model.setIs_favourate("yes");
+                                } else {
+                                    model.setIs_favourate("no");
 
-                               }
+                                }
 
-                               binding.setModel(model);
+                                binding.setModel(model);
                             }
 
 
                         } else {
                             binding.checkbox.setChecked(!checked);
-                            if (checked){
+                            if (checked) {
                                 model.setIs_favourate("no");
-                            }else{
+                            } else {
                                 model.setIs_favourate("yes");
 
                             }
@@ -311,7 +331,7 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
                             binding.setModel(model);
 
                             try {
-                                Log.e("error_code", response.code() + "_"+response.errorBody().string());
+                                Log.e("error_code", response.code() + "_" + response.errorBody().string());
                             } catch (NullPointerException e) {
 
                             } catch (IOException e) {
@@ -326,9 +346,9 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
                     public void onFailure(Call<StatusResponse> call, Throwable t) {
                         try {
                             binding.checkbox.setChecked(!checked);
-                            if (checked){
+                            if (checked) {
                                 model.setIs_favourate("no");
-                            }else{
+                            } else {
                                 model.setIs_favourate("yes");
 
                             }
@@ -353,10 +373,11 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
 
     private void getDoctorById() {
         String user_id = null;
-        if (userModel!=null){
-            user_id = userModel.getUser().getId()+"";
+        if (userModel != null) {
+            user_id = userModel.getUser().getId() + "";
         }
-        Api.getService(Tags.base_url).doctorById(lang,user_id, doctor_id)
+        Log.e("doc_id", doctor_id+"__");
+        Api.getService(Tags.base_url).doctorById(lang, user_id, doctor_id)
                 .enqueue(new Callback<SingleDoctorModel>() {
                     @Override
                     public void onResponse(Call<SingleDoctorModel> call, Response<SingleDoctorModel> response) {
@@ -364,9 +385,9 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
                         if (response.isSuccessful()) {
 
                             if (response.body() != null && response.body().getData() != null && response.body().getStatus() == 200) {
-                               model = response.body().getData();
-                               binding.setModel(model);
-                               updateUi();
+                                model = response.body().getData();
+                                binding.setModel(model);
+                                updateUi();
                             }
 
 
@@ -374,7 +395,7 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
 
 
                             try {
-                                Log.e("error_code", response.code() + "_"+response.errorBody().string());
+                                Log.e("error_code", response.code() + "_" + response.errorBody().string());
                             } catch (NullPointerException e) {
 
                             } catch (IOException e) {
@@ -413,19 +434,64 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
         adapter = new RateAdapter(list, this);
         binding.recView.setAdapter(adapter);
 
-        binding.recViewDay.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        binding.recViewDay.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         dateModelList.addAll(model.getAvailable_date());
-        dayAdapter = new DayAdapter(dateModelList,this,this);
+        dayAdapter = new DayAdapter(dateModelList, this, this);
         binding.recViewDay.setAdapter(dayAdapter);
-        binding.recViewHour.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        binding.recViewHour.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        if (reservationModel != null) {
+            int datePos = findDatePos();
+            if (datePos != -1) {
+                DateModel dateModel = dateModelList.get(datePos);
+                dateModel.setSelected(true);
+                dateModelList.set(datePos, dateModel);
+                dayAdapter.notifyItemChanged(datePos);
+
+                HourAdapter hourAdapter = new HourAdapter(this, dateModel.getAvailable_hour(), this);
+                binding.recViewHour.setAdapter(hourAdapter);
+                binding.expandHour.setExpanded(true);
+                int hourPos = findHourPos(datePos);
+                if (hourPos != -1) {
+                    hourAdapter.updatePos(hourPos);
+
+                }
+            }
+        }
+
+    }
+
+    private int findDatePos() {
+        int pos = -1;
+        for (int index = 0; index < dateModelList.size(); index++) {
+            DateModel dateModel = dateModelList.get(index);
+            if (dateModel.getId() == selectedDate.getId()) {
+                pos = index;
+                return pos;
+            }
+        }
+        return pos;
+    }
+
+    private int findHourPos(int datePos) {
+        int pos = -1;
+        for (int
+             index = 0; index < dateModelList.size(); index++) {
+            HourModel hourModel = dateModelList.get(datePos).getAvailable_hour().get(index);
+            if (hourModel.getId().contains(selectedHourModel.getId())) {
+                pos = index;
+                return pos;
+            }
+        }
+        return pos;
     }
 
     @Override
     public void onBackPressed() {
-        if (binding.flSheet.getVisibility()==View.VISIBLE){
+        if (binding.flSheet.getVisibility() == View.VISIBLE) {
             closeSheet();
-        }else {
-            if (isFavChanged){
+        } else {
+            if (isFavChanged) {
                 setResult(RESULT_OK);
             }
             finish();
@@ -436,14 +502,14 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
     @Override
     public void setDate(DateModel dateModel) {
         this.selectedDate = dateModel;
-        HourAdapter hourAdapter = new HourAdapter(this,dateModel.getAvailable_hour(),this);
+        HourAdapter hourAdapter = new HourAdapter(this, dateModel.getAvailable_hour(), this);
         binding.recViewHour.setAdapter(hourAdapter);
         binding.expandHour.setExpanded(true);
     }
 
     @Override
     public void setHour(HourModel hourModel) {
-        this.selectedHourModel  =hourModel;
+        this.selectedHourModel = hourModel;
         binding.btnReserve.setVisibility(View.VISIBLE);
 
     }
