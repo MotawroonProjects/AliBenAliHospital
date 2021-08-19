@@ -86,7 +86,8 @@ public interface Service {
     @GET("api/one_offer")
     Call<OfferDataModel> getSingleOffer(@Header("language") String language,
                                         @Query("offer_id") String offer_id,
-                                        @Query("user_id") String user_id
+                                        @Query("user_id") String user_id,
+                                        @Query("reservation_id") String reservation_id
 
 
     );
@@ -102,7 +103,8 @@ public interface Service {
     @GET("api/doctor")
     Call<SingleDoctorModel> doctorById(@Header("language") String language,
                                        @Query("user_id") String user_id,
-                                       @Query("doctor_id") String doctor_id
+                                       @Query("doctor_id") String doctor_id,
+                                       @Query("reservation_id") String reservation_id
 
 
     );
@@ -271,4 +273,16 @@ public interface Service {
                                   @Field("name") String name
     );
 
+    @FormUrlEncoded
+    @POST("api/update_reservation")
+    Call<StatusResponse> updateReserveDoctor(@Header("language") String language,
+                                             @Field("reservation_id") String reservation_id,
+                                             @Field("date_id") String date_id,
+                                             @Field("hour_id") String hour_id,
+                                             @Field("name") String name,
+                                             @Field("phone") String phone,
+                                             @Field("call_type") String call_type
+
+
+    );
 }

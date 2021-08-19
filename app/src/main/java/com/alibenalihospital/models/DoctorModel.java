@@ -1,6 +1,7 @@
 package com.alibenalihospital.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorModel implements Serializable {
@@ -37,6 +38,8 @@ public class DoctorModel implements Serializable {
     private CountryModel country;
     private List<RateModel> rates;
     private List<DateModel> available_date;
+    private List<DateModel> all_dates = new ArrayList<>();
+
     private List<CvModel> cv;
 
 
@@ -174,6 +177,10 @@ public class DoctorModel implements Serializable {
 
     public List<CvModel> getCv() {
         return cv;
+    }
+
+    public List<DateModel> getAll_dates() {
+        return all_dates;
     }
 
     public void setIs_favourate(String is_favourate) {

@@ -79,5 +79,11 @@ public class Fragment_My_Reservations extends Fragment  {
     }
 
 
+    public void refresh() {
+        Fragment_My_Appointment fragment_my_appointment = (Fragment_My_Appointment) fragments.get(0);
+        Fragment_Service_Operation fragment_service_operation = (Fragment_Service_Operation) fragments.get(1);
 
+        fragment_my_appointment.getData();
+        fragment_service_operation.getData();
+    }
 }

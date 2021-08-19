@@ -31,6 +31,7 @@ public class OfferDataModel extends StatusResponse implements Serializable {
         private FirstImage first_image;
         private List<RateModel> rates;
         private List<DateModel> available_date;
+        private List<DateModel> all_dates;
 
         public int getId() {
             return id;
@@ -112,7 +113,9 @@ public class OfferDataModel extends StatusResponse implements Serializable {
             return available_date;
         }
 
-
+        public List<DateModel> getAll_dates() {
+            return all_dates;
+        }
 
         public class Clinic implements Serializable{
             private int id;

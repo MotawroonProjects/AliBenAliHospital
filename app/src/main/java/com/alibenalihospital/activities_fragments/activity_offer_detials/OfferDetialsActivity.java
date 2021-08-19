@@ -1,5 +1,6 @@
 package com.alibenalihospital.activities_fragments.activity_offer_detials;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -15,12 +16,9 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibenalihospital.R;
-import com.alibenalihospital.activities_fragments.activity_complete_reservision.CompleteReservisionActivityActivity;
 import com.alibenalihospital.activities_fragments.activity_create_offer_reservation.CreateOfferReservationActivity;
-import com.alibenalihospital.activities_fragments.activity_create_reservation.CreateReservationActivity;
 import com.alibenalihospital.adapters.DayAdapter;
 import com.alibenalihospital.adapters.HourAdapter;
 import com.alibenalihospital.adapters.RateAdapter;
@@ -29,20 +27,22 @@ import com.alibenalihospital.databinding.ActivityOfferDetialsBinding;
 import com.alibenalihospital.interfaces.Listeners;
 import com.alibenalihospital.language.Language;
 import com.alibenalihospital.models.AddOfferReservationModel;
-import com.alibenalihospital.models.AddReservationModel;
 import com.alibenalihospital.models.DateModel;
 import com.alibenalihospital.models.HourModel;
 import com.alibenalihospital.models.OfferDataModel;
 import com.alibenalihospital.models.RateModel;
+import com.alibenalihospital.models.ReservationOfferModel;
 import com.alibenalihospital.models.SliderModel;
+import com.alibenalihospital.models.StatusResponse;
 import com.alibenalihospital.models.UserModel;
 import com.alibenalihospital.preferences.Preferences;
 import com.alibenalihospital.remote.Api;
+import com.alibenalihospital.share.Common;
 import com.alibenalihospital.tags.Tags;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -71,6 +71,7 @@ public class OfferDetialsActivity extends AppCompatActivity implements Listeners
     private OfferDataModel.OfferData offerModel;
     private ActivityResultLauncher<Intent> launcher;
     private int req ;
+    private ReservationOfferModel reservationOfferModel;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -90,6 +91,11 @@ public class OfferDetialsActivity extends AppCompatActivity implements Listeners
     private void getDataFromIntent() {
         Intent intent = getIntent();
         if (intent != null) {
+            if (intent.hasExtra("reservation")){
+                reservationOfferModel = (ReservationOfferModel) intent.getSerializableExtra("reservation");
+                selectedHourModel = reservationOfferModel.getHour();
+                selectedDate = reservationOfferModel.getDate();
+            }
             offerid = intent.getStringExtra("offerid");
 
 
@@ -124,8 +130,15 @@ public class OfferDetialsActivity extends AppCompatActivity implements Listeners
                 Toast.makeText(this, R.string.log_sign_up, Toast.LENGTH_SHORT).show();
                 return;
             }
-            req = 2;
-            step2();
+
+            if (reservationOfferModel==null){
+                req = 2;
+
+                step2();
+            }else {
+                updateDate();
+            }
+
 
         });
 
@@ -151,12 +164,16 @@ public class OfferDetialsActivity extends AppCompatActivity implements Listeners
 
     private void getSingleOffer() {
         String userid = null;
+        String reservation_id = null;
         if (userModel != null) {
             userid = userModel.getUser().getId() + "";
         }
+        if (reservationOfferModel!=null){
+            reservation_id = reservationOfferModel.getId()+"";
+        }
 
         Api.getService(Tags.base_url)
-                .getSingleOffer(lang, offerid, userid)
+                .getSingleOffer(lang, offerid, userid,reservation_id)
                 .enqueue(new Callback<OfferDataModel>() {
                     @Override
                     public void onResponse(Call<OfferDataModel> call, Response<OfferDataModel> response) {
@@ -233,7 +250,6 @@ public class OfferDetialsActivity extends AppCompatActivity implements Listeners
             binding.recView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
             adapter = new RateAdapter(rateModelList, this);
             binding.recView.setAdapter(adapter);
-            Log.e("ssss", rateModelList.size()+"_");
             adapter.notifyDataSetChanged();
         } else {
             binding.tvNoData.setVisibility(View.VISIBLE);
@@ -242,12 +258,111 @@ public class OfferDetialsActivity extends AppCompatActivity implements Listeners
 
 
 
+        Log.e("sss", data.getAll_dates().size()+"__");
         binding.recViewDay.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        dateModelList.addAll(data.getAvailable_date());
+
+        if (reservationOfferModel==null){
+            dateModelList.addAll(data.getAvailable_date());
+
+        }else {
+            dateModelList.addAll(data.getAll_dates());
+        }
+
         dayAdapter = new DayAdapter(dateModelList,this,this);
         binding.recViewDay.setAdapter(dayAdapter);
         binding.recViewHour.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
+
+        if (reservationOfferModel != null) {
+            int datePos = findDatePos();
+            if (datePos != -1) {
+                dayAdapter.updatePos(datePos);
+
+                DateModel dateModel = dateModelList.get(datePos);
+                dateModel.setSelected(true);
+                dateModelList.set(datePos, dateModel);
+                dayAdapter.notifyItemChanged(datePos);
+
+                HourAdapter hourAdapter = new HourAdapter(this, dateModel.getAvailable_hour(), this);
+
+                int hourPos = findHourPos(datePos);
+                if (hourPos != -1) {
+                    hourAdapter.updatePos(hourPos);
+
+                }
+
+                binding.recViewHour.setAdapter(hourAdapter);
+                binding.expandHour.setExpanded(true);
+            }
+        }
+
+    }
+
+    private int findDatePos() {
+        int pos = -1;
+        for (int index = 0; index < dateModelList.size(); index++) {
+            DateModel dateModel = dateModelList.get(index);
+            if (dateModel.getIs_reserved().equals("yes")) {
+                pos = index;
+                return pos;
+            }
+        }
+        return pos;
+    }
+
+    private int findHourPos(int datePos) {
+        int pos = -1;
+        for (int index = 0; index < dateModelList.get(datePos).getAvailable_hour().size(); index++) {
+            HourModel hourModel = dateModelList.get(datePos).getAvailable_hour().get(index);
+
+            if (hourModel.getIs_reserved().equals("yes")) {
+                pos = index;
+                return pos;
+            }
+        }
+        return pos;
+    }
+
+    private void updateDate() {
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+
+        dialog.setCancelable(false);
+        dialog.show();
+
+        Api.getService(Tags.base_url)
+                .updateReserveDoctor(lang, reservationOfferModel.getId() + "", selectedDate.getId() + "", selectedHourModel.getId() , reservationOfferModel.getName(), reservationOfferModel.getPhone(), reservationOfferModel.getCall_type())
+                .enqueue(new Callback<StatusResponse>() {
+                    @Override
+                    public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful() && response.body() != null) {
+                            if (response.body().getStatus() == 200) {
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+
+                        } else {
+
+                            try {
+                                Log.e("error", response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<StatusResponse> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
     }
 
     private void openSheet(){
@@ -331,8 +446,9 @@ public class OfferDetialsActivity extends AppCompatActivity implements Listeners
 
 
     @Override
-    public void setDate(DateModel dateModel) {
+    public void setDate(DateModel dateModel, int adapterPosition) {
         this.selectedDate = dateModel;
+
         HourAdapter hourAdapter = new HourAdapter(this,dateModel.getAvailable_hour(),this);
         binding.recViewHour.setAdapter(hourAdapter);
         binding.expandHour.setExpanded(true);

@@ -71,7 +71,7 @@ public class DayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             list.set(pos,dateModel);
             notifyItemChanged(pos);
             oldPos = pos;
-            listener.setDate(dateModel);
+            listener.setDate(dateModel,myHolder.getAdapterPosition());
         });
 
 
@@ -92,6 +92,11 @@ public class DayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             this.binding = binding;
 
         }
+    }
+
+    public void updatePos(int pos){
+        this.pos = pos;
+        this.oldPos = pos;
     }
 
 

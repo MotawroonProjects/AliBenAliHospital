@@ -1,19 +1,16 @@
 package com.alibenalihospital.activities_fragments.activity_doctor_details;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,28 +23,24 @@ import android.widget.Toast;
 import com.alibenalihospital.BuildConfig;
 import com.alibenalihospital.R;
 import com.alibenalihospital.activities_fragments.activity_create_reservation.CreateReservationActivity;
-import com.alibenalihospital.activities_fragments.activity_login.LoginActivity;
 import com.alibenalihospital.adapters.DayAdapter;
 import com.alibenalihospital.adapters.HourAdapter;
-import com.alibenalihospital.adapters.NotificationAdapter;
 import com.alibenalihospital.adapters.RateAdapter;
 import com.alibenalihospital.adapters.SingleDoctorModel;
 import com.alibenalihospital.databinding.ActivityDoctorDetailsBinding;
-import com.alibenalihospital.databinding.ActivityNotificationBinding;
 import com.alibenalihospital.interfaces.Listeners;
 import com.alibenalihospital.language.Language;
 import com.alibenalihospital.models.AddReservationModel;
 import com.alibenalihospital.models.DateModel;
 import com.alibenalihospital.models.DoctorModel;
-import com.alibenalihospital.models.DoctorsDataModel;
 import com.alibenalihospital.models.HourModel;
-import com.alibenalihospital.models.NotificationModel;
 import com.alibenalihospital.models.RateModel;
 import com.alibenalihospital.models.ReservationModel;
 import com.alibenalihospital.models.StatusResponse;
 import com.alibenalihospital.models.UserModel;
 import com.alibenalihospital.preferences.Preferences;
 import com.alibenalihospital.remote.Api;
+import com.alibenalihospital.share.Common;
 import com.alibenalihospital.tags.Tags;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -58,7 +51,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import io.paperdb.Paper;
 import retrofit2.Call;
@@ -113,8 +105,6 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
             doctor_id = intent.getData().getLastPathSegment();
 
         }
-
-
 
 
     }
@@ -186,7 +176,45 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
     }
 
     private void updateDate() {
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
 
+        dialog.setCancelable(false);
+        dialog.show();
+
+        Api.getService(Tags.base_url)
+                .updateReserveDoctor(lang, reservationModel.getId() + "", selectedDate.getId() + "", selectedHourModel.getId() , reservationModel.getName(), reservationModel.getPhone(), reservationModel.getCall_type())
+                .enqueue(new Callback<StatusResponse>() {
+                    @Override
+                    public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful() && response.body() != null) {
+                            if (response.body().getStatus() == 200) {
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+
+                        } else {
+
+                            try {
+                                Log.e("error", response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<StatusResponse> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
     }
 
     private void openSheet() {
@@ -373,11 +401,15 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
 
     private void getDoctorById() {
         String user_id = null;
+        String reservation_id = null;
         if (userModel != null) {
             user_id = userModel.getUser().getId() + "";
         }
-        Log.e("doc_id", doctor_id+"__");
-        Api.getService(Tags.base_url).doctorById(lang, user_id, doctor_id)
+        if (reservationModel != null) {
+            reservation_id = reservationModel.getId() + "";
+        }
+        Log.e("doc_id", doctor_id + "__" + reservation_id);
+        Api.getService(Tags.base_url).doctorById(lang, user_id, doctor_id, reservation_id)
                 .enqueue(new Callback<SingleDoctorModel>() {
                     @Override
                     public void onResponse(Call<SingleDoctorModel> call, Response<SingleDoctorModel> response) {
@@ -435,7 +467,13 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
         binding.recView.setAdapter(adapter);
 
         binding.recViewDay.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        dateModelList.addAll(model.getAvailable_date());
+        if (reservationModel == null) {
+            dateModelList.addAll(model.getAvailable_date());
+
+        } else {
+            dateModelList.addAll(model.getAll_dates());
+
+        }
         dayAdapter = new DayAdapter(dateModelList, this, this);
         binding.recViewDay.setAdapter(dayAdapter);
         binding.recViewHour.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -443,19 +481,22 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
         if (reservationModel != null) {
             int datePos = findDatePos();
             if (datePos != -1) {
+                dayAdapter.updatePos(datePos);
                 DateModel dateModel = dateModelList.get(datePos);
                 dateModel.setSelected(true);
                 dateModelList.set(datePos, dateModel);
                 dayAdapter.notifyItemChanged(datePos);
 
                 HourAdapter hourAdapter = new HourAdapter(this, dateModel.getAvailable_hour(), this);
-                binding.recViewHour.setAdapter(hourAdapter);
-                binding.expandHour.setExpanded(true);
+
                 int hourPos = findHourPos(datePos);
                 if (hourPos != -1) {
                     hourAdapter.updatePos(hourPos);
 
                 }
+
+                binding.recViewHour.setAdapter(hourAdapter);
+                binding.expandHour.setExpanded(true);
             }
         }
 
@@ -465,7 +506,7 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
         int pos = -1;
         for (int index = 0; index < dateModelList.size(); index++) {
             DateModel dateModel = dateModelList.get(index);
-            if (dateModel.getId() == selectedDate.getId()) {
+            if (dateModel.getIs_reserved().equals("yes")) {
                 pos = index;
                 return pos;
             }
@@ -475,10 +516,10 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
 
     private int findHourPos(int datePos) {
         int pos = -1;
-        for (int
-             index = 0; index < dateModelList.size(); index++) {
+        for (int index = 0; index < dateModelList.get(datePos).getAvailable_hour().size(); index++) {
             HourModel hourModel = dateModelList.get(datePos).getAvailable_hour().get(index);
-            if (hourModel.getId().contains(selectedHourModel.getId())) {
+
+            if (hourModel.getIs_reserved().equals("yes")) {
                 pos = index;
                 return pos;
             }
@@ -500,7 +541,7 @@ public class DoctorDetailsActivity extends AppCompatActivity implements Listener
     }
 
     @Override
-    public void setDate(DateModel dateModel) {
+    public void setDate(DateModel dateModel, int adapterPosition) {
         this.selectedDate = dateModel;
         HourAdapter hourAdapter = new HourAdapter(this, dateModel.getAvailable_hour(), this);
         binding.recViewHour.setAdapter(hourAdapter);

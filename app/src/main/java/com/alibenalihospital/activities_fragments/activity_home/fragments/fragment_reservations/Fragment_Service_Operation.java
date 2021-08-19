@@ -1,12 +1,19 @@
 package com.alibenalihospital.activities_fragments.activity_home.fragments.fragment_reservations;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -15,6 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibenalihospital.R;
 import com.alibenalihospital.activities_fragments.activity_home.HomeActivity;
+import com.alibenalihospital.activities_fragments.activity_offer_detials.OfferDetialsActivity;
+import com.alibenalihospital.activities_fragments.activity_service_process.ServiceProcessActivity;
 import com.alibenalihospital.adapters.MyReservationAdapter;
 import com.alibenalihospital.adapters.MyReservationOfferAdapter;
 import com.alibenalihospital.databinding.FragmentMyDatesBinding;
@@ -49,6 +58,8 @@ public class Fragment_Service_Operation extends Fragment implements Listeners.Re
     private String lang;
     private List<ReservationOfferModel> list;
     private MyReservationOfferAdapter adapter;
+    private ActivityResultLauncher<Intent> launcher;
+    private int req;
 
     public static Fragment_Service_Operation newInstance() {
 
@@ -71,6 +82,16 @@ public class Fragment_Service_Operation extends Fragment implements Listeners.Re
 
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (req==1&&result.getResultCode()== Activity.RESULT_OK){
+                getData();
+            }
+        });
+    }
+
     private void initView() {
         list = new ArrayList<>();
         activity = (HomeActivity) getActivity();
@@ -90,7 +111,7 @@ public class Fragment_Service_Operation extends Fragment implements Listeners.Re
 
     }
 
-    private void getData() {
+    public void getData() {
         userModel = preferences.getUserData(activity);
 
         binding.progBar.setVisibility(View.VISIBLE);
@@ -179,7 +200,12 @@ public class Fragment_Service_Operation extends Fragment implements Listeners.Re
 
     }
     private void update(ReservationOfferModel model, int pos) {
+        req = 1;
+        Intent intent = new Intent(activity, OfferDetialsActivity.class);
+        intent.putExtra("offerid", model.getOffer_id());
+        intent.putExtra("reservation", model);
 
+        launcher.launch(intent);
     }
     private void delete(ReservationOfferModel model, int pos) {
         ProgressDialog dialog = Common.createProgressDialog(activity, getString(R.string.wait));

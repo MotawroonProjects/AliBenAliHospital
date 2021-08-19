@@ -142,6 +142,7 @@ public class Fragment_More extends Fragment implements Listeners.SettingAction {
                     if (userModel != null) {
                         binding.tvLogin.setText(getResources().getString(R.string.logout));
                     }
+                    activity.refreshFragmentReservation();
                 } else if (request == 2) {
                     userModel = Preferences.getInstance().getUserData(activity);
                     binding.setModel(userModel);

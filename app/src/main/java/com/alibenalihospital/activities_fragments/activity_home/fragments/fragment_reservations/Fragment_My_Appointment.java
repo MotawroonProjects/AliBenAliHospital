@@ -1,6 +1,8 @@
 package com.alibenalihospital.activities_fragments.activity_home.fragments.fragment_reservations;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -54,6 +60,8 @@ public class Fragment_My_Appointment extends Fragment implements Listeners.Reser
     private String lang;
     private List<ReservationModel> list;
     private MyReservationAdapter adapter;
+    private ActivityResultLauncher<Intent> launcher;
+    private int req ;
 
     public static Fragment_My_Appointment newInstance() {
 
@@ -76,6 +84,17 @@ public class Fragment_My_Appointment extends Fragment implements Listeners.Reser
 
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (req==1&&result.getResultCode()== Activity.RESULT_OK){
+                getData();
+                Log.e("eee", "eee");
+            }
+        });
+    }
+
     private void initView() {
         list = new ArrayList<>();
         activity = (HomeActivity) getActivity();
@@ -95,7 +114,7 @@ public class Fragment_My_Appointment extends Fragment implements Listeners.Reser
 
     }
 
-    private void getData() {
+    public void getData() {
         userModel = preferences.getUserData(activity);
 
         binding.progBar.setVisibility(View.VISIBLE);
@@ -181,11 +200,11 @@ public class Fragment_My_Appointment extends Fragment implements Listeners.Reser
 
     }
     private void update(ReservationModel model, int pos) {
+        req = 1;
         Intent intent = new Intent(activity, DoctorDetailsActivity.class);
         intent.putExtra("data", model.getDoctor_id()+"");
         intent.putExtra("reservation", model);
-
-        startActivity(intent);
+        launcher.launch(intent);
     }
     private void delete(ReservationModel model, int pos) {
         ProgressDialog dialog = Common.createProgressDialog(activity, getString(R.string.wait));

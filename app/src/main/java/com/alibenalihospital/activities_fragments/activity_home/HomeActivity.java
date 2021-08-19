@@ -305,7 +305,11 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-
+    public void refreshFragmentReservation(){
+        if (fragment_my_reservations!=null&&fragment_my_reservations.isAdded()){
+            fragment_my_reservations.refresh();
+        }
+    }
     private void updateFirebaseToken() {
         FirebaseInstanceId.getInstance()
                 .getInstanceId().addOnCompleteListener(task -> {

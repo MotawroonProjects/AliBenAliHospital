@@ -30,7 +30,7 @@ public interface Listeners {
     }
 
     interface DateListener{
-        void setDate(DateModel dateModel);
+        void setDate(DateModel dateModel, int adapterPosition);
 
     }
 
