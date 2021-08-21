@@ -26,6 +26,7 @@ import com.alibenalihospital.R;
 import com.alibenalihospital.activities_fragments.activity_doctor_details.DoctorDetailsActivity;
 import com.alibenalihospital.activities_fragments.activity_home.HomeActivity;
 import com.alibenalihospital.activities_fragments.activity_sign_up.SignUpActivity;
+import com.alibenalihospital.activities_fragments.activty_reservstion_details.ReservationDetailsActivity;
 import com.alibenalihospital.adapters.MyPagerAdapter;
 import com.alibenalihospital.adapters.MyReservationAdapter;
 import com.alibenalihospital.databinding.FragmentMyDatesBinding;
@@ -197,7 +198,9 @@ public class Fragment_My_Appointment extends Fragment implements Listeners.Reser
     }
 
     private void show(ReservationModel model) {
-
+        Intent intent = new Intent(activity, ReservationDetailsActivity.class);
+        intent.putExtra("data", model);
+        startActivity(intent);
     }
     private void update(ReservationModel model, int pos) {
         req = 1;

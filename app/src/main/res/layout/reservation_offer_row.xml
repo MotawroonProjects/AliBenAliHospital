@@ -109,7 +109,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:visibility='@{model.is_deleted.equals("yes")?View.GONE:View.VISIBLE}'
+                    android:visibility='@{model.is_deleted.equals("yes")?View.GONE:View.VISIBLE,default=invisible}'
                     >
 
                     <LinearLayout
@@ -149,7 +149,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:visibility='@{model.is_deleted.equals("yes")?View.GONE:(model.can_updated.equals("yes")?View.VISIBLE:View.GONE)}'
+                    android:visibility='@{model.is_deleted.equals("yes")?View.GONE:(model.can_updated.equals("yes")?View.VISIBLE:View.GONE),default=invisible}'
 
                     >
 
@@ -189,7 +189,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:visibility='@{model.is_deleted.equals("yes")?View.VISIBLE:(model.can_canceled.equals("yes")?View.VISIBLE:View.GONE)}'
+                    android:visibility='@{model.is_deleted.equals("yes")?View.VISIBLE:(model.can_canceled.equals("yes")?View.VISIBLE:View.GONE),default=invisible}'
 
                     >
 

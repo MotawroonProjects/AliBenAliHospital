@@ -1,5 +1,6 @@
 package com.alibenalihospital.general_ui_method;
 
+import android.content.Context;
 import android.net.Uri;
 import android.view.View;
 import android.widget.EditText;
@@ -9,13 +10,18 @@ import android.widget.TextView;
 import androidx.databinding.BindingAdapter;
 
 import com.alibenalihospital.R;
+import com.alibenalihospital.models.DiseasesModel;
+import com.alibenalihospital.models.ReservationDiseasesModel;
 import com.alibenalihospital.share.Time_Ago;
 import com.alibenalihospital.tags.Tags;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.paperdb.Paper;
 
 public class GeneralMethod {
 
@@ -105,6 +111,23 @@ public class GeneralMethod {
     @BindingAdapter("rate")
     public static void rate(SimpleRatingBar ratingBar, double rate) {
         ratingBar.setRating((float) rate);
+    }
+
+    @BindingAdapter("disease")
+    public static void disease(TextView view, List<ReservationDiseasesModel> list) {
+
+        if (list!=null&&list.size()>0){
+            StringBuilder data= new StringBuilder();
+            for (ReservationDiseasesModel model :list){
+                data.append(model.getDiseases().getTitle()).append("-");
+            }
+            data.deleteCharAt(data.lastIndexOf("-"));
+
+            view.setText(data.toString());
+        }else {
+            view.setText(R.string.not_available);
+        }
+
     }
 
 }

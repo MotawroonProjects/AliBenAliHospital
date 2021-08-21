@@ -25,8 +25,11 @@
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_departments.xml" value="0.1308876811594203" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_doctor_details.xml" value="0.33541666666666664" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_favorite.xml" value="0.13722826086956522" />
+        <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_images.xml" value="0.1" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_notification.xml" value="0.13722826086956522" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_offer_detials.xml" value="0.18" />
+        <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_reservation_details.xml" value="0.25" />
+        <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_reservation_offer_details.xml" value="0.18" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_reserve_clinic.xml" value="0.13405797101449277" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_reserve_foreign.xml" value="0.18" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/activity_reserve_online.xml" value="0.13405797101449277" />
@@ -45,6 +48,7 @@
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/fragment_search.xml" value="0.21" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/fragment_service_operation.xml" value="0.16779572694111516" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/hour_row.xml" value="0.25" />
+        <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/image_row.xml" value="0.11322463768115942" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/notification_row.xml" value="0.33" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/online_doctor_row.xml" value="0.5" />
         <entry key="..\:/works/AliBenAliHosbitals/app/src/main/res/layout/rate_row.xml" value="0.22" />

@@ -36,6 +36,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".activities_fragments.activity_reservation_offer_details.ReservationOfferDetailsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities_fragments.activity_images.ImagesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities_fragments.activty_reservstion_details.ReservationDetailsActivity"
+            android:exported="true" />
+        <activity
             android:name=".activities_fragments.activity_create_offer_reservation.CreateOfferReservationActivity"
             android:exported="true" />
         <activity

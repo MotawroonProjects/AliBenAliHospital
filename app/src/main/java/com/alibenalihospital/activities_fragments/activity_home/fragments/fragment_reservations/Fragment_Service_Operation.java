@@ -23,7 +23,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.alibenalihospital.R;
 import com.alibenalihospital.activities_fragments.activity_home.HomeActivity;
 import com.alibenalihospital.activities_fragments.activity_offer_detials.OfferDetialsActivity;
+import com.alibenalihospital.activities_fragments.activity_reservation_offer_details.ReservationOfferDetailsActivity;
 import com.alibenalihospital.activities_fragments.activity_service_process.ServiceProcessActivity;
+import com.alibenalihospital.activities_fragments.activty_reservstion_details.ReservationDetailsActivity;
 import com.alibenalihospital.adapters.MyReservationAdapter;
 import com.alibenalihospital.adapters.MyReservationOfferAdapter;
 import com.alibenalihospital.databinding.FragmentMyDatesBinding;
@@ -197,7 +199,9 @@ public class Fragment_Service_Operation extends Fragment implements Listeners.Re
 
 
     private void show(ReservationOfferModel model) {
-
+        Intent intent = new Intent(activity, ReservationOfferDetailsActivity.class);
+        intent.putExtra("data", model);
+        startActivity(intent);
     }
     private void update(ReservationOfferModel model, int pos) {
         req = 1;
