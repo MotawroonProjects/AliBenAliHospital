@@ -173,6 +173,8 @@
     <string name="not_available">Not available</string>
     <string name="diseases">Diseases</string>
     <string name="files">Files</string>
+    <string name="add_rate">Add rate</string>
+    <string name="add_comment">Add comment...</string>
 
 
 </resources>

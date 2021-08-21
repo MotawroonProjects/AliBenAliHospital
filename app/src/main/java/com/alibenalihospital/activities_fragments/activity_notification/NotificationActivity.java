@@ -1,10 +1,13 @@
 package com.alibenalihospital.activities_fragments.activity_notification;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,14 +20,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.alibenalihospital.R;
 import com.alibenalihospital.adapters.NotificationAdapter;
 import com.alibenalihospital.databinding.ActivityNotificationBinding;
+import com.alibenalihospital.databinding.DialogAlertBinding;
+import com.alibenalihospital.databinding.RateDialogBinding;
 import com.alibenalihospital.language.Language;
 
 import com.alibenalihospital.models.NotificationDataModel;
 import com.alibenalihospital.models.NotificationModel;
+import com.alibenalihospital.models.StatusResponse;
 import com.alibenalihospital.models.UserModel;
 import com.alibenalihospital.preferences.Preferences;
 import com.alibenalihospital.remote.Api;
+import com.alibenalihospital.share.Common;
 import com.alibenalihospital.tags.Tags;
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,7 +70,7 @@ public class NotificationActivity extends AppCompatActivity {
     private void initView() {
         notificationModelList = new ArrayList<>();
         Paper.init(this);
-        lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
+        lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
 
         preferences = Preferences.getInstance();
@@ -93,8 +101,12 @@ public class NotificationActivity extends AppCompatActivity {
 
                 return;
             }
+
+            notificationModelList.clear();
+            adapter.notifyDataSetChanged();
+
             Api.getService(Tags.base_url)
-                    .getNotifications(lang, userModel.getUser().getId()+"")
+                    .getNotifications(lang, userModel.getUser().getId() + "")
                     .enqueue(new Callback<NotificationDataModel>() {
                         @Override
                         public void onResponse(Call<NotificationDataModel> call, Response<NotificationDataModel> response) {
@@ -103,12 +115,9 @@ public class NotificationActivity extends AppCompatActivity {
                             if (response.isSuccessful() && response.body() != null) {
                                 if (response.body().getStatus() == 200) {
                                     if (response.body().getData().size() > 0) {
-                                        notificationModelList.clear();
                                         notificationModelList.addAll(response.body().getData());
                                         adapter.notifyDataSetChanged();
                                     } else {
-                                        notificationModelList.clear();
-                                        adapter.notifyDataSetChanged();
                                         binding.tvNoData.setVisibility(View.VISIBLE);
                                     }
                                 } else {
@@ -161,6 +170,117 @@ public class NotificationActivity extends AppCompatActivity {
 
     public void setItemData(NotificationModel model) {
 
+    }
+
+    public void showDialog(NotificationModel model) {
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+                .create();
+
+        RateDialogBinding binding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.rate_dialog, null, false);
+        binding.setModel(model);
+        binding.btnCancel.setOnClickListener(v -> dialog.dismiss());
+        binding.btnRate.setOnClickListener(v -> {
+            String comment = binding.edtComment.getText().toString();
+            float rate = binding.rateBar.getRating();
+            Common.CloseKeyBoard(this, binding.edtComment);
+            dialog.dismiss();
+            if (model.getReservation().getType().equals("online")){
+                addRateDoctor(model, comment, rate);
+
+            }else{
+                addRateOffer(model, comment, rate);
+
+            }
+        });
+        binding.rateBar.setOnRatingBarChangeListener((simpleRatingBar, rating, fromUser) -> binding.tvRate.setText(String.valueOf(rating)));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.dialog_congratulation_animation;
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setView(binding.getRoot());
+        dialog.show();
+    }
+
+
+
+    private void addRateDoctor(NotificationModel model, String comment, float rate) {
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+
+        dialog.setCancelable(false);
+        dialog.show();
+
+        Api.getService(Tags.base_url)
+                .addRateDoctor(lang, userModel.getUser().getId() + "", model.getReservation().getDoctor().getId()+"",comment,rate)
+                .enqueue(new Callback<StatusResponse>() {
+                    @Override
+                    public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful() && response.body() != null) {
+                            if (response.body().getStatus() == 200) {
+                               getNotifications();
+                            }
+
+                        } else {
+
+                            try {
+                                Log.e("error", response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<StatusResponse> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
+    }
+
+    private void addRateOffer(NotificationModel model, String comment, float rate) {
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+
+        dialog.setCancelable(false);
+        dialog.show();
+
+        Api.getService(Tags.base_url)
+                .addRateOffer(lang, userModel.getUser().getId() + "", model.getReservation().getOffer().getId()+"",comment,rate)
+                .enqueue(new Callback<StatusResponse>() {
+                    @Override
+                    public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful() && response.body() != null) {
+                            if (response.body().getStatus() == 200) {
+                                getNotifications();
+                            }
+
+                        } else {
+
+                            try {
+                                Log.e("error", response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<StatusResponse> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
     }
 
 

@@ -285,4 +285,24 @@ public interface Service {
 
 
     );
+
+    @FormUrlEncoded
+    @POST("api/rate_doctor")
+    Call<StatusResponse> addRateDoctor(@Header("language") String language,
+                                       @Field("user_id") String user_id,
+                                       @Field("doctor_id") String doctor_id,
+                                       @Field("title") String comment,
+                                       @Field("rate") float rate
+
+    );
+
+    @FormUrlEncoded
+    @POST("api/rate_offer")
+    Call<StatusResponse> addRateOffer(@Header("language") String language,
+                                      @Field("user_id") String user_id,
+                                      @Field("offer_id") String offer_id,
+                                      @Field("title") String comment,
+                                      @Field("rate") float rate
+
+    );
 }

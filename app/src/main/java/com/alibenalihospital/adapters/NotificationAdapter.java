@@ -52,6 +52,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             activity.setItemData(list.get(holder.getAdapterPosition()));
         });
 
+        myHolder.binding.btnRate.setOnClickListener(v -> {
+            activity.showDialog(list.get(holder.getAdapterPosition()));
+        });
+
     }
 
     @Override

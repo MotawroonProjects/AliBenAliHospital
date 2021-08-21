@@ -72,7 +72,7 @@ public class FavoriteActivity extends AppCompatActivity implements Listeners.Fav
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
         Paper.init(this);
-        lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
+        lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
         binding.swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);

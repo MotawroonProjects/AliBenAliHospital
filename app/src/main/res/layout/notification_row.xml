@@ -7,6 +7,8 @@
         <variable
             name="model"
             type="com.alibenalihospital.models.NotificationModel" />
+
+        <import type="android.view.View"/>
     </data>
 
     <LinearLayout
@@ -79,6 +81,22 @@
                         android:textAlignment="viewStart"
                         android:textColor="@color/gray1"
                         android:textSize="13sp" />
+
+
+                    <Button
+                        android:id="@+id/btnRate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="16dp"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:text="@string/add_rate"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:background="@drawable/rounded_primary"
+                        android:visibility='@{model.can_rate.equals("yes")?View.VISIBLE:View.GONE,default=gone}'
+                        />
                 </LinearLayout>
             </FrameLayout>
 

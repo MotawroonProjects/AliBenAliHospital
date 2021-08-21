@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.alibenalihospital.R;
 import com.alibenalihospital.adapters.FavoriteDoctorAdapter;
@@ -76,6 +78,8 @@ public class ImagesActivity extends AppCompatActivity {
         binding.pager.setOffscreenPageLimit(list.size());
 
         binding.llBack.setOnClickListener(view -> finish());
+
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
 
 
     }

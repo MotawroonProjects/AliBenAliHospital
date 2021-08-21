@@ -7,6 +7,9 @@ public class NotificationModel implements Serializable {
     private String title;
     private String message;
     private String date;
+    private String can_rate;
+    private NotReservationModel reservation;
+
 
 
     public int getId() {
@@ -23,5 +26,13 @@ public class NotificationModel implements Serializable {
 
     public String getDate() {
         return date;
+    }
+
+    public String getCan_rate() {
+        return can_rate;
+    }
+
+    public NotReservationModel getReservation() {
+        return reservation;
     }
 }

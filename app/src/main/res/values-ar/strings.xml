@@ -173,5 +173,7 @@
     <string name="not_available">غير متاح</string>
     <string name="diseases">الامراض التي تعاني منها</string>
     <string name="files">ملفات</string>
+    <string name="add_rate">تقييم</string>
+    <string name="add_comment">تعليقك...</string>
 
 </resources>
