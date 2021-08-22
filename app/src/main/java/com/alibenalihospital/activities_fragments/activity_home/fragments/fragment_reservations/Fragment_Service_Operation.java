@@ -200,7 +200,8 @@ public class Fragment_Service_Operation extends Fragment implements Listeners.Re
 
     private void show(ReservationOfferModel model) {
         Intent intent = new Intent(activity, ReservationOfferDetailsActivity.class);
-        intent.putExtra("data", model);
+        intent.putExtra("data", model.getId()+"");
+
         startActivity(intent);
     }
     private void update(ReservationOfferModel model, int pos) {

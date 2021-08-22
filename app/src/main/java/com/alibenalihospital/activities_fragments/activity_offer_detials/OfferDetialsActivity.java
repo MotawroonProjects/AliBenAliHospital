@@ -100,6 +100,7 @@ public class OfferDetialsActivity extends AppCompatActivity implements Listeners
 
 
         }
+
     }
 
     private void initView() {
@@ -171,6 +172,8 @@ public class OfferDetialsActivity extends AppCompatActivity implements Listeners
         if (reservationOfferModel!=null){
             reservation_id = reservationOfferModel.getId()+"";
         }
+
+        Log.e("res_id", reservation_id+"__");
 
         Api.getService(Tags.base_url)
                 .getSingleOffer(lang, offerid, userid,reservation_id)
