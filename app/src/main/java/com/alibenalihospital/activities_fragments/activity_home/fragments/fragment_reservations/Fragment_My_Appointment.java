@@ -199,7 +199,7 @@ public class Fragment_My_Appointment extends Fragment implements Listeners.Reser
 
     private void show(ReservationModel model) {
         Intent intent = new Intent(activity, ReservationDetailsActivity.class);
-        intent.putExtra("data", model);
+        intent.putExtra("data", model.getId()+"");
         startActivity(intent);
     }
     private void update(ReservationModel model, int pos) {

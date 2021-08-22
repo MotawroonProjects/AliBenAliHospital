@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 
 import com.alibenalihospital.R;
+import com.alibenalihospital.activities_fragments.activity_reservation_offer_details.ReservationOfferDetailsActivity;
+import com.alibenalihospital.activities_fragments.activty_reservstion_details.ReservationDetailsActivity;
 import com.alibenalihospital.adapters.NotificationAdapter;
 import com.alibenalihospital.databinding.ActivityNotificationBinding;
 import com.alibenalihospital.databinding.DialogAlertBinding;
@@ -169,7 +171,16 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     public void setItemData(NotificationModel model) {
-
+        if (model.getReservation()!=null){
+            Intent intent;
+            if (model.getReservation().getType().equals("online")){
+                intent = new Intent(this, ReservationDetailsActivity.class);
+            }else {
+                intent = new Intent(this, ReservationOfferDetailsActivity.class);
+            }
+            intent.putExtra("data", model.getReservation().getId()+"");
+            startActivity(intent);
+        }
     }
 
     public void showDialog(NotificationModel model) {

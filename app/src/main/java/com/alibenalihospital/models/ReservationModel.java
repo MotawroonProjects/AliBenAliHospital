@@ -26,10 +26,10 @@ public class ReservationModel implements Serializable {
     private String can_updated;
     private DoctorModel doctor;
     private DateModel date;
-
     private HourModel hour;
     private List<ReservationDiseasesModel> reservation_diseases;
     private List<FileModel> files;
+    private String call_start;
 
     public int getId() {
         return id;
@@ -133,5 +133,9 @@ public class ReservationModel implements Serializable {
 
     public void setIs_deleted(String is_deleted) {
         this.is_deleted = is_deleted;
+    }
+
+    public String getCall_start() {
+        return call_start;
     }
 }

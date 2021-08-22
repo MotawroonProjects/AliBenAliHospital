@@ -11,6 +11,8 @@ import com.alibenalihospital.models.PlaceGeocodeData;
 import com.alibenalihospital.models.PlaceMapDetailsData;
 import com.alibenalihospital.models.ReservationDataModel;
 import com.alibenalihospital.models.ReservationOfferDataModel;
+import com.alibenalihospital.models.SingleReservationModel;
+import com.alibenalihospital.models.SingleReservationOfferModel;
 import com.alibenalihospital.models.SliderDataModel;
 import com.alibenalihospital.models.SettingModel;
 import com.alibenalihospital.models.StatusResponse;
@@ -305,4 +307,18 @@ public interface Service {
                                       @Field("rate") float rate
 
     );
+
+    @GET("api/one_reservation")
+    Call<SingleReservationModel> getReservationById(@Header("language") String language,
+                                                    @Query("reservation_id") String reservation_id
+
+    );
+
+    @GET("api/one_offer_reservation")
+    Call<SingleReservationOfferModel> getReservationOfferById(@Header("language") String language,
+                                                              @Query("reservation_id") String reservation_id
+
+    );
+
+
 }

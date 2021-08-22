@@ -175,5 +175,6 @@
     <string name="files">ملفات</string>
     <string name="add_rate">تقييم</string>
     <string name="add_comment">تعليقك...</string>
+    <string name="start_chat">بدء المحادثة</string>
 
 </resources>

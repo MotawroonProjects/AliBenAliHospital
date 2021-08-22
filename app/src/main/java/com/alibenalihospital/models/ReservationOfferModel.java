@@ -30,6 +30,8 @@ public class ReservationOfferModel implements Serializable {
     private HourModel hour;
     private List<ReservationDiseasesModel> reservation_diseases;
     private List<FileModel> files;
+    private String call_start;
+
 
     public int getId() {
         return id;
@@ -133,5 +135,9 @@ public class ReservationOfferModel implements Serializable {
 
     public void setIs_deleted(String is_deleted) {
         this.is_deleted = is_deleted;
+    }
+
+    public String getCall_start() {
+        return call_start;
     }
 }

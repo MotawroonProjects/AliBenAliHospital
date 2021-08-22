@@ -83,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-
+                    android:visibility='@{model==null?View.GONE:View.VISIBLE,default=gone}'
 
                     >
 
@@ -711,7 +711,14 @@
                     </ScrollView>
                 </LinearLayout>
 
+                <ProgressBar
+                    android:id="@+id/progBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility='@{model!=null?View.GONE:View.VISIBLE,default=visible}'
 
+                    />
             </FrameLayout>
 
 

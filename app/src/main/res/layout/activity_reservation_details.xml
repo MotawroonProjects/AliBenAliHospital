@@ -78,9 +78,11 @@
                 android:layout_height="match_parent"
                 >
                 <LinearLayout
+                    android:id="@+id/llData"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:visibility='@{model==null?View.GONE:View.VISIBLE,default=gone}'
 
 
                     >
@@ -437,7 +439,8 @@
                                             android:layout_height="0dp"
                                             />
                                         <LinearLayout
-                                            android:layout_width="match_parent"
+                                            android:layout_width="0dp"
+                                            android:layout_weight="1"
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center_vertical"
                                             android:orientation="vertical"
@@ -460,6 +463,42 @@
                                                 />
 
                                         </LinearLayout>
+                                        <FrameLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="35dp"
+                                            android:background="@drawable/rounded_primary"
+                                            android:layout_gravity="center_vertical"
+                                            android:visibility='@{model.call_start.equals("off")?View.GONE:View.VISIBLE,default=gone}'
+                                            >
+                                            <LinearLayout
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:orientation="horizontal"
+                                                android:gravity="center_vertical"
+                                                android:layout_gravity="center_vertical"
+                                                android:paddingStart="16dp"
+                                                android:paddingEnd="16dp"
+                                                >
+                                                <ImageView
+                                                    android:id="@+id/imageCall"
+                                                    android:layout_width="24dp"
+                                                    android:layout_height="24dp"
+                                                    app:tint="@color/white"
+                                                    android:padding="3dp"
+                                                    />
+                                                <Space
+                                                    android:layout_width="8dp"
+                                                    android:layout_height="0dp"
+                                                    />
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:textColor="@color/white"
+                                                    android:textSize="13sp"
+                                                    android:text="@string/start_chat"
+                                                    />
+                                            </LinearLayout>
+                                        </FrameLayout>
                                     </LinearLayout>
 
 
@@ -691,6 +730,14 @@
                 </LinearLayout>
 
 
+                <ProgressBar
+                    android:id="@+id/progBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility='@{model!=null?View.GONE:View.VISIBLE,default=visible}'
+
+                    />
 
             </FrameLayout>
 
