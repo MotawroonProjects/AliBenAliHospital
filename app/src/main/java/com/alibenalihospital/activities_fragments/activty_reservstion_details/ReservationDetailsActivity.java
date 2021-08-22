@@ -27,8 +27,14 @@ import com.alibenalihospital.preferences.Preferences;
 import com.alibenalihospital.remote.Api;
 import com.alibenalihospital.tags.Tags;
 
+import org.jitsi.meet.sdk.JitsiMeetActivity;
+import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
+import org.jitsi.meet.sdk.JitsiMeetUserInfo;
+
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +50,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     private String lang = "ar";
     private ReservationModel model;
     private String reservation_id;
+
 
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -86,7 +93,40 @@ public class ReservationDetailsActivity extends AppCompatActivity {
             }
         });
 
+        binding.flCall.setOnClickListener(v -> {
+            boolean video = true;
+            if (model.getCall_type().equals("audio")){
+                video = false;
+            }
+
+            startChat(video);
+        });
         getReservation();
+    }
+
+    private void startChat(boolean video) {
+        try {
+            String roomName = "ali_ben_ali_app"+model.getId();
+            JitsiMeetUserInfo info = new JitsiMeetUserInfo();
+            info.setAvatar(new URL(Tags.IMAGE_URL+model.getDoctor().getImage()));
+            info.setDisplayName(model.getDoctor().getName());
+
+            JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
+                    .setServerURL(new URL("https://meet.jit.si"))
+                    .setRoom(roomName)
+                    .setUserInfo(info)
+                    .setAudioMuted(false)
+                    .setVideoMuted(false)
+                    .setAudioOnly(video)
+                    .setWelcomePageEnabled(false)
+                    .build();
+
+
+
+            JitsiMeetActivity.launch(this,options);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void getReservation() {
