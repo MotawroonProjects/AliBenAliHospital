@@ -108,8 +108,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         try {
             String roomName = "ali_ben_ali_app"+model.getId();
             JitsiMeetUserInfo info = new JitsiMeetUserInfo();
-            info.setAvatar(new URL(Tags.IMAGE_URL+model.getDoctor().getImage()));
-            info.setDisplayName(model.getDoctor().getName());
+            info.setDisplayName(userModel.getUser().getName());
 
             JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
                     .setServerURL(new URL("https://meet.jit.si"))
