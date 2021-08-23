@@ -122,6 +122,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
 
 
 
+
             JitsiMeetActivity.launch(this,options);
         } catch (MalformedURLException e) {
             e.printStackTrace();
