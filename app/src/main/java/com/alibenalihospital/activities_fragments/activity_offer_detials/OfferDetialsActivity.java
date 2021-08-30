@@ -261,7 +261,7 @@ public class OfferDetialsActivity extends AppCompatActivity implements Listeners
 
 
 
-        Log.e("sss", data.getAll_dates().size()+"__");
+//        Log.e("sss", data.getAll_dates().size()+"__");
         binding.recViewDay.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
         if (reservationOfferModel==null){
