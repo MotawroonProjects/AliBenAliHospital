@@ -82,6 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up);
         initView();
 
+
     }
 
     private void initView() {
